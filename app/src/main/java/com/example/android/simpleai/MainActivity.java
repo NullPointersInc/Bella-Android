@@ -6,23 +6,30 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
-import android.speech.RecognitionListener;
+import java.util.Locale;
+
 import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+import static android.R.id.input;
+
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     protected static final int RESULT_SPEECH = 1;
     private ProgressBar progressBar;
     private ImageButton btnSpeak;
     private TextView txtText;
+    TextToSpeech tts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         //Initially progressbar is invisible
         progressBar.setVisibility(View.INVISIBLE);
-
+        tts = new TextToSpeech(this, this);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -61,6 +68,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    public void onInit(int status) {
+        if(status == TextToSpeech.SUCCESS) {
+            Locale English = tts.getLanguage();
+            int result = tts.setLanguage(English);
+            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","this language is not supported");
+            } else {
+
+            }
+        } else {
+            Log.e("TTS","Initialization failed!!");
+        }
+
+
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -98,6 +122,16 @@ public class MainActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     txtText.setText(text.get(0));
+
+                    String txt = txtText.getText().toString();
+                    if(txt.isEmpty())
+                    {
+                        Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
+                    }
                 }
                 break;
             }
