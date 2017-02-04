@@ -2,6 +2,8 @@ package com.example.android.simpleai;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.speech.RecognitionListener;
+import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,13 +25,14 @@ import org.w3c.dom.Text;
 
 import static android.R.id.input;
 
-public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
     protected static final int RESULT_SPEECH = 1;
     private ProgressBar progressBar;
     private ImageButton btnSpeak;
     private TextView txtText;
     TextToSpeech tts;
+    private SpeechRecognizer speech;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,19 +47,19 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         //Initially progressbar is invisible
         progressBar.setVisibility(View.INVISIBLE);
         tts = new TextToSpeech(this, this);
+        speech = SpeechRecognizer.createSpeechRecognizer(this);
+        speech.setRecognitionListener(this);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(
-                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-
+                speech.startListening(intent);
                 try {
-                    startActivityForResult(intent, RESULT_SPEECH);
+
                     txtText.setText("");
                 } catch (ActivityNotFoundException a) {
                     Toast t = Toast.makeText(getApplicationContext(),
@@ -68,6 +71,42 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         });
 
     }
+    @Override
+    public void onBeginningOfSpeech()
+    {
+    }
+
+    @Override
+    public void onBufferReceived(byte[] arg0)
+    {
+    }
+
+    @Override
+    public void onEndOfSpeech()
+    {
+    }
+
+    @Override
+    public void onError(int e)
+    {
+    }
+
+    @Override
+    public void onEvent(int arg0, Bundle arg1)
+    {
+    }
+
+    @Override
+    public void onPartialResults(Bundle arg0)
+    {
+    }
+
+    @Override
+    public void onReadyForSpeech(Bundle arg0)
+    {
+    }
+
+
     @Override
     public void onInit(int status) {
         if(status == TextToSpeech.SUCCESS) {
@@ -111,32 +150,33 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onResults(Bundle data)
+    {
+        ArrayList<String> text = data.getStringArrayList(
+                SpeechRecognizer.RESULTS_RECOGNITION);
+        progressBar.setVisibility(View.INVISIBLE);
 
-        switch (requestCode) {
-            case RESULT_SPEECH: {
-                if (resultCode == RESULT_OK && null != data) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    ArrayList<String> text = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        txtText.setText(text.get(0));
 
-                    txtText.setText(text.get(0));
-
-                    String txt = txtText.getText().toString();
-                    if(txt.isEmpty())
-                    {
-                        Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
-                    }
-                }
-                break;
-            }
-
+        String txt = txtText.getText().toString();
+        if(txt.isEmpty())
+        {
+            Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
         }
-
+        else
+        {
+            tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
+    @Override
+    public void onRmsChanged(float arg0)
+    {
+    }
+
+
 }
+
+
+
+
+
