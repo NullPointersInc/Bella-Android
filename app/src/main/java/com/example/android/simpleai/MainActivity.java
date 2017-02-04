@@ -6,22 +6,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
-
-
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-
-import android.speech.RecognizerIntent;
-
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     protected static final int RESULT_SPEECH = 1;
-
+    private ProgressBar progressBar;
     private ImageButton btnSpeak;
     private TextView txtText;
 
@@ -33,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.RECORD_AUDIO},1);
 
         txtText = (TextView) findViewById(R.id.txtText);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        //Initially progressbar is invisible
+        progressBar.setVisibility(View.INVISIBLE);
+
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(
                         RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case RESULT_SPEECH: {
                 if (resultCode == RESULT_OK && null != data) {
-
+                    progressBar.setVisibility(View.INVISIBLE);
                     ArrayList<String> text = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
