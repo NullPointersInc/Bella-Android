@@ -163,6 +163,18 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         {
             Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
         }
+        else if (txt.contains("feeling"))
+        {
+            tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else if (txt.contains("weather"))
+        {
+            tts.speak("Weather in bangalore is very pleasant with little humidity", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else if (txt.contains("Siri"))
+        {
+            tts.speak("Hello! developers, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
+        }
         else
         {
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
