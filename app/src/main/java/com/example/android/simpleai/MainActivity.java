@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.Locale;
-
+import android.text.format.Time;
+import java.text.DateFormat;
+import java.util.Date;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.content.ActivityNotFoundException;
@@ -20,10 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import static android.R.id.input;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                Manifest.permission.INTERNET,
                 Manifest.permission.RECORD_AUDIO},1);
 
         txtText = (TextView) findViewById(R.id.txtText);
@@ -159,25 +158,26 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         txtText.setText(text.get(0));
 
         String txt = txtText.getText().toString();
-        if(txt.isEmpty())
-        {
+        if(txt.isEmpty()) {
             Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
-        }
-        else if (txt.contains("feeling"))
-        {
+        } else if (txt.contains("feeling")) {
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
-        }
-        else if (txt.contains("weather"))
-        {   Intent i = new Intent (MainActivity.this,weatherActivity.class);
+        } else if (txt.contains("weather")) {
+            Intent i = new Intent (MainActivity.this,weatherActivity.class);
            // tts.speak("Weather in bangalore is very pleasant with little humidity", TextToSpeech.QUEUE_FLUSH, null);
             startActivity(i);
-        }
-        else if (txt.contains("Siri"))
-        {
+        } else if (txt.contains("date") && txt.contains("time")) {
+            String datetime = DateFormat.getDateTimeInstance().format(new Date());
+            tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
+        } else if (txt.contains("date")) {
+            String date = DateFormat.getDateInstance().format(new Date());
+            tts.speak("It is"+date, TextToSpeech.QUEUE_FLUSH, null);
+        } else if (txt.contains("time")) {
+            String time = DateFormat.getTimeInstance().format(new Date());
+            tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
+        } else if (txt.contains("Siri")) {
             tts.speak("Hello! developers, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
-        }
-        else
-        {
+        } else {
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
