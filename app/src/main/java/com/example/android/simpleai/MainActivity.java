@@ -168,8 +168,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
         }
         else if (txt.contains("weather"))
-        {
-            tts.speak("Weather in bangalore is very pleasant with little humidity", TextToSpeech.QUEUE_FLUSH, null);
+        {   Intent i = new Intent (MainActivity.this,weatherActivity.class);
+           // tts.speak("Weather in bangalore is very pleasant with little humidity", TextToSpeech.QUEUE_FLUSH, null);
+            startActivity(i);
         }
         else if (txt.contains("Siri"))
         {
