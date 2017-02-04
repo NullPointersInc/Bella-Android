@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.Locale;
-import android.text.format.Time;
+import android.media.MediaPlayer;
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import android.speech.RecognizerIntent;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     protected static final int RESULT_SPEECH = 1;
     private ProgressBar progressBar;
-    private ImageButton btnSpeak;
+    public ImageButton btnSpeak;
     private TextView txtText;
     TextToSpeech tts;
     private SpeechRecognizer speech;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{
                 Manifest.permission.INTERNET,
+                Manifest.permission.WAKE_LOCK,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.RECORD_AUDIO},1);
 
         txtText = (TextView) findViewById(R.id.txtText);
@@ -131,13 +134,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this, "Permission granted to record audio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission granted to record audio,internet and storage", Toast.LENGTH_SHORT).show();
                     // permission was granted
                 } else {
 
                     // permission denied, Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(MainActivity.this, "Permission denied to record audio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission denied to record audio,internet and storage", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -175,6 +178,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         } else if (txt.contains("time")) {
             String time = DateFormat.getTimeInstance().format(new Date());
             tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
+        }  else if (txt.contains("play")) {
+            if(txt.contains("help me lose my mind")) {
+                tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
+                    play("/storage/emulated/0/Music","HelpMeLoseMyMind.mp3",1);
+            } else {
+                tts.speak("You have not specified any song!", TextToSpeech.QUEUE_FLUSH, null);
+            }
         } else if (txt.contains("Siri")) {
             tts.speak("Hello! developers, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
         } else {
@@ -184,6 +194,28 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     @Override
     public void onRmsChanged(float arg0)
     {
+    }
+
+    public void play (String path, String fileName, int status) {
+        //set up MediaPlayer
+        final MediaPlayer mp = new MediaPlayer();
+            if(status == 1) {
+                try {
+                    mp.setDataSource(path + File.separator + fileName);
+                    mp.prepare();
+                    mp.start();
+                    btnSpeak.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            mp.stop();
+                            return true;
+                        }
+                    });
+
+                } catch (Exception e) {
+                    tts.speak("Sorry! Song not found!", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
     }
 
 
