@@ -1,9 +1,7 @@
-package com.example.android.simpleai;
+package com.example.android.Bella;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * Created by Ashish Nayak on 04-Feb-17.

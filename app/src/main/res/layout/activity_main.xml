@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.simpleai.MainActivity"
+    tools:context="com.example.android.Bella.MainActivity"
     android:orientation="vertical"
     android:background="#364A5E"
     android:weightSum="1">

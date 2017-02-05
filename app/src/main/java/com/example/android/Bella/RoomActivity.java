@@ -1,8 +1,9 @@
-package com.example.android.simpleai;
+package com.example.android.Bella;
 
 /**
  * Created by Ashish Nayak on 03-Feb-17.
  */
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class IrrigationActivity extends AppCompatActivity{
+public class RoomActivity extends AppCompatActivity{
     protected static final int RESULT_SPEECH = 1;
 
     private ImageButton btnSpeak;
@@ -27,7 +28,7 @@ public class IrrigationActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.irrigation_activity);
+        setContentView(R.layout.room_activity);
 
         txtText = (TextView) findViewById(R.id.txtText);
 

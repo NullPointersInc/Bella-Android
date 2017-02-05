@@ -1,4 +1,4 @@
-package com.example.android.simpleai;
+package com.example.android.Bella;
 
 import org.junit.Test;
 

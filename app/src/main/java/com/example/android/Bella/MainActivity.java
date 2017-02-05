@@ -1,8 +1,7 @@
-package com.example.android.simpleai;
+package com.example.android.Bella;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
@@ -12,7 +11,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.Locale;
 import android.media.MediaPlayer;
-import java.io.File;
+
 import java.text.DateFormat;
 import java.util.Date;
 import android.speech.RecognizerIntent;

@@ -1,4 +1,4 @@
-package com.example.android.simpleai;
+package com.example.android.Bella;
 
 /**
  * Created by Ashish Nayak on 04-Feb-17.
@@ -11,9 +11,6 @@ import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
