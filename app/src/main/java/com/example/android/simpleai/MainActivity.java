@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private ProgressBar progressBar;
     public ImageButton btnSpeak;
     private TextView txtText;
+    public TextView headText;
+    public ToggleButton status;
     TextToSpeech tts;
     private SpeechRecognizer speech;
 
@@ -45,8 +48,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 Manifest.permission.RECORD_AUDIO},1);
 
         txtText = (TextView) findViewById(R.id.txtText);
+        headText = (TextView) findViewById(R.id.textView2);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        status = (ToggleButton) findViewById(R.id.toggleButton);
         //Initially progressbar is invisible
         progressBar.setVisibility(View.INVISIBLE);
         tts = new TextToSpeech(this, this);
@@ -164,6 +169,56 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         String txt = txtText.getText().toString();
         if(txt.isEmpty()) {
             Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
+        } else if (txt.contains("connect")) {
+            if(txt.contains("room") || txt.contains("Room")) {
+                headText.setText("Room");
+                if(txt.contains(" on ") && (txt.contains("light 1") || txt.contains("light one"))) {
+                    //turn on lights
+                    tts.speak("Turned On light 1!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(true);
+                } else if(txt.contains(" off") && (txt.contains("light 1") || txt.contains("light one"))) {
+                    //turn off lights
+                    tts.speak("Turned Off light 1!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(false);
+                } else if(txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two"))) {
+                    //turn off lights
+                    tts.speak("Turned On light 2!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(true);
+                } else if(txt.contains(" off") && (txt.contains("light 2") || txt.contains("light two"))) {
+                    //turn off lights
+                    tts.speak("Turned Off light 2!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(false);
+                } else {
+                    tts.speak("Sorry, Incorrect information!", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            } else if (txt.contains("kitchen") || txt.contains("Kitchen")) {
+                headText.setText("Kitchen");
+                if(txt.contains("status") || txt.contains("enough food") || txt.contains("supplies")) {
+                    //turn on lighs
+                    tts.speak("Status of the container!", TextToSpeech.QUEUE_FLUSH, null);
+
+                } else {
+                    tts.speak("Sorry, I can only tell the status of container.", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            } else if (txt.contains("garden") || txt.contains("Garden")) {
+                headText.setText("Garden");
+                if(txt.contains(" on ")) {
+                    //turn on sprinklers
+                    tts.speak("Turned On sprinklers!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(true);
+                } else if(txt.contains("off")) {
+                    //turn off sprinklers
+                    tts.speak("Turned Off sprinklers!", TextToSpeech.QUEUE_FLUSH, null);
+                    status.setChecked(false);
+                } else if(txt.contains("moisture")) {
+                    //moisture
+                    tts.speak("Moisture in the soil!", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    tts.speak("Sorry, Incorrect information.", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            } else {
+                tts.speak("I currently support room, kitchen and garden, but dont you worry, I will support more devices soon", TextToSpeech.QUEUE_FLUSH, null);
+            }
         } else if (txt.contains("feeling")) {
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
         } else if (txt.contains("weather")) {
@@ -208,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         } else if (txt.contains("Siri")) {
             tts.speak("Hello! developers, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
         } else {
-            tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
+            tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
         }
     }
     @Override
@@ -236,8 +291,3 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
     }
 }
-
-
-
-
-
