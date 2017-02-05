@@ -3,6 +3,7 @@ package com.example.android.simpleai;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
@@ -222,9 +223,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         } else if (txt.contains("feeling")) {
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
         } else if (txt.contains("weather")) {
-            Intent i = new Intent (MainActivity.this,weatherActivity.class);
-           // tts.speak("Weather in bangalore is very pleasant with little humidity", TextToSpeech.QUEUE_FLUSH, null);
-            startActivity(i);
+            tts.speak("Here is the weather forecast", TextToSpeech.QUEUE_FLUSH, null);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent (MainActivity.this,weatherActivity.class);
+                    startActivity(i);
+                }
+            }, 1200);
         } else if (txt.contains("date") && txt.contains("time")) {
             String datetime = DateFormat.getDateTimeInstance().format(new Date());
             tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
