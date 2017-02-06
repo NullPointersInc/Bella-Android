@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
         if ((ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED)|| (ContextCompat.checkSelfPermission(MainActivity.this,
+                != PackageManager.PERMISSION_GRANTED)&& (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) ) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{
