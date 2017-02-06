@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.ArrayList;
@@ -41,11 +42,17 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-                Manifest.permission.INTERNET,
-                Manifest.permission.WAKE_LOCK,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECORD_AUDIO},1);
+        if ((ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED)|| (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) ) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.WAKE_LOCK,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO}, 1);
+        }
 
         txtText = (TextView) findViewById(R.id.txtText);
         headText = (TextView) findViewById(R.id.textView2);
