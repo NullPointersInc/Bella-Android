@@ -20,7 +20,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -309,10 +311,27 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
     }
 
+
+
+
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_main, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick(MenuItem item){
+                int id = item.getItemId();
+            if (id == R.id.action_settings) {
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            return true;
+        }
+    });
         popup.show();
     }
+
+
 }

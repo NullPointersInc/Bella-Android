@@ -19,6 +19,9 @@
         <activity
             android:name="com.example.android.Bella.weatherActivity"
             ></activity>
+        <activity
+            android:name="com.example.android.Bella.AboutActivity"
+            ></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
