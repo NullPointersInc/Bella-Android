@@ -8,7 +8,7 @@
     tools:context="com.example.android.Bella.MainActivity"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#3F51B5">
+    android:background="#009688">
 
 
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:fontFamily="serif-monospace"
+        android:fontFamily="sans-serif-smallcaps"
         android:textStyle="normal|bold" />
 
     <ImageView
@@ -70,7 +70,7 @@
         android:layout_above="@+id/imageView3"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:fontFamily="serif-monospace"
+        android:fontFamily="sans-serif-smallcaps"
         android:textStyle="normal|bold" />
 
     <ImageView
@@ -91,7 +91,8 @@
         android:layout_alignBottom="@+id/textView7"
         android:layout_alignStart="@+id/imageView3"
         android:layout_alignEnd="@+id/imageView3"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed" />
 
     <TextView
         android:text="Ashish Raman Nayak"
@@ -100,7 +101,8 @@
         android:id="@+id/textView6"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="50dp"
-        android:layout_above="@+id/imageView5" />
+        android:layout_above="@+id/imageView5"
+        android:fontFamily="sans-serif-condensed" />
 
     <TextView
         android:text="Akash James"
@@ -112,7 +114,8 @@
         android:layout_alignStart="@+id/imageView5"
         android:layout_toStartOf="@+id/textView9"
         android:layout_alignEnd="@+id/imageView5"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed" />
 
     <TextView
         android:text="Ujwal P"
@@ -123,7 +126,8 @@
         android:layout_below="@+id/imageView4"
         android:layout_alignStart="@+id/imageView4"
         android:layout_alignEnd="@+id/imageView4"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed" />
 
 
 </RelativeLayout>

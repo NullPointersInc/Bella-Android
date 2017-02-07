@@ -231,6 +231,16 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             } else {
                 tts.speak("I currently support room, kitchen and garden, but dont you worry, I will support more devices soon", TextToSpeech.QUEUE_FLUSH, null);
             }
+        } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built")) {
+            tts.speak("I was built from scratch by a bunch of developers, Here they are!!", TextToSpeech.QUEUE_FLUSH, null);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent (MainActivity.this,AboutActivity.class);
+                    startActivity(i);
+                }
+            }, 2500);
         } else if (txt.contains("feeling")) {
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
         } else if (txt.contains("weather")) {
