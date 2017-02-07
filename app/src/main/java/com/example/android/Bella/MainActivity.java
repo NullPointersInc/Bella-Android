@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             } else {
                 tts.speak("I currently support room, kitchen and garden, but dont you worry, I will support more devices soon", TextToSpeech.QUEUE_FLUSH, null);
             }
-        } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built")) {
+        } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built") || txt.contains("made")) {
             tts.speak("I was built from scratch by a bunch of developers, Here they are!!", TextToSpeech.QUEUE_FLUSH, null);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -271,7 +271,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         } else if (txt.contains("time")) {
             String time = DateFormat.getTimeInstance().format(new Date());
             tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
-        }  else if (txt.contains("play")) {
+        } else if (txt.contains("what all can you play") || txt.contains("what all songs can you play") || txt.contains("supported songs")) {
+            tts.speak("I can play. help me lose my mind by Disclosure. Lean On by Major Lazor. Closer by Chainsmokers. Ongoing things by 2SYL. We don't talk anymore by Charlie Puth. Soon I will support more songs.", TextToSpeech.QUEUE_FLUSH, null);
+        } else if (txt.contains("play")) {
             if(isNetworkAvailable()==0) {
                 tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
             }
@@ -303,8 +305,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
             }
         } else if (txt.contains("Bella") || txt.contains("bella")) {
-            tts.speak("Hello! human, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
-        } else if (txt.contains("hey") || txt.contains("hi") || txt.contains("hello") || txt.contentEquals("who are you")) {
+            tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
+        } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello") || txt.contentEquals("who are you")) && ((txt.contains("bella") || txt.contains("Bella")))) {
             tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
         } else {
             tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
