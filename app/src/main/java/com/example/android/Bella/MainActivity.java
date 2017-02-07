@@ -49,13 +49,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
         if ((ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED)&& (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) ) {
+                != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{
                     Manifest.permission.INTERNET,
                     Manifest.permission.WAKE_LOCK,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.RECORD_AUDIO}, 1);
         }
 
@@ -152,13 +149,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this, "Permission granted to record audio,internet and storage", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission granted to record audio and internet", Toast.LENGTH_SHORT).show();
                     // permission was granted
                 } else {
 
                     // permission denied, Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(MainActivity.this, "Permission denied to record audio,internet and storage", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission denied to record audio and internet", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
