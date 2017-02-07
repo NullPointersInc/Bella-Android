@@ -1,7 +1,10 @@
 package com.example.android.Bella;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{
                     Manifest.permission.INTERNET,
                     Manifest.permission.WAKE_LOCK,
+                    Manifest.permission.ACCESS_NETWORK_STATE,
                     Manifest.permission.RECORD_AUDIO}, 1);
         }
 
@@ -241,15 +245,23 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         } else if (txt.contains("feeling")) {
             tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
         } else if (txt.contains("weather")) {
-            tts.speak("Here is the weather forecast", TextToSpeech.QUEUE_FLUSH, null);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i = new Intent (MainActivity.this,weatherActivity.class);
-                    startActivity(i);
-                }
-            }, 1200);
+            if(isNetworkAvailable()==0) {
+                tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
+                Intent i = new Intent(MainActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+            else {
+                tts.speak("Here is the weather forecast", TextToSpeech.QUEUE_FLUSH, null);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(MainActivity.this, weatherActivity.class);
+                        startActivity(i);
+                    }
+                }, 1200);
+            }
         } else if (txt.contains("date") && txt.contains("time")) {
             String datetime = DateFormat.getDateTimeInstance().format(new Date());
             tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
@@ -260,30 +272,35 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             String time = DateFormat.getTimeInstance().format(new Date());
             tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
         }  else if (txt.contains("play")) {
-            if(txt.contains("help me lose my mind")) {
-                tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
-                String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
+            if(isNetworkAvailable()==0) {
+                tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
+            }
+            else {
+                if(txt.contains("help me lose my mind")) {
+                    tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
+                    String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                     play(path);
-            } else if(txt.contains("lean on")) {
-                tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
-                String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
-                play(path);
-            } else if(txt.contains("closer")) {
-                tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
-                String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
-                play(path);
-            } else if(txt.contains("on going things") || txt.contains("ongoing things")) {
-                tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
-                String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
-                play(path);
-            } else if(txt.contains("we don't talk anymore")) {
-                tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
-                String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
-                play(path);
-            } else if(txt.contentEquals("play")){
-                tts.speak("You have not specified any song!", TextToSpeech.QUEUE_FLUSH, null);
-            } else {
-                tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
+                } else if(txt.contains("lean on")) {
+                    tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
+                    String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
+                    play(path);
+                } else if(txt.contains("closer")) {
+                    tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
+                    String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
+                    play(path);
+                } else if(txt.contains("on going things") || txt.contains("ongoing things")) {
+                    tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
+                    String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
+                    play(path);
+                } else if(txt.contains("we don't talk anymore")) {
+                    tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
+                    String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
+                    play(path);
+                } else if(txt.contentEquals("play")){
+                    tts.speak("You have not specified any song!", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         } else if (txt.contains("Bella") || txt.contains("bella")) {
             tts.speak("Hello! human, how may I help u?", TextToSpeech.QUEUE_FLUSH, null);
@@ -338,6 +355,20 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     });
         popup.show();
+    }
+
+    public int isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = cm
+                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo datac = cm
+                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if ((wifi != null & datac != null)
+                && (wifi.isConnected() | datac.isConnected())) {
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
 
