@@ -1,11 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.Bella.MainActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/somanath"
+        android:id="@+id/imageView7"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView5"
+        android:layout_marginStart="47dp" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
+        android:text="ABOUT US"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
-</LinearLayout>
+        android:layout_marginTop="38dp"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Akash James"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/imageView4"
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:text="Sai Somanath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ashish"
+        android:id="@+id/imageView3"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_alignStart="@+id/imageView7" />
+
+    <TextView
+        android:text="Ashish Raman Nayak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_alignBaseline="@+id/textView7"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_toEndOf="@+id/imageView5"
+        android:layout_marginStart="33dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ujwal"
+        android:id="@+id/imageView5"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <TextView
+        android:text="Ujwal P"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/imageView5"
+        android:layout_toStartOf="@+id/textView4" />
+
+    <TextView
+
+        android:text="Developer Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/akash"
+        android:id="@+id/imageView4"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginTop="34dp" />
+
+</RelativeLayout>
