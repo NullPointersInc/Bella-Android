@@ -304,10 +304,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
-        } else if (txt.contains("Bella") || txt.contains("bella")) {
+        } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
             tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
-        } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello") || txt.contentEquals("who are you")) && ((txt.contains("bella") || txt.contains("Bella")))) {
+        } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
             tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
+        } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella"))) ) {
+            tts.speak("Sorry, Are you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
         } else {
             tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
         }
