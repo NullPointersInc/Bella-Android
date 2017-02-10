@@ -70,6 +70,8 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
 
+        new ConnectBT().execute();
+
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
