@@ -32,7 +32,7 @@
         android:textStyle="normal|bold" />
 
     <TextView
-        android:text="The AI Team"
+        android:text="The AI Devs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
@@ -61,7 +61,7 @@
         android:layout_toEndOf="@+id/textView3" />
 
     <TextView
-        android:text="The Hardware Team"
+        android:text="The Hardware Devs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
