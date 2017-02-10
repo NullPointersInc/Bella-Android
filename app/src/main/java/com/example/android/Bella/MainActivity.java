@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
             @Override
             public void onClick(View v) {
+                txtText.setHint("Listening...");
                 btnSpeak.setImageResource(R.drawable.ic_listen);
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
