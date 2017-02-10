@@ -69,7 +69,7 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
         //receive the address of the bluetooth device
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
-
+        status.setEnabled(false);
         new ConnectBT().execute();
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
