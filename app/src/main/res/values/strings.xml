@@ -3,4 +3,5 @@
     <string name="speak">Speak</string>
     <string name="descr_overflow_button">Menu</string>
     <string name="action_settings">About</string>
+    <string name="title_activity_device_list">device_list</string>
 </resources>

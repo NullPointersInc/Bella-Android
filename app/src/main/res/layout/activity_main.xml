@@ -45,32 +45,6 @@
         android:indeterminateTint="#364A5E"/>
 
     <TextView
-        android:id="@+id/txtText"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:ems="10"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
-        android:paddingTop="50dp"
-        android:gravity="center|top"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Command"/>
-
-    <ToggleButton
-        android:text="ToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButton"
-        android:padding="20dp"
-        android:background="@drawable/btn_toggle"
-        android:layout_above="@+id/txtText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
-        android:textOn="Status: ON"
-        android:textOff="Status: OFF"/>
-
-    <TextView
         android:text="Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,5 +65,33 @@
         android:layout_alignBottom="@+id/textView2"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/txtText"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:ems="10"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:paddingTop="50dp"
+        android:gravity="center|top"
+        android:hint="Command"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/txtText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
+        android:paddingTop="50dp"
+        android:gravity="center|top"
+        android:hint="output"
+        android:layout_below="@+id/txtText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
 
 </RelativeLayout>

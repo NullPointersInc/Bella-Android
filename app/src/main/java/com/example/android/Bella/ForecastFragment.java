@@ -1,9 +1,5 @@
 package com.example.android.Bella;
 
-/**
- * Created by Ashish Nayak on 04-Feb-17.
- */
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,13 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
-
-
-/**
- * Created by Ashish on 10-Mar-16.
- */
 public class ForecastFragment extends Fragment {
     public ForecastFragment() {
     }
@@ -51,7 +40,7 @@ public class ForecastFragment extends Fragment {
     }
 
 
-    private ArrayAdapter<String> mForeCastAdapter;
+    public ArrayAdapter<String> mForeCastAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +86,7 @@ public class ForecastFragment extends Fragment {
             return highLowStr;
         }
 
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
+        public String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
             final String OWM_LIST = "list";

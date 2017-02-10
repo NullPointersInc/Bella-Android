@@ -3,11 +3,7 @@ package com.example.android.Bella;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by Ashish Nayak on 04-Feb-17.
- */
-
-public class weatherActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
