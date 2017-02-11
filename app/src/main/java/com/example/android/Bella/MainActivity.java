@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private TextView txtText2;
     public TextView headText;
     public ToggleButton status;
+    private Button b1;
     TextToSpeech tts;
     private SpeechRecognizer speech;
 
@@ -240,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             txtText2.setText("It is"+time);
         } else if (txt.contains("what all can you play") || txt.contains("what all songs can you play") || txt.contains("supported songs")) {
             tts.speak("I can play. help me lose my mind by Disclosure. Lean On by Major Lazor. Closer by Chainsmokers. Ongoing things by 2SYL. We don't talk anymore by Charlie Puth. Soon I will support more songs.", TextToSpeech.QUEUE_FLUSH, null);
+            stop();
             txtText2.setText("I can play the quoted songs");
         } else if (txt.contains("play")) {
             if(isNetworkAvailable()==0) {
@@ -284,16 +287,19 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             tts.speak("Go, get a life!", TextToSpeech.QUEUE_FLUSH, null);
             txtText2.setText("Go get a life!");
         } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
-            tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
-            txtText2.setText("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
+            tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
+            stop();
+            txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
         } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
-            tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning.", TextToSpeech.QUEUE_FLUSH, null);
-            txtText2.setText("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
+            tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
+            stop();
+            txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
         } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella"))) ) {
-            tts.speak("Sorry, Are you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
-            txtText2.setText("Sorry, Are you talking to me? You can call me bella");
+            tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
+            txtText2.setText("Sorry, Are you talking to me? You can call me Bella");
         } else {
             tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+            stop();
             txtText2.setText("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!");
         }
     }
@@ -356,6 +362,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }else{
             return 0;
         }
+    }
+    public void stop() {
+        btnSpeak.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                tts.stop();
+                return true;
+            }
+        });
     }
 
 

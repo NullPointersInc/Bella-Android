@@ -70,7 +70,7 @@
     <TextView
         android:id="@+id/txtText"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFFFFF"
@@ -89,10 +89,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#FFFFFF"
         android:paddingTop="50dp"
-        android:gravity="center|top"
+        android:gravity="center"
         android:hint="output"
+        android:layout_marginTop="89dp"
         android:layout_below="@+id/txtText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
