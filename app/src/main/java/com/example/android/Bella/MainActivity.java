@@ -191,6 +191,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         if(txt.isEmpty()) {
             Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
             txtText2.setText("You did not say anything!");
+        } else if (txt.contains("valentines") || txt.contains("valentine's") || txt.contains("Valentines") || txt.contains("Valentine's")) {
+            tts.speak("Roses are red, reminders are great, I can help plan a Valentine's date", TextToSpeech.QUEUE_FLUSH, null);
+            txtText2.setText("Roses are red, reminders are great, I can help plan a Valentine's date");
+        } else if (txt.contains("Valentine")) {
+            tts.speak("No bro!", TextToSpeech.QUEUE_FLUSH, null);
+            txtText2.setText("No bruh!");
         } else if (txt.contains("connect")) {
             Intent i = new Intent(MainActivity.this, DeviceList.class);
             startActivity(i);
