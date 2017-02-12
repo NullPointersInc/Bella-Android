@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 btnSpeak.setImageResource(R.drawable.ic_listen);
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,Locale.getDefault());
                 speech.startListening(intent);
                 try {
 
