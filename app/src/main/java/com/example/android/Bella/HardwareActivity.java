@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -26,7 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -45,6 +45,7 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
     String address = null;
     TextToSpeech tts;
     private SpeechRecognizer speech;
+    Vibrator myVib;
     BluetoothAdapter myBluetooth = null;
     BluetoothSocket btSocket = null;
     private boolean isBtConnected = false;
@@ -66,6 +67,7 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
         tts = new TextToSpeech(this, this);
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(this);
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         //receive the address of the bluetooth device
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
@@ -76,6 +78,8 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
 
             @Override
             public void onClick(View v) {
+                txtText.setHint("Listening...");
+                myVib.vibrate(50);
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,Locale.getDefault());
@@ -106,6 +110,15 @@ public class HardwareActivity extends AppCompatActivity implements TextToSpeech.
     @Override
     public void onEndOfSpeech()
     {
+        btnSpeak.setImageResource(R.drawable.ic_action_done);
+        myVib.vibrate(50);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            }
+        }, 500);
     }
 
     @Override

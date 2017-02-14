@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.DrawableRes;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private Button b1;
     TextToSpeech tts;
     private SpeechRecognizer speech;
+    public Vibrator myVib;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,12 +76,14 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         tts = new TextToSpeech(this, this);
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(this);
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 txtText.setHint("Listening...");
+                myVib.vibrate(50);
                 btnSpeak.setImageResource(R.drawable.ic_listen);
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -112,7 +116,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     @Override
     public void onEndOfSpeech()
     {
-        btnSpeak.setImageResource(R.drawable.ic_action_voice);
+        btnSpeak.setImageResource(R.drawable.ic_action_done);
+        myVib.vibrate(50);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            }
+        }, 500);
     }
 
     @Override
