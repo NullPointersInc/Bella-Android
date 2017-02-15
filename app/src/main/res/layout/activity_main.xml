@@ -26,6 +26,19 @@
         android:layout_marginBottom="34dp"
         android:contentDescription="@string/speak" />
 
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButton"
+        android:padding="20dp"
+        android:background="@drawable/btn_toggle"
+        android:layout_above="@+id/txtText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:textOn="Status: ON"
+        android:textOff="Status: OFF"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -77,22 +90,7 @@
         android:paddingTop="50dp"
         android:gravity="center|top"
         android:hint="Command"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
-    <TextView
-        android:id="@+id/txtText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF"
-        android:paddingTop="50dp"
-        android:gravity="center"
-        android:hint="output"
-        android:layout_marginTop="89dp"
-        android:layout_below="@+id/txtText"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <com.tuyenmonkey.mkloader.MKLoader
@@ -101,8 +99,7 @@
         android:layout_height="wrap_content"
         app:mk_type="FivePulse"
         app:mk_color="@color/colorAccent"
-        android:layout_alignTop="@+id/txtText"
-        android:layout_alignStart="@+id/btnSpeak"
-        android:layout_marginTop="34dp" />
+        android:layout_alignBottom="@+id/txtText"
+        android:layout_alignEnd="@+id/btnSpeak" />
 
 </RelativeLayout>
