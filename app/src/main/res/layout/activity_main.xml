@@ -95,4 +95,14 @@
         android:layout_below="@+id/txtText"
         android:layout_centerHorizontal="true" />
 
+    <com.tuyenmonkey.mkloader.MKLoader
+        android:id="@+id/listen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:mk_type="FivePulse"
+        app:mk_color="@color/colorAccent"
+        android:layout_alignTop="@+id/txtText"
+        android:layout_alignStart="@+id/btnSpeak"
+        android:layout_marginTop="34dp" />
+
 </RelativeLayout>

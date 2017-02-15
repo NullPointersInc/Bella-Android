@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     TextToSpeech tts;
     private SpeechRecognizer speech;
     public Vibrator myVib;
+    private com.tuyenmonkey.mkloader.MKLoader loader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +72,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         status = (ToggleButton) findViewById(R.id.toggleButton);
+        loader = (com.tuyenmonkey.mkloader.MKLoader) findViewById(R.id.listen);
         //Initially progressbar is invisible
         progressBar.setVisibility(View.INVISIBLE);
+        loader.setVisibility(View.INVISIBLE);
         tts = new TextToSpeech(this, this);
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         speech.setRecognitionListener(this);
@@ -82,10 +85,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
             @Override
             public void onClick(View v) {
-                txtText.setHint("Listening...");
+                txtText.setVisibility(View.INVISIBLE);
                 myVib.vibrate(50);
                 btnSpeak.setImageResource(R.drawable.ic_listen);
                 progressBar.setVisibility(View.VISIBLE);
+                loader.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,Locale.getDefault());
                 speech.startListening(intent);
@@ -117,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     public void onEndOfSpeech()
     {
         btnSpeak.setImageResource(R.drawable.ic_action_done);
-        myVib.vibrate(50);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -196,7 +199,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         ArrayList<String> text = data.getStringArrayList(
                 SpeechRecognizer.RESULTS_RECOGNITION);
         progressBar.setVisibility(View.INVISIBLE);
-
+        loader.setVisibility(View.INVISIBLE);
+        txtText.setVisibility(View.VISIBLE);
         txtText.setText(text.get(0));
 
         String txt = txtText.getText().toString();
