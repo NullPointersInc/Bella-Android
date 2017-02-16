@@ -56,6 +56,7 @@
         public ToggleButton status;
         private Button b1;
         TextToSpeech tts;
+        private TextView btText;
 
 
         //bluetooth recieve initializer
@@ -64,7 +65,7 @@
         Thread workerThread;
         byte[] readBuffer;
         int readBufferPosition;
-        TextView btText = (TextView)findViewById(R.id.btText);
+
 
 
         private SpeechRecognizer speech;
@@ -94,7 +95,7 @@
                         Manifest.permission.BLUETOOTH_ADMIN,
                         Manifest.permission.RECORD_AUDIO}, 1);
             }
-
+            btText = (TextView) findViewById(R.id.btText);
             txtText = (TextView) findViewById(R.id.txtText);
             //txtText2 = (TextView) findViewById(R.id.txtText2);
             headText = (TextView) findViewById(R.id.textView2);
