@@ -20,6 +20,8 @@
     import android.os.Bundle;
 
     import java.io.IOException;
+    import java.io.InputStream;
+    import java.io.OutputStream;
     import java.util.ArrayList;
     import java.util.Locale;
     import android.media.MediaPlayer;
@@ -54,6 +56,16 @@
         public ToggleButton status;
         private Button b1;
         TextToSpeech tts;
+
+
+        //bluetooth recieve initializer
+        InputStream mmInputStream;
+        volatile boolean stopWorker;
+        Thread workerThread;
+        byte[] readBuffer;
+        int readBufferPosition;
+
+
         private SpeechRecognizer speech;
         public Vibrator myVib;
         private com.tuyenmonkey.mkloader.MKLoader loader;
@@ -509,6 +521,7 @@
                         btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                         BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                         btSocket.connect();//start connection
+                        mmInputStream = btSocket.getInputStream();
                     }
                 }
                 catch (IOException e)
@@ -537,23 +550,69 @@
             }
         }
 
+
         private void msg(String s)
         {
             Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
         }
 
-        private void Disconnect()
+
+        void beginListenForData()
         {
-            if (btSocket!=null) //If the btSocket is busy
+            final Handler handler = new Handler();
+            final byte delimiter = 10; //This is the ASCII code for a newline character
+
+            stopWorker = false;
+            readBufferPosition = 0;
+            readBuffer = new byte[1024];
+            workerThread = new Thread(new Runnable()
             {
-                try
+                public void run()
                 {
-                    btSocket.close(); //close connection
+                    while(!Thread.currentThread().isInterrupted() && !stopWorker)
+                    {
+                        try
+                        {
+                            int bytesAvailable = mmInputStream.available();
+                            if(bytesAvailable > 0)
+                            {
+                                byte[] packetBytes = new byte[bytesAvailable];
+                                mmInputStream.read(packetBytes);
+                                for(int i=0;i<bytesAvailable;i++)
+                                {
+                                    byte b = packetBytes[i];
+                                    if(b == delimiter)
+                                    {
+                                        byte[] encodedBytes = new byte[readBufferPosition];
+                                        System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
+                                        final String data = new String(encodedBytes, "US-ASCII");
+                                        readBufferPosition = 0;
+
+                                        handler.post(new Runnable()
+                                        {
+                                            public void run()
+                                            {
+                                               //do your action based on recieved data
+                                                Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    }
+                                    else
+                                    {
+                                        readBuffer[readBufferPosition++] = b;
+                                    }
+                                }
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            stopWorker = true;
+                        }
+                    }
                 }
-                catch (IOException e)
-                { msg("Error");}
-            }
-            finish(); //return to the first layout
+            });
+
+            workerThread.start();
         }
 
         private void command(int i)
@@ -634,6 +693,21 @@
                     }
                 }
             }
+        }
+        private void Disconnect()
+        {
+            if (btSocket!=null) //If the btSocket is busy
+            {
+                try
+                {   stopWorker=true;
+                    btSocket.close(); //close connection
+                    mmInputStream.close();
+
+                }
+                catch (IOException e)
+                { msg("Error");}
+            }
+            finish(); //return to the first layout
         }
         private boolean checkBT() {
             if (!myBluetooth.isEnabled()) {
