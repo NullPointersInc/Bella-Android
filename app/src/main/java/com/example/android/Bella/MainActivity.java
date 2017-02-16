@@ -259,24 +259,17 @@
                     headText.setText("Room");
                     if (txt.contains(" on ") && (txt.contains("light 1") || txt.contains("light one"))) {
                         //turn on lights
-                        tts.speak("Turned On light 1!", TextToSpeech.QUEUE_FLUSH, null);
                         command(000);
-                        status.setChecked(true);
                     } else if (txt.contains(" off") && (txt.contains("light 1") || txt.contains("light one"))) {
                         //turn off lights
-                        tts.speak("Turned Off light 1!", TextToSpeech.QUEUE_FLUSH, null);
                         command(001);
                         status.setChecked(false);
                     } else if (txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two"))) {
                         //turn off lights
-                        tts.speak("Turned On light 2!", TextToSpeech.QUEUE_FLUSH, null);
                         command(010);
-                        status.setChecked(true);
                     } else if (txt.contains(" off") && (txt.contains("light 2") || txt.contains("light two"))) {
                         //turn off lights
-                        tts.speak("Turned Off light 2!", TextToSpeech.QUEUE_FLUSH, null);
                         command(011);
-                        status.setChecked(false);
                     } else {
                         tts.speak("Sorry, Incorrect information!", TextToSpeech.QUEUE_FLUSH, null);
                     }
@@ -287,10 +280,8 @@
                 } else {
                     headText.setText("Kitchen");
                 if (txt.contains("status") || txt.contains("enough food") || txt.contains("supplies")) {
-                    //turn on lighs
-                    tts.speak("Status of the container!", TextToSpeech.QUEUE_FLUSH, null);
+                    //kitchen status
                     command(100);
-
                 } else {
                     tts.speak("Sorry, I can only tell the status of container.", TextToSpeech.QUEUE_FLUSH, null);
                 }
@@ -302,17 +293,12 @@
                     headText.setText("Garden");
                     if (txt.contains(" on ")) {
                         //turn on sprinklers
-                        tts.speak("Turned On sprinklers!", TextToSpeech.QUEUE_FLUSH, null);
                         command(101);
-                        status.setChecked(true);
                     } else if (txt.contains("off")) {
                         //turn off sprinklers
-                        tts.speak("Turned Off sprinklers!", TextToSpeech.QUEUE_FLUSH, null);
                         command(110);
-                        status.setChecked(false);
                     } else if (txt.contains("moisture")) {
                         //moisture
-                        tts.speak("Moisture in the soil!", TextToSpeech.QUEUE_FLUSH, null);
                         command(111);
                     } else {
                         tts.speak("Sorry, Incorrect information.", TextToSpeech.QUEUE_FLUSH, null);
@@ -321,12 +307,6 @@
             } else if (txt.contains("disconnect")){
                 tts.speak("Disconnecting.", TextToSpeech.QUEUE_FLUSH, null);
                 Disconnect();
-            } else if (txt.contains("valentines") || txt.contains("valentine's") || txt.contains("Valentines") || txt.contains("Valentine's")) {
-                tts.speak("Roses are red, reminders are great, I can help plan a Valentine's date", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("Roses are red, reminders are great, I can help plan a Valentine's date");
-            } else if (txt.contains("Valentine")) {
-                tts.speak("No bro!", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("No bruh!");
             } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built") || txt.contains("made")) {
                 tts.speak("I was built from scratch by a bunch of developers, Here they are!!", TextToSpeech.QUEUE_FLUSH, null);
                 //txtText2.setText("I was built from scratch by a bunch of developers, Here they are!!");
@@ -603,6 +583,7 @@
                                                //do your action based on recieved data
                                                // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
                                                 btText.setText(data);
+                                                statuscheck(data);
                                             }
                                         });
                                     }
@@ -735,5 +716,62 @@
             }
         }
 
-
+        private void statuscheck(String s) {
+            if (s.contains("T1")) {
+                status.setChecked(true);
+                tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T2")) {
+                status.setChecked(true);
+                tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T3")) {
+                status.setChecked(true);
+                tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T4")) {
+                status.setChecked(true);
+                tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T5")) {
+                status.setChecked(true);
+                tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T6")) {
+                status.setChecked(true);
+                tts.speak("Turned Off sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F1")) {
+                status.setChecked(false);
+                tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F2")) {
+                status.setChecked(false);
+                tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F3")) {
+                status.setChecked(false);
+                tts.speak("sprinklers already turned ON in garden", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F4")) {
+                status.setChecked(false);
+                tts.speak("light 1 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F5")) {
+                status.setChecked(false);
+                tts.speak("light 2 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F6")) {
+                status.setChecked(false);
+                tts.speak("sprinklers already turned OFF in garden", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("C1")) {
+                String c = s.substring(3,4);
+                status.setChecked(false);
+                tts.speak("Container 1 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("C2")) {
+                String c = s.substring(3,4);
+                status.setChecked(false);
+                tts.speak("Container 2 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("C3")) {
+                String c = s.substring(3,4);
+                status.setChecked(false);
+                tts.speak("Container 3 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("M1")) {
+                String c = s.substring(3,4);
+                status.setChecked(false);
+                tts.speak("The garden contains "+c+" percent moisture ", TextToSpeech.QUEUE_FLUSH, null);
+            } else {
+                status.setChecked(false);
+                tts.speak("Recieved an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
+            }
+        }
     }
