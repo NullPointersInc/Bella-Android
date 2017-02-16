@@ -623,6 +623,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("RL1O:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -632,6 +633,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("RL1F:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -641,6 +643,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("RL2O:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -650,6 +653,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("RL2F:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -659,6 +663,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("KS:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -668,6 +673,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("GSO:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -677,6 +683,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("GSF:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
@@ -686,6 +693,7 @@
                     try
                     {
                         btSocket.getOutputStream().write("GSS:".toString().getBytes());
+                        beginListenForData();
                     }
                     catch (IOException e)
                     {
