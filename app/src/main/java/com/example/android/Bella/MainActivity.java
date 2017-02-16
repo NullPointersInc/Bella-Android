@@ -151,12 +151,15 @@
         @Override
         public void onBufferReceived(byte[] arg0)
         {
+
         }
 
         @Override
         public void onEndOfSpeech()
         {
-            btnSpeak.setImageResource(R.drawable.ic_action_done);
+
+            progressBar.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.INVISIBLE);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -179,11 +182,13 @@
         @Override
         public void onPartialResults(Bundle arg0)
         {
+
         }
 
         @Override
         public void onReadyForSpeech(Bundle arg0)
         {
+
         }
 
         @Override
@@ -230,7 +235,7 @@
 
         @Override
         public void onResults(Bundle data)
-        {
+        {    btnSpeak.setImageResource(R.drawable.ic_action_done);
             ArrayList<String> text = data.getStringArrayList(
                     SpeechRecognizer.RESULTS_RECOGNITION);
             progressBar.setVisibility(View.INVISIBLE);
