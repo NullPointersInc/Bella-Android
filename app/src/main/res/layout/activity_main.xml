@@ -43,7 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF" />
+        android:background="#FFFFFF"
+        android:id="@+id/textView10" />
 
     <ProgressBar
         style="@android:style/Widget.Material.Light.ProgressBar.Large"
@@ -101,5 +102,14 @@
         app:mk_color="@color/colorAccent"
         android:layout_alignBottom="@+id/txtText"
         android:layout_alignEnd="@+id/btnSpeak" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView10"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginTop="39dp"
+        android:id="@+id/btText" />
 
 </RelativeLayout>

@@ -64,6 +64,7 @@
         Thread workerThread;
         byte[] readBuffer;
         int readBufferPosition;
+        TextView btText = (TextView)findViewById(R.id.btText);
 
 
         private SpeechRecognizer speech;
@@ -565,7 +566,7 @@
         void beginListenForData()
         {
             final Handler handler = new Handler();
-            final byte delimiter = 10; //This is the ASCII code for a newline character
+            final byte delimiter = 58; //This is the ASCII code for a newline character
 
             stopWorker = false;
             readBufferPosition = 0;
@@ -592,13 +593,15 @@
                                         System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
                                         final String data = new String(encodedBytes, "US-ASCII");
                                         readBufferPosition = 0;
+                                       // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
 
                                         handler.post(new Runnable()
                                         {
                                             public void run()
                                             {
                                                //do your action based on recieved data
-                                                Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
+                                               // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
+                                                btText.setText(data);
                                             }
                                         });
                                     }
@@ -610,7 +613,7 @@
                             }
                         }
                         catch (IOException ex)
-                        {
+                        {   ex.printStackTrace();
                             stopWorker = true;
                         }
                     }
