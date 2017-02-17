@@ -399,6 +399,10 @@
             } else if (txt.contains("bored")) {
                 tts.speak("Go, get a life!", TextToSpeech.QUEUE_FLUSH, null);
                 //txtText2.setText("Go get a life!");
+            } else if (txt.contains("you") || txt.contains("born")) {
+                tts.speak("I came to life on 5th of February 2017. I had a great day!", TextToSpeech.QUEUE_FLUSH, null);
+                stop();
+                //txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
@@ -547,7 +551,7 @@
         void beginListenForData()
         {
             final Handler handler = new Handler();
-            final byte delimiter = 58; //This is the ASCII code for a newline character
+            final byte delimiter = 58; //This is the ASCII code for a colon character
 
             stopWorker = false;
             readBufferPosition = 0;
@@ -583,6 +587,7 @@
                                                //do your action based on recieved data
                                                // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
                                                 btText.setText(data);
+                                                tts.speak("Status recieved", TextToSpeech.QUEUE_FLUSH, null);
                                                 statuscheck(data);
                                             }
                                         });
@@ -753,22 +758,26 @@
             } else if (s.contains("F6")) {
                 status.setChecked(false);
                 tts.speak("sprinklers already turned OFF in garden", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.contains("C1")) {
-                String c = s.substring(3,4);
+            } else if (s.startsWith("C1")) {
+                String c = s.substring(2,4);
+                String d = "Container 1 is low on surplus with just, "+c+" percent filled";
                 status.setChecked(false);
-                tts.speak("Container 1 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.contains("C2")) {
-                String c = s.substring(3,4);
+                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.startsWith("C2")) {
+                String c = s.substring(2,4);
+                String d = "Container 2 is low on surplus with just, "+c+" percent filled";
                 status.setChecked(false);
-                tts.speak("Container 2 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.contains("C3")) {
-                String c = s.substring(3,4);
+                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.startsWith("C3")) {
+                String c = s.substring(2,4);
+                String d = "Container 3 is low on surplus with just, "+c+" percent filled";
                 status.setChecked(false);
-                tts.speak("Container 3 is low on surplus with just, "+c+" percent filled", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.contains("M1")) {
-                String c = s.substring(3,4);
+                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.startsWith("M1")) {
+                String c = s.substring(2,4);
+                String d = "The garden contains "+c+" percent moisture";
                 status.setChecked(false);
-                tts.speak("The garden contains "+c+" percent moisture ", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else {
                 status.setChecked(false);
                 tts.speak("Recieved an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
