@@ -330,16 +330,14 @@
                     finish();
                 }
                 else {
-                    tts.speak("Here is the weather forecast", TextToSpeech.QUEUE_FLUSH, null);
-                    //txtText2.setText("Here is the weather forecast");
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(MainActivity.this, WeatherActivity.class);
-                            startActivity(i);
-                        }
-                    }, 1200);
+
+
+                    Intent i = new Intent(MainActivity.this, WeatherActivity.class);
+                    startActivity(i);
+                    String s = getIntent().getStringExtra("EXTRA");
+                    tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
+                    Intent in = new Intent(MainActivity.this, WeatherActivity2.class);
+                    startActivity(in);
                 }
             } else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());

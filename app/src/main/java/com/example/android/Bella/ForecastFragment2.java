@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ForecastFragment extends Fragment {
-    public ForecastFragment() {
+public class ForecastFragment2 extends Fragment {
+    public ForecastFragment2() {
     }
 
     @Override
@@ -221,9 +221,7 @@ public class ForecastFragment extends Fragment {
                 for ( String dayForecastStr : result){
                     mForeCastAdapter.add(dayForecastStr);
                 }
-                Intent i = new Intent(getActivity(),MainActivity.class);
-                i.putExtra("EXTRA", result[0]);
-                startActivity(i);
+
             }
         }
     }
