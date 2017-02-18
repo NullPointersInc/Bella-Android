@@ -349,7 +349,7 @@
                 String date = DateFormat.getDateInstance().format(new Date());
                 tts.speak("It is"+date, TextToSpeech.QUEUE_FLUSH, null);
                 //txtText2.setText("It is"+date);
-            } else if (txt.contains("time")) {
+            } else if (txt.contains("time ")) {
                 String time = DateFormat.getTimeInstance().format(new Date());
                 tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
                 //txtText2.setText("It is"+time);
@@ -357,6 +357,42 @@
                 tts.speak("I can play. help me lose my mind by Disclosure. Lean On by Major Lazor. Closer by Chainsmokers. Ongoing things by 2SYL. We don't talk anymore by Charlie Puth. Soon I will support more songs.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
                 //txtText2.setText("I can play the quoted songs");
+            } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
+                String input = txt.replaceAll("[a-zA-Z]","");
+                input = input.replace(" ","");
+                String parsedInteger = "";
+                String operator = "";
+                int aggregate=0;
+
+
+                for (int i = 0; i< input.length(); i++) {
+                    char c = input.charAt(i);
+                    if(Character.isDigit(c)) {
+                        parsedInteger += c;
+                    }
+
+                    if(!Character.isDigit(c) || i == input.length()-1) {
+                        int parsed = Integer.parseInt(parsedInteger);
+                        if(operator.equals("")) {
+                            aggregate = parsed;
+                        } else {
+                            if(operator.equals("+")) {
+                                aggregate += parsed;
+                            } else if(operator.equals("-")) {
+                                aggregate -= parsed;
+                            } else if(operator.equals("x") || operator.equals("X")) {
+                                aggregate *= parsed;
+                            } else if(operator.equals("/")) {
+                                aggregate /= parsed;
+                            }
+                        }
+                        parsedInteger = "";
+                        operator = ""+c;
+                    }
+                }
+                Log.e("Text",txt.replace(" ",""));
+                tts.speak("It's "+aggregate, TextToSpeech.QUEUE_FLUSH, null);
+
             } else if (txt.contains("play")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
@@ -713,6 +749,7 @@
             finish(); //return to the first layout
         }
         private boolean checkBT() {
+            myBluetooth = BluetoothAdapter.getDefaultAdapter();
             if (!myBluetooth.isEnabled()) {
                 return false;
             }
