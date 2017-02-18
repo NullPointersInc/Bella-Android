@@ -221,8 +221,9 @@ public class ForecastFragment extends Fragment {
                 for ( String dayForecastStr : result){
                     mForeCastAdapter.add(dayForecastStr);
                 }
+                String s = result[0].substring(result[0].lastIndexOf("/")-2,result[0].lastIndexOf("/"));
                 Intent i = new Intent(getActivity(),MainActivity.class);
-                i.putExtra("EXTRA", result[0]);
+                i.putExtra("EXTRA", s);
                 startActivity(i);
             }
         }

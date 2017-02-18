@@ -330,12 +330,10 @@
                     finish();
                 }
                 else {
-
-
                     Intent i = new Intent(MainActivity.this, WeatherActivity.class);
                     startActivity(i);
                     String s = getIntent().getStringExtra("EXTRA");
-                    tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak("Today's forecast for Bengaluru is "+s+" degrees", TextToSpeech.QUEUE_FLUSH, null);
                     Intent in = new Intent(MainActivity.this, WeatherActivity2.class);
                     startActivity(in);
                 }
