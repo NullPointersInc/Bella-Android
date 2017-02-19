@@ -42,6 +42,8 @@
     import android.widget.Toast;
     import android.widget.ToggleButton;
 
+    import com.tapadoo.alerter.Alerter;
+
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
         protected static final int RESULT_SPEECH = 1;
@@ -128,10 +130,10 @@
 
                         txtText.setText("");
                     } catch (ActivityNotFoundException a) {
-                        Toast t = Toast.makeText(getApplicationContext(),
-                                "Opps! Your device doesn't support Speech to Text",
-                                Toast.LENGTH_SHORT);
-                        t.show();
+                        Alerter.create(MainActivity.this)
+                                .setText("Opps! Your device doesn't support Speech to Text")
+                                .setBackgroundColor(R.color.alert)
+                                .show();
                     }
                 }
             });
@@ -192,8 +194,6 @@
                 int result = tts.setLanguage(English);
                 if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("TTS","this language is not supported");
-                } else {
-
                 }
             } else {
                 Log.e("TTS","Initialization failed!!");
@@ -209,16 +209,25 @@
 
                     // If request is cancelled, the result arrays are empty.
                     if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(MainActivity.this, "Permission granted to record audio and internet", Toast.LENGTH_SHORT).show();
+                            || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Alerter.create(MainActivity.this)
+                                .setText("Permission granted to record audio")
+                                .setIcon(R.drawable.ic_face)
+                                .setBackgroundColor(R.color.alert)
+                                .setDuration(2000)
+                                .show();
                         // permission was granted
                     } else {
 
                         // permission denied, Disable the
                         // functionality that depends on this permission.
-                        Toast.makeText(MainActivity.this, "Permission denied to record audio and internet", Toast.LENGTH_SHORT).show();
+                        Alerter.create(MainActivity.this)
+                                .setText("Permission denied to record audio")
+                                .setBackgroundColor(R.color.alert)
+                                .setIcon(R.drawable.ic_notifications)
+                                .setDuration(2000)
+                                .show();
                     }
-                    return;
                 }
 
                 // other 'case' lines to check for other
@@ -513,7 +522,12 @@
             @Override
             protected void onPreExecute()
             {
-                txtText.setText("Connecting...");  //show a progress dialog
+                Alerter.create(MainActivity.this)
+                        .setText("Connecting...")
+                        .setIcon(R.drawable.ic_notifications)
+                        .setBackgroundColor(R.color.alert)
+                        .show();
+                //txtText.setText("Connecting...");  //show a progress dialog
             }
 
             @Override
@@ -544,13 +558,21 @@
 
                 if (!ConnectSuccess)
                 {
-                    msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                    Alerter.create(MainActivity.this)
+                            .setTitle("Connection Failed")
+                            .setText("Is it a SPP Bluetooth? Try again.")
+                            .setIcon(R.drawable.ic_notifications)
+                            .setBackgroundColor(R.color.alert)
+                            .show();
                     txtText.setText("");
-                    finish();
                 }
                 else
                 {
-                    msg("Connected.");
+                    Alerter.create(MainActivity.this)
+                            .setTitle("Connected")
+                            .setIcon(R.drawable.ic_face)
+                            .setBackgroundColor(R.color.alert)
+                            .show();
                     txtText.setText("");
                     isBtConnected = true;
                 }
@@ -560,7 +582,11 @@
 
         private void msg(String s)
         {
-            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            Alerter.create(MainActivity.this)
+                    .setText(s)
+                    .setIcon(R.drawable.ic_notifications)
+                    .setBackgroundColor(R.color.alert)
+                    .show();
         }
 
 
