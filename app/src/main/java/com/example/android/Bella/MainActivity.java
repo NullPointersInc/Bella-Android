@@ -85,11 +85,6 @@
                     Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED)) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.WAKE_LOCK,
-                        Manifest.permission.ACCESS_NETWORK_STATE,
-                        Manifest.permission.BLUETOOTH,
-                        Manifest.permission.BLUETOOTH_ADMIN,
                         Manifest.permission.RECORD_AUDIO}, 1);
             }
             txtText = (TextView) findViewById(R.id.txtText);
@@ -208,8 +203,7 @@
                 case 1: {
 
                     // If request is cancelled, the result arrays are empty.
-                    if (grantResults.length > 0
-                            || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         Alerter.create(MainActivity.this)
                                 .setText("Permission granted to record audio")
                                 .setIcon(R.drawable.ic_face)
@@ -218,7 +212,6 @@
                                 .show();
                         // permission was granted
                     } else {
-
                         // permission denied, Disable the
                         // functionality that depends on this permission.
                         Alerter.create(MainActivity.this)
