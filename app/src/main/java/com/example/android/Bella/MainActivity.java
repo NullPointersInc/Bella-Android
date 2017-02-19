@@ -6,14 +6,12 @@
     import android.bluetooth.BluetoothSocket;
     import android.content.Context;
     import android.content.pm.PackageManager;
-    import android.graphics.drawable.Drawable;
     import android.net.ConnectivityManager;
     import android.os.AsyncTask;
     import android.os.Handler;
     import android.os.Vibrator;
     import android.speech.RecognitionListener;
     import android.speech.SpeechRecognizer;
-    import android.support.annotation.DrawableRes;
     import android.support.v4.app.ActivityCompat;
     import android.support.v4.content.ContextCompat;
     import android.support.v7.app.AppCompatActivity;
@@ -21,7 +19,6 @@
 
     import java.io.IOException;
     import java.io.InputStream;
-    import java.io.OutputStream;
     import java.util.ArrayList;
     import java.util.Locale;
     import android.media.MediaPlayer;
@@ -51,7 +48,6 @@
         private ProgressBar progressBar;
         public ImageButton btnSpeak;
         private TextView txtText;
-        //private TextView txtText2;
         public TextView headText;
         public ToggleButton status;
         private Button b1;
@@ -95,7 +91,6 @@
                         Manifest.permission.RECORD_AUDIO}, 1);
             }
             txtText = (TextView) findViewById(R.id.txtText);
-            //txtText2 = (TextView) findViewById(R.id.txtText2);
             headText = (TextView) findViewById(R.id.textView2);
             progressBar = (ProgressBar) findViewById(R.id.progressBar1);
             btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
@@ -132,7 +127,6 @@
                     try {
 
                         txtText.setText("");
-                        //txtText2.setText("");
                     } catch (ActivityNotFoundException a) {
                         Toast t = Toast.makeText(getApplicationContext(),
                                 "Opps! Your device doesn't support Speech to Text",
@@ -246,7 +240,6 @@
             String txt = txtText.getText().toString();
             if(txt.isEmpty()) {
                 Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
-                //txtText2.setText("You did not say anything!");
             } else if (txt.contains("connect")) {
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i);
@@ -307,7 +300,6 @@
                 Disconnect();
             } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built") || txt.contains("made")) {
                 tts.speak("I was built from scratch by a bunch of developers, Here they are!!", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("I was built from scratch by a bunch of developers, Here they are!!");
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -318,11 +310,9 @@
                 }, 2500);
             } else if (txt.contains("feeling")) {
                 tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("Never been better!");
             } else if (txt.contains("weather")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
-                    //txtText2.setText("It seems like internet connection is unavailable so I am unable to fetch weather report");
                     Intent i = new Intent(MainActivity.this,MainActivity.class);
                     startActivity(i);
                     finish();
@@ -338,19 +328,15 @@
             } else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("It is"+datetime);
             } else if (txt.contains("date")) {
                 String date = DateFormat.getDateInstance().format(new Date());
                 tts.speak("It is"+date, TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("It is"+date);
             } else if (txt.contains("time ")) {
                 String time = DateFormat.getTimeInstance().format(new Date());
                 tts.speak("It is"+time, TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("It is"+time);
             } else if (txt.contains("what all can you play") || txt.contains("what all songs can you play") || txt.contains("supported songs")) {
                 tts.speak("I can play. help me lose my mind by Disclosure. Lean On by Major Lazor. Closer by Chainsmokers. Ongoing things by 2SYL. We don't talk anymore by Charlie Puth. Soon I will support more songs.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-                //txtText2.setText("I can play the quoted songs");
             } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
                 String input = txt.replaceAll("[^xX+-/0-9]","");
                 input = input.replace(" ","");
@@ -404,64 +390,50 @@
             } else if (txt.contains("play")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
-                    //txtText2.setText("It seems like internet connection is unavailable so I am unable to play songs");
                 }
                 else {
                     if(txt.contains("help me lose my mind")) {
                         tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Playing help me lose my mind by Disclosure\"");
                         String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("lean on")) {
                         tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Playing Lean On by Major Lazor");
                         String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("closer")) {
                         tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Playing Closer by Chainsmokers");
                         String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("on going things") || txt.contains("ongoing things")) {
                         tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Playing Ongoing things by 2SYL");
                         String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("we don't talk anymore")) {
                         tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Playing We don't talk anymore by Charlie Puth");
                         String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
                         play(path);
                     } else if(txt.contentEquals("play")){
                         tts.speak("You have not specified any song!", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("You have not specified any song!");
                     } else {
                         tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
-                        //txtText2.setText("Song not available at the moment or not specified! Sorry!");
                     }
                 }
             } else if (txt.contains("bored")) {
                 tts.speak("Go, get a life!", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("Go get a life!");
             } else if (txt.contains("you") || txt.contains("born")) {
                 tts.speak("I came to life on 5th of February 2017. I had a great day!", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-                //txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-                //txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
             } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
                 tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-                //txtText2.setText("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machiene learning");
             } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella"))) ) {
                 tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
-                //txtText2.setText("Sorry, Are you talking to me? You can call me Bella");
             } else {
                 tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-                //txtText2.setText("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!");
             }
         }
         @Override

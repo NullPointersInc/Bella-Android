@@ -24,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
         den = (ImageView) findViewById(R.id.imageView7);
         raiden = (ImageView) findViewById(R.id.imageView4);
 
-
+        
         levi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

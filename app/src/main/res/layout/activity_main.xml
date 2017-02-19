@@ -90,7 +90,7 @@
         android:textColor="#FFFFFF"
         android:paddingTop="50dp"
         android:gravity="center|top"
-        android:hint="Command"
+        android:hint="How may I help you?"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
