@@ -755,7 +755,7 @@
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T6")) {
                 status.setChecked(true);
-                tts.speak("Turned Off sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak("Turned Off sprinklers forcefully", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F1")) {
                 status.setChecked(false);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -764,7 +764,7 @@
                 tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F3")) {
                 status.setChecked(false);
-                tts.speak("sprinklers already turned ON in garden", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak("Warning! the soil is too wet to be watered", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F4")) {
                 status.setChecked(false);
                 tts.speak("light 1 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -773,7 +773,7 @@
                 tts.speak("light 2 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F6")) {
                 status.setChecked(false);
-                tts.speak("sprinklers already turned OFF in garden", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak("Please! allow me to water your plants", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 String c = s.substring(2,4);
                 String d = "Container 1 is low on surplus with just, "+c+" percent filled";
