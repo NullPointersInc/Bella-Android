@@ -56,7 +56,6 @@
         public ToggleButton status;
         private Button b1;
         TextToSpeech tts;
-        private TextView btText;
 
 
         //bluetooth recieve initializer
@@ -95,7 +94,6 @@
                         Manifest.permission.BLUETOOTH_ADMIN,
                         Manifest.permission.RECORD_AUDIO}, 1);
             }
-            btText = (TextView) findViewById(R.id.btText);
             txtText = (TextView) findViewById(R.id.txtText);
             //txtText2 = (TextView) findViewById(R.id.txtText2);
             headText = (TextView) findViewById(R.id.textView2);
@@ -359,6 +357,7 @@
                 String parsedInteger = "";
                 String operator = "";
                 int aggregate=0;
+                int flag =0;
 
 
                 for (int i = 0; i< input.length(); i++) {
@@ -379,7 +378,11 @@
                             } else if(operator.equals("x") || operator.equals("X")) {
                                 aggregate *= parsed;
                             } else if(operator.equals("/")) {
-                                aggregate /= parsed;
+                                if (Integer.valueOf(parsed)==0) {
+                                    flag = 1;
+                                } else {
+                                    aggregate /= parsed;
+                                }
                             }
                         }
                         parsedInteger = "";
@@ -387,7 +390,12 @@
                     }
                 }
                 Log.e("Text",txt.replace(" ",""));
-                tts.speak("It's "+aggregate, TextToSpeech.QUEUE_FLUSH, null);
+                if(flag==0) {
+                    tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    tts.speak("Divide by zero error!" , TextToSpeech.QUEUE_FLUSH, null);
+                }
+
 
             } else if (txt.contains("play")) {
                 if(isNetworkAvailable()==0) {
@@ -618,7 +626,6 @@
                                             {
                                                //do your action based on recieved data
                                                // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
-                                                btText.setText(data);
                                                 tts.speak("Status recieved", TextToSpeech.QUEUE_FLUSH, null);
                                                 statuscheck(data);
                                             }

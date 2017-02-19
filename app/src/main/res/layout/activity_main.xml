@@ -103,13 +103,4 @@
         android:layout_alignBottom="@+id/txtText"
         android:layout_alignEnd="@+id/btnSpeak" />
 
-    <TextView
-        android:text="Test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView10"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_marginTop="39dp"
-        android:id="@+id/btText" />
-
 </RelativeLayout>
