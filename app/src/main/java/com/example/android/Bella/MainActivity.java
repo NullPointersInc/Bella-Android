@@ -352,7 +352,7 @@
                 stop();
                 //txtText2.setText("I can play the quoted songs");
             } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
-                String input = txt.replaceAll("[a-zA-Z]","");
+                String input = txt.replaceAll("[^xX+-/0-9]","");
                 input = input.replace(" ","");
                 String parsedInteger = "";
                 String operator = "";
@@ -364,19 +364,23 @@
                     char c = input.charAt(i);
                     if(Character.isDigit(c)) {
                         parsedInteger += c;
+                        Log.e("Text","Ans="+parsedInteger);
                     }
 
                     if(!Character.isDigit(c) || i == input.length()-1) {
                         int parsed = Integer.parseInt(parsedInteger);
                         if(operator.equals("")) {
                             aggregate = parsed;
+                            Log.e("Text","Ans1="+aggregate);
                         } else {
                             if(operator.equals("+")) {
                                 aggregate += parsed;
+                                Log.e("Text","Ans2="+aggregate);
                             } else if(operator.equals("-")) {
                                 aggregate -= parsed;
                             } else if(operator.equals("x") || operator.equals("X")) {
                                 aggregate *= parsed;
+
                             } else if(operator.equals("/")) {
                                 if (Integer.valueOf(parsed)==0) {
                                     flag = 1;
@@ -389,8 +393,8 @@
                         operator = ""+c;
                     }
                 }
-                Log.e("Text",txt.replace(" ",""));
                 if(flag==0) {
+                    Log.e("Text","Ans="+aggregate);
                     tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     tts.speak("Divide by zero error!" , TextToSpeech.QUEUE_FLUSH, null);
