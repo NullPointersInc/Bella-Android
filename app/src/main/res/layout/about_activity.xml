@@ -8,7 +8,7 @@
     tools:context="com.example.android.Bella.MainActivity"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#009688">
+    android:background="#3F51B5">
 
 
     <ImageView
