@@ -320,6 +320,7 @@
                     finish();
                 }
                 else {
+                    tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
                     Intent i = new Intent(MainActivity.this, WeatherActivity.class);
                     startActivity(i);
                     String s = getIntent().getStringExtra("EXTRA");
