@@ -16,17 +16,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WeatherActivity" />
-        <activity android:name=".WeatherActivity2" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".DeviceList" />
+        <activity android:name=".WeatherActivity" android:screenOrientation="portrait" />
+        <activity android:name=".WeatherActivity2" android:screenOrientation="portrait" />
+        <activity android:name=".AboutActivity" android:screenOrientation="portrait" />
+        <activity android:name=".DeviceList" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
