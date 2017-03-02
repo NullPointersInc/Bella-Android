@@ -36,7 +36,7 @@ public class AboutActivity extends AppCompatActivity {
         astrix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/aj-james"); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse("https://github.com/aj-ames"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

@@ -5,7 +5,11 @@
     import android.bluetooth.BluetoothDevice;
     import android.bluetooth.BluetoothSocket;
     import android.content.Context;
+    import android.content.DialogInterface;
     import android.content.pm.PackageManager;
+    import android.graphics.Rect;
+    import android.graphics.Typeface;
+    import android.graphics.drawable.Drawable;
     import android.net.ConnectivityManager;
     import android.os.AsyncTask;
     import android.os.Handler;
@@ -14,6 +18,7 @@
     import android.speech.SpeechRecognizer;
     import android.support.v4.app.ActivityCompat;
     import android.support.v4.content.ContextCompat;
+    import android.support.v7.app.AlertDialog;
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
 
@@ -31,7 +36,11 @@
     import android.content.ActivityNotFoundException;
     import android.content.Intent;
     import android.support.v7.widget.PopupMenu;
+    import android.text.SpannableString;
+    import android.text.style.StyleSpan;
+    import android.text.style.UnderlineSpan;
     import android.util.Log;
+    import android.view.Display;
     import android.view.MenuInflater;
     import android.view.MenuItem;
     import android.view.View;
@@ -42,6 +51,9 @@
     import android.widget.Toast;
     import android.widget.ToggleButton;
 
+    import com.getkeepsafe.taptargetview.TapTarget;
+    import com.getkeepsafe.taptargetview.TapTargetSequence;
+    import com.getkeepsafe.taptargetview.TapTargetView;
     import com.tapadoo.alerter.Alerter;
 
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
@@ -81,6 +93,95 @@
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            // We load a drawable and create a location to show a tap target here
+            // We need the display to get the width and height at this point in time
+            final Display display = getWindowManager().getDefaultDisplay();
+            // Load our little droid guy
+            final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_face);
+
+            final SpannableString sassyDesc = new SpannableString("This will tell you which activity you are currently in");
+            sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "somtimes".length(), sassyDesc.length(), 0);
+
+            // We have a sequence of targets, so lets build it!
+            final TapTargetSequence sequence = new TapTargetSequence(this)
+                    .targets(
+                            // This tap target will target the back button, we just need to pass its containing toolbar
+                            TapTarget.forView(findViewById(R.id.textView2), "This is the current screen", sassyDesc).id(1),
+                            // Likewise, this tap target will target the search button
+                            TapTarget.forView(findViewById(R.id.toggleButton), "Status Indicator", "As Bella can connect to hardware, it can tell the current status")
+                                    .dimColor(android.R.color.black)
+                                    .outerCircleColor(R.color.colorAccent)
+                                    .targetCircleColor(android.R.color.black)
+                                    .transparentTarget(true)
+                                    .textColor(android.R.color.black)
+                                    .id(2),
+                            // You can also target the overflow button in your toolbar
+                            TapTarget.forView(findViewById(R.id.txtText), "Command Parser", "This will show the command issued by user")
+                                    .id(3)
+                                    .targetRadius(100)
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        // This listener will tell us when interesting(tm) events happen in regards
+                        // to the sequence
+                        @Override
+                        public void onSequenceFinish() {
+                            Alerter.create(MainActivity.this)
+                                    .setText("Yay! your personal assistant is ready for you.")
+                                    .setIcon(R.drawable.ic_face)
+                                    .setBackgroundColor(R.color.alert)
+                                    .setDuration(2000)
+                                    .show();
+                        }
+
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget) {
+                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                        }
+
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                            final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Uh oh")
+                                    .setMessage("You canceled the sequence")
+                                    .setPositiveButton("Oops", null).show();
+                            TapTargetView.showFor(dialog,
+                                    TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
+                                            .cancelable(false)
+                                            .tintTarget(false), new TapTargetView.Listener() {
+                                        @Override
+                                        public void onTargetClick(TapTargetView view) {
+                                            super.onTargetClick(view);
+                                            dialog.dismiss();
+                                        }
+                                    });
+                        }
+                    });
+
+            // You don't always need a sequence, and for that there's a single time tap target
+            final SpannableString spannedDesc = new SpannableString("Use this button to issue voice command");
+            spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Use this button to issue voice command".length(), spannedDesc.length(), 0);
+            TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btnSpeak), "Hello, world!", spannedDesc)
+                    .cancelable(false)
+                    .drawShadow(true)
+                    .tintTarget(false), new TapTargetView.Listener() {
+                @Override
+                public void onTargetClick(TapTargetView view) {
+                    super.onTargetClick(view);
+                    // .. which evidently starts the sequence we defined earlier
+                    sequence.start();
+                }
+
+                @Override
+                public void onOuterCircleClick(TapTargetView view) {
+                    super.onOuterCircleClick(view);
+                    Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                    Log.d("TapTargetViewSample", "You dismissed me :(");
+                }
+            });
             if ((ContextCompat.checkSelfPermission(MainActivity.this,
                     Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED)) {
