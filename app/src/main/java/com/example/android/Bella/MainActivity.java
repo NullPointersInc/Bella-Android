@@ -6,6 +6,7 @@
     import android.bluetooth.BluetoothSocket;
     import android.content.Context;
     import android.content.DialogInterface;
+    import android.content.SharedPreferences;
     import android.content.pm.PackageManager;
     import android.graphics.Rect;
     import android.graphics.Typeface;
@@ -75,8 +76,6 @@
         byte[] readBuffer;
         int readBufferPosition;
 
-
-
         private SpeechRecognizer speech;
         public Vibrator myVib;
         private com.tuyenmonkey.mkloader.MKLoader loader;
@@ -93,6 +92,9 @@
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
+            SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
+            final SharedPreferences.Editor editor = sharedPref.edit();
             // We load a drawable and create a location to show a tap target here
             // We need the display to get the width and height at this point in time
             final Display display = getWindowManager().getDefaultDisplay();
@@ -109,11 +111,7 @@
                             TapTarget.forView(findViewById(R.id.textView2), "This is the current screen", sassyDesc).id(1),
                             // Likewise, this tap target will target the search button
                             TapTarget.forView(findViewById(R.id.toggleButton), "Status Indicator", "As Bella can connect to hardware, it can tell the current status")
-                                    .dimColor(android.R.color.black)
-                                    .outerCircleColor(R.color.colorAccent)
-                                    .targetCircleColor(android.R.color.black)
                                     .transparentTarget(true)
-                                    .textColor(android.R.color.black)
                                     .id(2),
                             // You can also target the overflow button in your toolbar
                             TapTarget.forView(findViewById(R.id.txtText), "Command Parser", "This will show the command issued by user")
@@ -125,6 +123,8 @@
                         // to the sequence
                         @Override
                         public void onSequenceFinish() {
+                            editor.putBoolean("finished",true);
+                            editor.commit();
                             Alerter.create(MainActivity.this)
                                     .setText("Yay! your personal assistant is ready for you.")
                                     .setIcon(R.drawable.ic_face)
@@ -140,6 +140,8 @@
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
+                            editor.putBoolean("finished",true);
+                            editor.commit();
                             final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
                                     .setTitle("Uh oh")
                                     .setMessage("You canceled the sequence")
@@ -156,32 +158,34 @@
                                     });
                         }
                     });
+            boolean isSequenceFinished = sharedPref.getBoolean("finished",false);
+            if(!isSequenceFinished) {
+                // You don't always need a sequence, and for that there's a single time tap target
+                final SpannableString spannedDesc = new SpannableString("Use this button to issue voice command");
+                spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Use this button to issue voice command".length(), spannedDesc.length(), 0);
+                TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btnSpeak), "Hello, world!", spannedDesc)
+                        .cancelable(false)
+                        .drawShadow(true)
+                        .tintTarget(false), new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // .. which evidently starts the sequence we defined earlier
+                        sequence.start();
+                    }
 
-            // You don't always need a sequence, and for that there's a single time tap target
-            final SpannableString spannedDesc = new SpannableString("Use this button to issue voice command");
-            spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Use this button to issue voice command".length(), spannedDesc.length(), 0);
-            TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btnSpeak), "Hello, world!", spannedDesc)
-                    .cancelable(false)
-                    .drawShadow(true)
-                    .tintTarget(false), new TapTargetView.Listener() {
-                @Override
-                public void onTargetClick(TapTargetView view) {
-                    super.onTargetClick(view);
-                    // .. which evidently starts the sequence we defined earlier
-                    sequence.start();
-                }
+                    @Override
+                    public void onOuterCircleClick(TapTargetView view) {
+                        super.onOuterCircleClick(view);
+                        Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+                    }
 
-                @Override
-                public void onOuterCircleClick(TapTargetView view) {
-                    super.onOuterCircleClick(view);
-                    Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
-                    Log.d("TapTargetViewSample", "You dismissed me :(");
-                }
-            });
+                    @Override
+                    public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                        Log.d("TapTargetViewSample", "You dismissed me :(");
+                    }
+                });
+            }
             if ((ContextCompat.checkSelfPermission(MainActivity.this,
                     Manifest.permission.RECORD_AUDIO)
                     != PackageManager.PERMISSION_GRANTED)) {
