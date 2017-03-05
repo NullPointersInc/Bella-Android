@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_height="192dp"
+        android:layout_width="match_parent">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar"
+            app:title="@string/setting_settings"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:expandedTitleTextAppearance="@style/CollapsedAppBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent">
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:background="@color/colorPrimaryDark">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Release"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="beta"
+                android:textSize="15sp"
+                android:layout_below="@+id/release"
+                android:textColor="#B0BEC5" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/version_settings"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/rel"
+                android:textColor="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/ver_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/version"
+                android:textSize="15sp"
+                android:layout_below="@+id/version"
+                android:textColor="#B0BEC5" />
+
+            <TextView
+                android:id="@+id/language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Locale"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/ver_num"
+                android:textColor="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/lang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="en-US"
+                android:textSize="15sp"
+                android:layout_below="@+id/language"
+                android:textColor="#B0BEC5" />
+
+            <TextView
+                android:id="@+id/License"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="License"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/lang"
+                android:textColor="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/gpl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="GPLv3"
+                android:textSize="15sp"
+                android:layout_below="@+id/License"
+                android:textColor="#B0BEC5" />
+
+            <TextView
+                android:id="@+id/Source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Source"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_below="@+id/gpl"
+                android:textColor="#CFD8DC" />
+
+            <TextView
+                android:id="@+id/Link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="https://github.com/ujwalp15/Bella"
+                android:textSize="15sp"
+                android:layout_below="@+id/Source"
+                android:textColor="#B0BEC5" />
+
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

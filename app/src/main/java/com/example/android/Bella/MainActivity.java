@@ -604,6 +604,10 @@
                     Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                     startActivity(intent);
                     return true;
+                } else if (id == R.id.setting_settings) {
+                    Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                    startActivity(intent);
+                    return true;
                 }
                 return true;
             }

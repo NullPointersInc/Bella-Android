@@ -3,5 +3,8 @@
     <string name="speak">Speak</string>
     <string name="descr_overflow_button">Menu</string>
     <string name="action_settings">About</string>
+    <string name="setting_settings">Settings</string>
+    <string name="version_settings">Version</string>
+    <string name="version">1.1</string>
     <string name="title_activity_device_list">device_list</string>
 </resources>
