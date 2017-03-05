@@ -6,4 +6,5 @@
     <color name="red">#F44336</color>
     <color name="green">#4CAF50</color>
     <color name="alert">#3F51B5</color>
+    <color name="target">#3F51B5</color>
 </resources>

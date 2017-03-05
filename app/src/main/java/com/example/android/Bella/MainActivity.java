@@ -108,13 +108,27 @@
             final TapTargetSequence sequence = new TapTargetSequence(this)
                     .targets(
                             // This tap target will target the back button, we just need to pass its containing toolbar
-                            TapTarget.forView(findViewById(R.id.textView2), "This is the current screen", sassyDesc).id(1),
+                            TapTarget.forView(findViewById(R.id.textView2), "This is the current screen", sassyDesc).id(1)
+                                    .dimColor(android.R.color.black)
+                                    .outerCircleColor(R.color.target)
+                                    .targetCircleColor(android.R.color.black)
+                                    .transparentTarget(true)
+                                    .textColor(android.R.color.black),
                             // Likewise, this tap target will target the search button
                             TapTarget.forView(findViewById(R.id.toggleButton), "Status Indicator", "As Bella can connect to hardware, it can tell the current status")
+                                    .dimColor(android.R.color.black)
+                                    .outerCircleColor(R.color.target)
+                                    .targetCircleColor(android.R.color.black)
                                     .transparentTarget(true)
+                                    .textColor(android.R.color.black)
                                     .id(2),
                             // You can also target the overflow button in your toolbar
                             TapTarget.forView(findViewById(R.id.txtText), "Command Parser", "This will show the command issued by user")
+                                    .dimColor(android.R.color.black)
+                                    .outerCircleColor(R.color.target)
+                                    .targetCircleColor(android.R.color.black)
+                                    .transparentTarget(true)
+                                    .textColor(android.R.color.black)
                                     .id(3)
                                     .targetRadius(100)
                     )
@@ -164,6 +178,11 @@
                 final SpannableString spannedDesc = new SpannableString("Use this button to issue voice command");
                 spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Use this button to issue voice command".length(), spannedDesc.length(), 0);
                 TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btnSpeak), "Hello, world!", spannedDesc)
+                        .dimColor(android.R.color.black)
+                        .outerCircleColor(R.color.target)
+                        .targetCircleColor(android.R.color.black)
+                        .transparentTarget(true)
+                        .textColor(android.R.color.black)
                         .cancelable(false)
                         .drawShadow(true)
                         .tintTarget(false), new TapTargetView.Listener() {
@@ -336,7 +355,8 @@
 
         @Override
         public void onResults(Bundle data)
-        {    btnSpeak.setImageResource(R.drawable.ic_action_done);
+        {
+            btnSpeak.setImageResource(R.drawable.ic_action_done);
             ArrayList<String> text = data.getStringArrayList(
                     SpeechRecognizer.RESULTS_RECOGNITION);
             progressBar.setVisibility(View.INVISIBLE);
