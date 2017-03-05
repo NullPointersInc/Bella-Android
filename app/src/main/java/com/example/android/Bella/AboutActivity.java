@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,6 +15,7 @@ public class AboutActivity extends AppCompatActivity {
     ImageView astrix;
     ImageView den;
     ImageView raiden;
+    Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,18 @@ public class AboutActivity extends AppCompatActivity {
         astrix = (ImageView) findViewById(R.id.imageView5);
         den = (ImageView) findViewById(R.id.imageView7);
         raiden = (ImageView) findViewById(R.id.imageView4);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AboutActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
         
         levi.setOnClickListener(new View.OnClickListener() {
             @Override
