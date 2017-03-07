@@ -446,10 +446,14 @@
                 }
                 else {
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
-                    Intent i = new Intent(MainActivity.this, WeatherActivity.class);
-                    startActivity(i);
+                    Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                    startActivity(im);
                     String s = getIntent().getStringExtra("EXTRA");
-                    tts.speak("Today's forecast for Bengaluru is "+s+" degrees", TextToSpeech.QUEUE_FLUSH, null);
+                    if(s==null) {
+                        tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
+                    } else {
+                        tts.speak("Today's forecast for Bengaluru is " + s + " degrees", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     Intent in = new Intent(MainActivity.this, WeatherActivity2.class);
                     startActivity(in);
                 }
