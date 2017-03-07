@@ -6,5 +6,6 @@
     android:gravity="center_vertical"
     android:id="@+id/list_item_news_textview"
     android:textStyle="bold"
-    android:textSize="20dp">
+    android:textSize="20dp"
+    android:textColor="@color/white">
 </TextView>
