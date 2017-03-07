@@ -97,7 +97,7 @@ public class NewsFragment extends Fragment {
             try {
 
                 // Credits to https://newsapi.org
-                URL url = new URL("https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a");
+                URL url = new URL("https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
