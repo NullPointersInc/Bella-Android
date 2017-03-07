@@ -554,7 +554,12 @@
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
+            }  else if (txt.contains("news"))  {
+                tts.speak("News for Today", TextToSpeech.QUEUE_FLUSH, null);
+                Intent i = new Intent(MainActivity.this, NewsActivity.class);
+                startActivity(i);
+                stop();
+            }else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
                 tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
             } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella"))) ) {

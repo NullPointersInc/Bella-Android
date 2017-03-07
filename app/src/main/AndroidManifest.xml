@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WeatherActivity" android:screenOrientation="portrait" />
+        <activity android:name=".NewsActivity" android:screenOrientation="portrait" />
         <activity android:name=".WeatherActivity2" android:screenOrientation="portrait" />
         <activity android:name=".AboutActivity" android:screenOrientation="portrait" />
         <activity android:name=".DeviceList" android:screenOrientation="portrait" />
