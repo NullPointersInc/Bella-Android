@@ -306,6 +306,14 @@
             }, 500);
         }
 
+        public void init(){
+            progressBar.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.INVISIBLE);
+            btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            txtText.setText(null);
+            txtText.setHint("How may I help you?");
+        }
+
         @Override
         public void onError(int e)
         {
@@ -462,9 +470,7 @@
             } else if (txt.contains("weather")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
-                    Intent i = new Intent(MainActivity.this,MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    init();
                 }
                 else {
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
@@ -580,19 +586,27 @@
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            }  else if (txt.contains("news"))  {
-                tts.speak("News for Today", TextToSpeech.QUEUE_FLUSH, null);
-                Intent i = new Intent(MainActivity.this, NewsActivity.class);
-                startActivity(i);
-                stop();
-            }else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
-                tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
-                stop();
-            } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella"))) ) {
-                tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
-            } else {
-                tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
-                stop();
+            }  else {
+                if (txt.contains("news")) {
+                    if (isNetworkAvailable() == 0) {
+
+                        tts.speak("Internet Connection not available. Please Connect to Internet", TextToSpeech.QUEUE_FLUSH, null);
+                        init();
+                    } else {
+                        tts.speak("News for Today", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent i = new Intent(MainActivity.this, NewsActivity.class);
+                        startActivity(i);
+                        stop();
+                    }
+                } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
+                    tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
+                    stop();
+                } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella")))) {
+                    tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                    stop();
+                }
             }
         }
         @Override
