@@ -109,11 +109,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_above="@+id/imageView5"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="#B0BEC5"/>
+                android:textColor="#B0BEC5"
+                android:layout_alignBaseline="@+id/textView5"
+                android:layout_alignBottom="@+id/textView5"
+                android:layout_toEndOf="@+id/textView4" />
 
             <TextView
                 android:text="Akash James"
