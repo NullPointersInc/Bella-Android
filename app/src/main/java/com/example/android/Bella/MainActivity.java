@@ -67,7 +67,7 @@
         public ToggleButton status;
         private Button b1;
         TextToSpeech tts;
-
+        boolean doubleBackToExitPressedOnce;
 
         //bluetooth recieve initializer
         InputStream mmInputStream;
@@ -257,6 +257,28 @@
                 }
             });
 
+        }
+        @Override
+        public void onBackPressed() {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
         @Override
         public void onBeginningOfSpeech()
