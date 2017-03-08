@@ -1,6 +1,8 @@
 package com.example.android.Bella;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +34,17 @@ import java.util.List;
 public class NewsFragment extends Fragment {
     public NewsFragment() {
     }
+    private ProgressDialog pd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        pd = new ProgressDialog(getActivity(),R.style.AppCompatAlertDialogStyle);
+        pd.setMessage("Loading");
         NewsTask newsTask = new NewsTask();
         newsTask.execute();
+
     }
 
 
@@ -47,13 +54,16 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.newsfragment, container, false);
+
         String newsArray[] = {};
         List<String> news = new ArrayList(Arrays.asList(newsArray));
+
         mNewsAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 R.layout.list_item_news,
                 R.id.list_item_news_textview,
                news);
+
         ListView listview = (ListView) rootView.findViewById(R.id.listview_news);
         listview.setAdapter(mNewsAdapter);
         return rootView;
@@ -95,6 +105,7 @@ public class NewsFragment extends Fragment {
             String newsJsonStr = null;
 
             try {
+
 
                 // Credits to https://newsapi.org
                 URL url = new URL("https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a");
@@ -156,6 +167,13 @@ public class NewsFragment extends Fragment {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.show();
+
+        }
+
+        @Override
         protected void onPostExecute(String[] result) {
             if (result!=null){
                 mNewsAdapter.clear();
@@ -164,6 +182,8 @@ public class NewsFragment extends Fragment {
                 }
 
             }
+            pd.hide();
+
         }
     }
 }
