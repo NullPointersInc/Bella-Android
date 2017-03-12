@@ -23,13 +23,20 @@
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
 
+    import java.io.File;
+    import java.io.FileInputStream;
+    import java.io.FileOutputStream;
     import java.io.IOException;
     import java.io.InputStream;
+    import java.io.ObjectInputStream;
+    import java.io.ObjectOutputStream;
     import java.util.ArrayList;
+    import java.util.HashMap;
     import java.util.Locale;
     import android.media.MediaPlayer;
     import java.text.DateFormat;
     import java.util.Date;
+    import java.util.Random;
     import java.util.UUID;
 
     import android.speech.RecognizerIntent;
@@ -81,12 +88,15 @@
         private com.tuyenmonkey.mkloader.MKLoader loader;
         public static boolean hardware = false;
         String address = null;
+        String song = null;
 
         BluetoothAdapter myBluetooth = null;
         BluetoothSocket btSocket = null;
         private boolean isBtConnected = false;
         //SPP UUID. Look for it
         static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+        HashMap<String,String> context = new HashMap<>();
+        File file = new File("song.txt");
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -232,6 +242,11 @@
                 status.setEnabled(false);
                 new ConnectBT().execute();
             }
+            context.put("Disclosure","null");
+            context.put("Major Lazor","null");
+            context.put("Chainsmokers","null");
+            context.put("2SYL","null");
+            context.put("Charlie Puth","null");
 
             btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -283,27 +298,20 @@
         @Override
         public void onBeginningOfSpeech()
         {
+            btnSpeak.setImageResource(R.drawable.ic_listen);
         }
 
         @Override
         public void onBufferReceived(byte[] arg0)
         {
-
+            btnSpeak.setImageResource(R.drawable.ic_listen);
         }
 
         @Override
         public void onEndOfSpeech()
         {
-
             progressBar.setVisibility(View.INVISIBLE);
             loader.setVisibility(View.INVISIBLE);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btnSpeak.setImageResource(R.drawable.ic_action_voice);
-                }
-            }, 500);
         }
 
         public void init(){
@@ -387,6 +395,13 @@
         public void onResults(Bundle data)
         {
             btnSpeak.setImageResource(R.drawable.ic_action_done);
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    btnSpeak.setImageResource(R.drawable.ic_action_voice);
+                }
+            }, 1000);
             ArrayList<String> text = data.getStringArrayList(
                     SpeechRecognizer.RESULTS_RECOGNITION);
             progressBar.setVisibility(View.INVISIBLE);
@@ -547,33 +562,146 @@
                 }
 
 
-            } else if (txt.contains("play")) {
+            } else if (txt.contains("play") || txt.contains("song")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
                 }
                 else {
-                    if(txt.contains("help me lose my mind")) {
+                    /* try {
+                        FileOutputStream f = new FileOutputStream(file);
+                        ObjectOutputStream s = new ObjectOutputStream(f);
+                        s.writeObject(context);
+                        s.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    File file = new File("song.txt");
+                    try {
+                        FileInputStream f = new FileInputStream(file);
+                        ObjectInputStream s = new ObjectInputStream(f);
+                        HashMap<String, Object> fileObj2 = (HashMap<String, Object>) s.readObject();
+                        s.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+
+                    if((txt.contains("is this") || txt.contains("is it")) && txt.contains("good")) {
+                        if(context.get(song)=="null") {
+                            tts.speak("I don't know if it is a good song", TextToSpeech.QUEUE_FLUSH, null);
+                        } else if(context.get(song)=="false") {
+                            tts.speak("I don't think it is a good song", TextToSpeech.QUEUE_FLUSH, null);
+                        } else if (context.get(song)=="true") {
+                            tts.speak("I like this song", TextToSpeech.QUEUE_FLUSH, null);
+                        } else {
+                            tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    } else if(txt.contains("this is") || txt.contains("it is")) {
+                        if(txt.contains("good")) {
+                            context.put(song,"true");
+                            tts.speak("I did feel the same!", TextToSpeech.QUEUE_FLUSH, null);
+                        } else if(txt.contains("bad")) {
+                            context.put(song,"false");
+                            tts.speak("Alright, noted!", TextToSpeech.QUEUE_FLUSH, null);
+                        } else {
+                            tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    } else if (txt.contains("good song")) {
+                        if(txt.contains("major") || txt.contains("Major")) {
+                            if(context.get("Major Lazor")=="true") {
+                                tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
+                                String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
+                                play(path);
+                            } else {
+                                tts.speak("There are no good songs by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+
+                        } else if(txt.contains("disclosure")) {
+                            if(context.get("Disclosure")=="true") {
+                                tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
+                                String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
+                                play(path);
+                            } else {
+                                tts.speak("There are no good songs by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        } else if(txt.contains("chainsmokers")) {
+                            if(context.get("Chainsmokers")=="true") {
+                                song = "Chainsmokers";
+                                tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
+                                String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
+                                play(path);
+                            } else {
+                            tts.speak("There are no good songs by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        } else if(txt.contains("2SYL") || txt.contains("to s y l")) {
+                            if(context.get("2SYL")=="true") {
+                                song="2SYL";
+                                tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
+                                String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
+                                play(path);
+                            } else {
+                                tts.speak("There are no good songs by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        } else if(txt.contains("Charlie Puth") || txt.contains("charlie puth")) {
+                            if(context.get("Charlie Puth")=="true") {
+                                song="Charlie Puth";
+                                tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
+                                String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
+                                play(path);
+                            } else {
+                                tts.speak("There are no good songs by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        }
+
+                    } else if(txt.contains("help me lose my mind")) {
+                        song = "Disclosure";
                         tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("lean on")) {
+                        song = "Major Lazor";
                         tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("closer")) {
+                        song = "Chainsmokers";
                         tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("on going things") || txt.contains("ongoing things")) {
+                        song="2SYL";
                         tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
                         play(path);
                     } else if(txt.contains("we don't talk anymore")) {
+                        song="Charlie Puth";
                         tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
                         play(path);
-                    } else if(txt.contentEquals("play")){
-                        tts.speak("You have not specified any song!", TextToSpeech.QUEUE_FLUSH, null);
+                    } else if(txt.contains("play")){
+                        String[] songs = { "Disclosure", "Major Lazor", "Chainsmokers", "2SYL","Charlie Puth"};
+                        song = songs[(int) (Math.random() * songs.length)];
+                        if(song.equals("Disclosure")) {
+                            tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
+                            String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
+                            play(path);
+                        } else if(song.equals("Major Lazor")) {
+                            tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
+                            String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
+                            play(path);
+                        } else if(song.equals("Chainsmokers")) {
+                            tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
+                            String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
+                            play(path);
+                        } else if(song.equals("2SYL")) {
+                            tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
+                            String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
+                            play(path);
+                        } else if(song.equals("Charlie Puth")) {
+                            tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
+                            String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
+                            play(path);
+                        }
                     } else {
                         tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
                     }
@@ -586,7 +714,17 @@
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            }  else {
+            }  else if (txt.contains("exit") && txt.contains("app")){
+                tts.speak("Have a good day", TextToSpeech.QUEUE_FLUSH, null);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                        System.exit(0);
+                    }
+                }, 1000000);
+            } else {
                 if (txt.contains("news")) {
                     if (isNetworkAvailable() == 0) {
 
@@ -604,8 +742,7 @@
                 } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella")))) {
                     tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
-                    tts.speak("You have said something that I did not understand, Sorry, I will try to learn more as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
-                    stop();
+                    tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         }
