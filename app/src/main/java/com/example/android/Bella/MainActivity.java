@@ -310,6 +310,7 @@
         @Override
         public void onEndOfSpeech()
         {
+            btnSpeak.setImageResource(R.drawable.ic_action_voice);
             progressBar.setVisibility(View.INVISIBLE);
             loader.setVisibility(View.INVISIBLE);
         }
@@ -325,6 +326,7 @@
         @Override
         public void onError(int e)
         {
+            Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -335,7 +337,7 @@
         @Override
         public void onPartialResults(Bundle arg0)
         {
-
+            Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
