@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
+        android:textColor="#CFD8DC"
         android:paddingTop="50dp"
         android:gravity="center|top"
         android:hint="How may I help you?"

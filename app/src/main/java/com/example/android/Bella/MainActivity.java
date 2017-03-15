@@ -37,6 +37,8 @@
     import java.text.DateFormat;
     import java.util.Date;
     import java.util.Random;
+    import java.util.Timer;
+    import java.util.TimerTask;
     import java.util.UUID;
 
     import android.speech.RecognizerIntent;
@@ -89,6 +91,11 @@
         public static boolean hardware = false;
         String address = null;
         String song = null;
+        String query = null;
+        boolean queryStatus = false;
+
+        private Timer timer;
+        private TimerTask timerTask;
 
         BluetoothAdapter myBluetooth = null;
         BluetoothSocket btSocket = null;
@@ -150,6 +157,7 @@
                         public void onSequenceFinish() {
                             editor.putBoolean("finished",true);
                             editor.commit();
+
                             Alerter.create(MainActivity.this)
                                     .setText("Yay! your personal assistant is ready for you.")
                                     .setIcon(R.drawable.ic_face)
@@ -249,10 +257,31 @@
             context.put("2SYL","null");
             context.put("Charlie Puth","null");
 
+
+            final String[] queries = { "How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
+                    "What date is it today?","What time is it now?","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer"};
+            txtText.setText("You can ask me the following!");
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            if(!queryStatus) {
+                                query = queries[(int) (Math.random() * queries.length)];
+                                txtText.setText(query);
+                            }
+                        }
+                    });
+                }
+            };
+            timer.schedule(timerTask, 4000, 3000);
+
             btnSpeak.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
+                    queryStatus=true;
                     txtText.setVisibility(View.INVISIBLE);
                     myVib.vibrate(50);
                     btnSpeak.setImageResource(R.drawable.ic_listen);
@@ -725,7 +754,7 @@
                 }
             } else if (txt.contains("bored")) {
                 tts.speak("Go, get a life!", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (txt.contains("you") || txt.contains("born")) {
+            } else if (txt.contains("you") || txt.contains("born") || txt.contains("birthday")) {
                 tts.speak("I came to life on 5th of February 2017. I had a great day!", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
