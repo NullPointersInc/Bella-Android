@@ -100,6 +100,7 @@
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
+
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
@@ -273,6 +274,19 @@
             });
 
         }
+
+        @Override
+        protected void onDestroy() {
+            if(tts != null) {
+
+                tts.stop();
+                tts.shutdown();
+
+            }
+            super.onDestroy();
+
+        }
+
         @Override
         public void onBackPressed() {
             if (doubleBackToExitPressedOnce) {
