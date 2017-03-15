@@ -281,6 +281,7 @@
 
                 tts.stop();
                 tts.shutdown();
+                speech.destroy();
 
             }
             super.onDestroy();
