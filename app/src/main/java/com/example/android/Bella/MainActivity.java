@@ -8,7 +8,6 @@
     import android.content.DialogInterface;
     import android.content.SharedPreferences;
     import android.content.pm.PackageManager;
-    import android.graphics.Rect;
     import android.graphics.Typeface;
     import android.graphics.drawable.Drawable;
     import android.net.ConnectivityManager;
@@ -36,7 +35,6 @@
     import android.media.MediaPlayer;
     import java.text.DateFormat;
     import java.util.Date;
-    import java.util.Random;
     import java.util.Timer;
     import java.util.TimerTask;
     import java.util.UUID;
@@ -64,6 +62,8 @@
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
+    import com.github.nisrulz.sensey.Sensey;
+    import com.github.nisrulz.sensey.ShakeDetector;
     import com.tapadoo.alerter.Alerter;
 
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
@@ -93,6 +93,7 @@
         String song = null;
         String query = null;
         boolean queryStatus = false;
+        boolean shakeStatus = false;
 
         private Timer timer;
         private TimerTask timerTask;
@@ -102,7 +103,7 @@
         private boolean isBtConnected = false;
         //SPP UUID. Look for it
         static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-        HashMap<String,String> context = new HashMap<>();
+        HashMap<String,String> contexts = new HashMap<>();
         File file = new File("song.txt");
 
         @Override
@@ -110,6 +111,8 @@
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
+            Sensey.getInstance().init(this);
 
             SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = sharedPref.edit();
@@ -251,37 +254,57 @@
                 status.setEnabled(false);
                 new ConnectBT().execute();
             }
-            context.put("Disclosure","null");
-            context.put("Major Lazor","null");
-            context.put("Chainsmokers","null");
-            context.put("2SYL","null");
-            context.put("Charlie Puth","null");
+            contexts.put("Disclosure","null");
+            contexts.put("Major Lazor","null");
+            contexts.put("Chainsmokers","null");
+            contexts.put("2SYL","null");
+            contexts.put("Charlie Puth","null");
 
+            txtText.setHint("Shake to get suggestions!");
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    txtText.setText("How may I help you?");
+                }
+            }, 3000);
 
             final String[] queries = { "How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
                     "What date is it today?","What time is it now?","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer"};
-            txtText.setText("You can ask me the following!");
-            timer = new Timer();
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            if(!queryStatus) {
-                                query = queries[(int) (Math.random() * queries.length)];
-                                txtText.setText(query);
+            final ShakeDetector.ShakeListener shakeListener=new ShakeDetector.ShakeListener() {
+                @Override public void onShakeDetected() {
+                    shakeStatus = true;
+                }
+
+                @Override public void onShakeStopped() {
+                        txtText.setText(null);
+                        txtText.setHint("You can ask me the following!");
+                        timer = new Timer();
+                        timerTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                MainActivity.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        if (!queryStatus) {
+                                            query = queries[(int) (Math.random() * queries.length)];
+                                            txtText.setHint(query);
+                                        }
+                                    }
+                                });
                             }
-                        }
-                    });
+                        };
+                        timer.schedule(timerTask, 2000, 3000);
                 }
             };
-            timer.schedule(timerTask, 4000, 3000);
+
+            Sensey.getInstance().startShakeDetection(10, 2000, shakeListener);
 
             btnSpeak.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     queryStatus=true;
+                    Sensey.getInstance().stopShakeDetection(shakeListener);
                     txtText.setVisibility(View.INVISIBLE);
                     myVib.vibrate(50);
                     btnSpeak.setImageResource(R.drawable.ic_listen);
@@ -314,6 +337,9 @@
 
             }
             super.onDestroy();
+            Sensey.getInstance().stop();
+            timer.cancel();
+            timer.purge();
 
         }
 
@@ -364,7 +390,7 @@
             loader.setVisibility(View.INVISIBLE);
             btnSpeak.setImageResource(R.drawable.ic_action_voice);
             txtText.setText(null);
-            txtText.setHint("How may I help you?");
+            txtText.setHint("How may I help You?");
         }
 
         @Override
@@ -633,28 +659,28 @@
                     }*/
 
                     if((txt.contains("is this") || txt.contains("is it")) && txt.contains("good")) {
-                        if(context.get(song)=="null") {
+                        if(contexts.get(song)=="null") {
                             tts.speak("I don't know if it is a good song", TextToSpeech.QUEUE_FLUSH, null);
-                        } else if(context.get(song)=="false") {
+                        } else if(contexts.get(song)=="false") {
                             tts.speak("I don't think it is a good song", TextToSpeech.QUEUE_FLUSH, null);
-                        } else if (context.get(song)=="true") {
+                        } else if (contexts.get(song)=="true") {
                             tts.speak("I like this song", TextToSpeech.QUEUE_FLUSH, null);
                         } else {
                             tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
                         }
                     } else if(txt.contains("this is") || txt.contains("it is")) {
                         if(txt.contains("good")) {
-                            context.put(song,"true");
+                            contexts.put(song,"true");
                             tts.speak("I did feel the same!", TextToSpeech.QUEUE_FLUSH, null);
                         } else if(txt.contains("bad")) {
-                            context.put(song,"false");
+                            contexts.put(song,"false");
                             tts.speak("Alright, noted!", TextToSpeech.QUEUE_FLUSH, null);
                         } else {
                             tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
                         }
                     } else if (txt.contains("good song")) {
                         if(txt.contains("major") || txt.contains("Major")) {
-                            if(context.get("Major Lazor")=="true") {
+                            if(contexts.get("Major Lazor")=="true") {
                                 tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
                                 String path = "https://www.dropbox.com/s/cquqiauh204ml7x/LeanOn.mp3?dl=1";
                                 play(path);
@@ -663,7 +689,7 @@
                             }
 
                         } else if(txt.contains("disclosure")) {
-                            if(context.get("Disclosure")=="true") {
+                            if(contexts.get("Disclosure")=="true") {
                                 tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
                                 String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                                 play(path);
@@ -671,7 +697,7 @@
                                 tts.speak("There are no good songs by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
                             }
                         } else if(txt.contains("chainsmokers")) {
-                            if(context.get("Chainsmokers")=="true") {
+                            if(contexts.get("Chainsmokers")=="true") {
                                 song = "Chainsmokers";
                                 tts.speak("Playing Closer by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
                                 String path = "https://www.dropbox.com/s/x428bu4lv3wd1qj/Closer.mp3?dl=1";
@@ -680,7 +706,7 @@
                             tts.speak("There are no good songs by Chainsmokers", TextToSpeech.QUEUE_FLUSH, null);
                             }
                         } else if(txt.contains("2SYL") || txt.contains("to s y l")) {
-                            if(context.get("2SYL")=="true") {
+                            if(contexts.get("2SYL")=="true") {
                                 song="2SYL";
                                 tts.speak("Playing Ongoing things by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
                                 String path = "https://www.dropbox.com/s/r7hmbxxlw13nlsf/OngoingThings.mp3?dl=1";
@@ -689,7 +715,7 @@
                                 tts.speak("There are no good songs by 2SYL", TextToSpeech.QUEUE_FLUSH, null);
                             }
                         } else if(txt.contains("Charlie Puth") || txt.contains("charlie puth")) {
-                            if(context.get("Charlie Puth")=="true") {
+                            if(contexts.get("Charlie Puth")=="true") {
                                 song="Charlie Puth";
                                 tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
                                 String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";

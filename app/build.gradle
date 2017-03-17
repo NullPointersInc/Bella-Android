@@ -36,4 +36,5 @@ dependencies {
     compile 'com.tuyenmonkey:mkloader:1.0.0'
     compile 'com.tapadoo.android:alerter:1.0.1'
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.8.0'
+    compile 'com.github.nisrulz:sensey:1.7.0'
 }
