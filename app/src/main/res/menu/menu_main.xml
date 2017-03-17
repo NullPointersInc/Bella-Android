@@ -12,4 +12,9 @@
         android:orderInCategory="100"
         android:title="@string/setting_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/help_settings"
+        android:orderInCategory="100"
+        android:title="@string/help_settings"
+        app:showAsAction="never" />
 </menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="251px"
+    android:gravity="center_vertical"
+    android:id="@+id/list_item_suggestion_textview"
+    android:textStyle="bold"
+    android:textSize="20dp"
+    android:textColor="#CFD8DC">
+</TextView>

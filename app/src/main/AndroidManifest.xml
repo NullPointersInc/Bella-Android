@@ -31,6 +31,7 @@
         <activity android:name=".AboutActivity" android:screenOrientation="portrait" />
         <activity android:name=".DeviceList" android:screenOrientation="portrait" />
         <activity android:name=".SettingActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SuggestionActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

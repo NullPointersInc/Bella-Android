@@ -862,6 +862,10 @@
                     Intent intent = new Intent(MainActivity.this,SettingActivity.class);
                     startActivity(intent);
                     return true;
+                } else if (id == R.id.help_settings) {
+                    Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
+                    startActivity(intent);
+                    return true;
                 }
                 return true;
             }
