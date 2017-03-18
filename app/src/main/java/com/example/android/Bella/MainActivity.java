@@ -271,6 +271,11 @@
 
             final String[] queries = { "How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
                     "What date is it today?","What time is it now?","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer"};
+            final boolean[] isSelected = new boolean[queries.length];
+            for (int i = 0; i< isSelected.length;i++)
+            {
+                isSelected[i] = false;
+            }
             final ShakeDetector.ShakeListener shakeListener=new ShakeDetector.ShakeListener() {
                 @Override public void onShakeDetected() {
                     shakeStatus = true;
@@ -286,8 +291,13 @@
                                 MainActivity.this.runOnUiThread(new Runnable() {
                                     public void run() {
                                         if (!queryStatus) {
-                                            query = queries[(int) (Math.random() * queries.length)];
-                                            txtText.setHint(query);
+                                            int pos = (int) Math.random()*queries.length;
+                                            if (!(isSelected[pos]))
+                                            {
+                                                query = queries[pos];
+                                                isSelected[pos] = true;
+                                                txtText.setHint(query);
+                                            }
                                         }
                                     }
                                 });
