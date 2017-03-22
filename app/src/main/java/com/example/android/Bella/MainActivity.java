@@ -1,6 +1,7 @@
     package com.example.android.Bella;
 
     import android.Manifest;
+    import android.animation.Animator;
     import android.bluetooth.BluetoothAdapter;
     import android.bluetooth.BluetoothDevice;
     import android.bluetooth.BluetoothSocket;
@@ -12,6 +13,7 @@
     import android.graphics.drawable.Drawable;
     import android.net.ConnectivityManager;
     import android.os.AsyncTask;
+    import android.os.Build;
     import android.os.Handler;
     import android.os.Vibrator;
     import android.speech.RecognitionListener;
@@ -52,6 +54,7 @@
     import android.view.MenuInflater;
     import android.view.MenuItem;
     import android.view.View;
+    import android.view.ViewAnimationUtils;
     import android.widget.Button;
     import android.widget.ImageButton;
     import android.widget.ProgressBar;
@@ -246,6 +249,10 @@
             speech = SpeechRecognizer.createSpeechRecognizer(this);
             speech.setRecognitionListener(this);
             myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+            btnSpeak.setVisibility(View.INVISIBLE);
+            status.setVisibility(View.INVISIBLE);
+            txtText.setVisibility(View.INVISIBLE);
+
             status.setEnabled(false);
             if(hardware) {
                 //receive the address of the bluetooth device
@@ -254,6 +261,28 @@
                 status.setEnabled(false);
                 new ConnectBT().execute();
             }
+
+            btnSpeak.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(btnSpeak);
+                }
+            },900);
+
+            status.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(status);
+                }
+            },300);
+
+            status.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(txtText);
+                }
+            },600);
+
             contexts.put("Disclosure","null");
             contexts.put("Major Lazor","null");
             contexts.put("Chainsmokers","null");
@@ -328,7 +357,7 @@
                         txtText.setText("");
                     } catch (ActivityNotFoundException a) {
                         Alerter.create(MainActivity.this)
-                                .setText("Opps! Your device doesn't support Speech to Text")
+                                .setText("Oops! Your device doesn't support Speech to Text")
                                 .setBackgroundColor(R.color.alert)
                                 .show();
                     }
@@ -425,6 +454,30 @@
         {
 
         }
+
+        void revealEffect(View v) {
+            if(Build.VERSION.SDK_INT > 20) {
+                int cx = v.getMeasuredWidth()/2;
+                int cy = v.getMeasuredHeight()/2;
+                int finalRadius = Math.max(v.getWidth(),v.getHeight());
+                Animator a = ViewAnimationUtils.createCircularReveal(v,cx,cy,0,finalRadius);
+                a.setDuration(1000);
+                v.setVisibility(View.VISIBLE);
+                a.start();
+            }
+        }
+
+  /*      void revealEffectStatus() {
+            if(Build.VERSION.SDK_INT > 20) {
+                int cx = status.getMeasuredWidth()/2;
+                int cy = status.getMeasuredHeight()/2;
+                int finalRadius = Math.max(status.getWidth(),status.getHeight());
+                Animator a = ViewAnimationUtils.createCircularReveal(status,cx,cy,0,finalRadius);
+                a.setDuration(1000);
+                status.setVisibility(View.VISIBLE);
+                a.start();
+            }
+        } */
 
         @Override
         public void onInit(int status) {
