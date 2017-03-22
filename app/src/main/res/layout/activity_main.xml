@@ -10,22 +10,6 @@
     android:background="#364A5E"
     android:weightSum="1">
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnSpeak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        app:backgroundTint="#FF4081"
-        app:fabSize="normal"
-        android:src="@drawable/ic_action_voice"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp"
-        android:contentDescription="@string/speak" />
-
     <ToggleButton
         android:text="ToggleButton"
         android:layout_width="wrap_content"
@@ -38,25 +22,6 @@
         android:layout_marginBottom="75dp"
         android:textOn="Status: ON"
         android:textOff="Status: OFF"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
-        android:id="@+id/textView10" />
-
-    <ProgressBar
-        style="@android:style/Widget.Material.Light.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/progressBar1"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="true"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="#364A5E"/>
 
     <TextView
         android:text="Home"
@@ -102,6 +67,41 @@
         app:mk_type="FivePulse"
         app:mk_color="@color/colorAccent"
         android:layout_alignBottom="@+id/txtText"
-        android:layout_alignEnd="@+id/btnSpeak" />
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            app:backgroundTint="#FF4081"
+            app:fabSize="normal"
+            android:src="@drawable/ic_action_voice"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="34dp"
+            android:contentDescription="@string/speak" />
+
+        <ProgressBar
+            style="@android:style/Widget.Material.Light.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/progressBar1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="#364A5E"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
