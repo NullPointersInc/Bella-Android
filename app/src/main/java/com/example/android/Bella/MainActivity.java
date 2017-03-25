@@ -2,6 +2,7 @@
 
     import android.Manifest;
     import android.animation.Animator;
+    import android.annotation.TargetApi;
     import android.bluetooth.BluetoothAdapter;
     import android.bluetooth.BluetoothDevice;
     import android.bluetooth.BluetoothSocket;
@@ -19,6 +20,7 @@
     import android.speech.RecognitionListener;
     import android.speech.SpeechRecognizer;
     import android.support.v4.app.ActivityCompat;
+    import android.support.v4.app.ActivityOptionsCompat;
     import android.support.v4.content.ContextCompat;
     import android.support.v7.app.AlertDialog;
     import android.support.v7.app.AppCompatActivity;
@@ -49,6 +51,8 @@
     import android.text.SpannableString;
     import android.text.style.StyleSpan;
     import android.text.style.UnderlineSpan;
+    import android.transition.Transition;
+    import android.transition.TransitionInflater;
     import android.util.Log;
     import android.view.Display;
     import android.view.MenuInflater;
@@ -80,6 +84,7 @@
         private Button b1;
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
+        TransitionInflater tf;
 
         //bluetooth recieve initializer
         InputStream mmInputStream;
@@ -116,6 +121,10 @@
             setContentView(R.layout.activity_main);
 
             Sensey.getInstance().init(this);
+
+            tf = TransitionInflater.from(this);
+            Transition t = tf.inflateTransition(R.transition.transactivity);
+            getWindow().setExitTransition(t);
 
             SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = sharedPref.edit();
@@ -548,8 +557,9 @@
             if(txt.isEmpty()) {
                 Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
             } else if (txt.contains("connect")) {
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
-                startActivity(i);
+                startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!checkBT()) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
@@ -611,8 +621,9 @@
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                         Intent i = new Intent (MainActivity.this,AboutActivity.class);
-                        startActivity(i);
+                        startActivity(i,compat.toBundle());
                     }
                 }, 2500);
             } else if (txt.contains("feeling")) {
@@ -623,9 +634,10 @@
                     init();
                 }
                 else {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
                     Intent im = new Intent(MainActivity.this, WeatherActivity.class);
-                    startActivity(im);
+                    startActivity(im,compat.toBundle());
                     String s = getIntent().getStringExtra("EXTRA");
                     if(s==null) {
                         tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
@@ -866,9 +878,10 @@
                         tts.speak("Internet Connection not available. Please Connect to Internet", TextToSpeech.QUEUE_FLUSH, null);
                         init();
                     } else {
+                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                         tts.speak("News for Today", TextToSpeech.QUEUE_FLUSH, null);
                         Intent i = new Intent(MainActivity.this, NewsActivity.class);
-                        startActivity(i);
+                        startActivity(i,compat.toBundle());
                         stop();
                     }
                 } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
@@ -918,16 +931,19 @@
                 public boolean onMenuItemClick(MenuItem item){
                     int id = item.getItemId();
                 if (id == R.id.action_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,AboutActivity.class);
-                    startActivity(intent);
+                    startActivity(intent,compat.toBundle());
                     return true;
                 } else if (id == R.id.setting_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-                    startActivity(intent);
+                    startActivity(intent,compat.toBundle());
                     return true;
                 } else if (id == R.id.help_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
-                    startActivity(intent);
+                    startActivity(intent,compat.toBundle());
                     return true;
                 }
                 return true;

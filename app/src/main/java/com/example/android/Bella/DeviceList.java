@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,10 @@ public class DeviceList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Fade s = new Fade();
+        s.setDuration(1000);
+        getWindow().setEnterTransition(s);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
         MainActivity.hardware = true;

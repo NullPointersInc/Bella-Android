@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,6 +19,10 @@ public class AboutActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Fade s = new Fade();
+        s.setDuration(1000);
+        getWindow().setEnterTransition(s);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity);
 
