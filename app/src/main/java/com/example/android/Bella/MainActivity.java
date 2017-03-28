@@ -119,8 +119,7 @@
 
         //Notification
         NotificationCompat.Builder mBuilder;
-        public boolean notifB1 = false;
-        public boolean notifB2 = false;
+        CountDownTimer c1;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -501,7 +500,7 @@
                 a.start();
             }
         } */
-
+        
         @Override
         public void onInit(int status) {
             if(status == TextToSpeech.SUCCESS) {
@@ -1247,8 +1246,7 @@
 
         private void statuscheck(String s) {
             if (s.contains("T1")) {
-                notifB1 = true;
-                new CountDownTimer(10000,1000) {
+                 c1 = new CountDownTimer(20000,1000) {
                     public void onTick(long millisUntilFinished) {
                     }
                     public void onFinish() {
@@ -1258,7 +1256,6 @@
                 status.setChecked(true);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T2")) {
-                notifB2 = true;
                 new CountDownTimer(10000,1000) {
                     public void onTick(long millisUntilFinished) {
                     }
@@ -1272,11 +1269,10 @@
                 status.setChecked(true);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
-                notifB1 = false;
+                c1.cancel();
                 status.setChecked(true);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
-                notifB2 = false;
                 status.setChecked(true);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T6")) {
@@ -1328,19 +1324,15 @@
 
         private void notif(int b) {
             if(b==1) {
-                if (notifB1) {
                     int notifID = 001;
                     NotificationManager mNotifyMgr =
                             (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     mNotifyMgr.notify(notifID, mBuilder.build());
-                }
             } else if(b==2) {
-                if (notifB2) {
                     int notifID = 002;
                     NotificationManager mNotifyMgr =
                             (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     mNotifyMgr.notify(notifID, mBuilder.build());
-                }
             }
         }
     }
