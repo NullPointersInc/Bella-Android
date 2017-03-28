@@ -2,7 +2,6 @@
 
     import android.Manifest;
     import android.animation.Animator;
-    import android.annotation.TargetApi;
     import android.app.NotificationManager;
     import android.bluetooth.BluetoothAdapter;
     import android.bluetooth.BluetoothDevice;
@@ -30,12 +29,8 @@
     import android.os.Bundle;
 
     import java.io.File;
-    import java.io.FileInputStream;
-    import java.io.FileOutputStream;
     import java.io.IOException;
     import java.io.InputStream;
-    import java.io.ObjectInputStream;
-    import java.io.ObjectOutputStream;
     import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.Locale;
@@ -68,7 +63,6 @@
     import android.widget.ProgressBar;
     import android.widget.TextView;
     import android.widget.Toast;
-    import android.widget.ToggleButton;
 
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -77,6 +71,10 @@
     import com.github.nisrulz.sensey.ShakeDetector;
     import com.tapadoo.alerter.Alerter;
 
+    import org.jetbrains.annotations.NotNull;
+
+    import io.ghyeok.stickyswitch.widget.StickySwitch;
+
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
         protected static final int RESULT_SPEECH = 1;
@@ -84,7 +82,7 @@
         public ImageButton btnSpeak;
         private TextView txtText;
         public TextView headText;
-        public ToggleButton status;
+        public StickySwitch status;
         private Button b1;
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
@@ -139,6 +137,62 @@
             s.setDuration(1000);
             getWindow().setReturnTransition(s);
 
+            txtText = (TextView) findViewById(R.id.txtText);
+            headText = (TextView) findViewById(R.id.textView2);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+            btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+            status = (StickySwitch) findViewById(R.id.toggleButton);
+            loader = (com.tuyenmonkey.mkloader.MKLoader) findViewById(R.id.listen);
+            //Initially progressbar is invisible
+            progressBar.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.INVISIBLE);
+            tts = new TextToSpeech(this, this);
+            speech = SpeechRecognizer.createSpeechRecognizer(this);
+            speech.setRecognitionListener(this);
+            myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+            btnSpeak.setVisibility(View.INVISIBLE);
+            status.setVisibility(View.INVISIBLE);
+            txtText.setVisibility(View.INVISIBLE);
+
+            status.setClickable(false);
+            status.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
+                @Override
+                public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
+                    direction = status.getDirection();
+                    status.setDirection(direction);
+                }
+            });
+
+            updateStatus = "FFF";
+            if(hardware) {
+                //receive the address of the bluetooth device
+                Intent newint = getIntent();
+                address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
+                status.setEnabled(false);
+                new ConnectBT().execute();
+            }
+
+            btnSpeak.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(btnSpeak);
+                }
+            },900);
+
+            status.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(status);
+                }
+            },300);
+
+            status.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    revealEffect(txtText);
+                }
+            },600);
+
             SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = sharedPref.edit();
             // We load a drawable and create a location to show a tap target here
@@ -151,7 +205,7 @@
             sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "sometimes".length(), sassyDesc.length(), 0);
 
             mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.ic_notif_bulb)
+                    .setSmallIcon(R.drawable.ic_action_off)
                     .setContentTitle("The bulb seems to be switched ON for too long!")
                     .setContentText("Tap to switch off the bulb");
 
@@ -263,54 +317,6 @@
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{
                         Manifest.permission.RECORD_AUDIO}, 1);
             }
-            txtText = (TextView) findViewById(R.id.txtText);
-            headText = (TextView) findViewById(R.id.textView2);
-            progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-            btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-            status = (ToggleButton) findViewById(R.id.toggleButton);
-            loader = (com.tuyenmonkey.mkloader.MKLoader) findViewById(R.id.listen);
-            //Initially progressbar is invisible
-            progressBar.setVisibility(View.INVISIBLE);
-            loader.setVisibility(View.INVISIBLE);
-            tts = new TextToSpeech(this, this);
-            speech = SpeechRecognizer.createSpeechRecognizer(this);
-            speech.setRecognitionListener(this);
-            myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-            btnSpeak.setVisibility(View.INVISIBLE);
-            status.setVisibility(View.INVISIBLE);
-            txtText.setVisibility(View.INVISIBLE);
-
-            status.setEnabled(false);
-
-            updateStatus = "FFF";
-            if(hardware) {
-                //receive the address of the bluetooth device
-                Intent newint = getIntent();
-                address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
-                status.setEnabled(false);
-                new ConnectBT().execute();
-            }
-
-            btnSpeak.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    revealEffect(btnSpeak);
-                }
-            },900);
-
-            status.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    revealEffect(status);
-                }
-            },300);
-
-            status.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    revealEffect(txtText);
-                }
-            },600);
 
             contexts.put("Disclosure","null");
             contexts.put("Major Lazor","null");
@@ -497,18 +503,6 @@
             }
         }
 
-  /*      void revealEffectStatus() {
-            if(Build.VERSION.SDK_INT > 20) {
-                int cx = status.getMeasuredWidth()/2;
-                int cy = status.getMeasuredHeight()/2;
-                int finalRadius = Math.max(status.getWidth(),status.getHeight());
-                Animator a = ViewAnimationUtils.createCircularReveal(status,cx,cy,0,finalRadius);
-                a.setDuration(1000);
-                status.setVisibility(View.VISIBLE);
-                a.start();
-            }
-        } */
-
         @Override
         public void onInit(int status) {
             if(status == TextToSpeech.SUCCESS) {
@@ -592,7 +586,7 @@
                     } else if (txt.contains(" off") && (txt.contains("light 1") || txt.contains("light one"))) {
                         //turn off lights
                         command(001);
-                        status.setChecked(false);
+                        status.setDirection(StickySwitch.Direction.LEFT);
                     } else if (txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two"))) {
                         //turn off lights
                         command(010);
@@ -1279,7 +1273,7 @@
                         notif(1);
                     }
                 }.start();
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T2")) {
                 new CountDownTimer(10000,1000) {
@@ -1289,61 +1283,61 @@
                         notif(2);
                     }
                 }.start();
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T3")) {
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
                 c1.cancel();
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T6")) {
-                status.setChecked(true);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned Off sprinklers forcefully", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F1")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F2")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F3")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Warning! the soil is too wet to be watered", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F4")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 1 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F5")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 2 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F6")) {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Please! allow me to water your plants", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 String c = s.substring(2,4);
                 String d = "Container 1 is low on surplus with just, "+c+" percent filled";
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C2")) {
                 String c = s.substring(2,4);
                 String d = "Container 2 is low on surplus with just, "+c+" percent filled";
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C3")) {
                 String c = s.substring(2,4);
                 String d = "Container 3 is low on surplus with just, "+c+" percent filled";
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("M1")) {
                 String c = s.substring(2,4);
                 String d = "The garden contains "+c+" percent moisture";
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else {
-                status.setChecked(false);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Received an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
                 //calling StatusActivity
 

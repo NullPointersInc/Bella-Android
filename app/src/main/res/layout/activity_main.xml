@@ -10,18 +10,23 @@
     android:background="#364A5E"
     android:weightSum="1">
 
-    <ToggleButton
-        android:text="ToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <io.ghyeok.stickyswitch.widget.StickySwitch
         android:id="@+id/toggleButton"
-        android:padding="20dp"
-        android:background="@drawable/btn_toggle"
-        android:layout_above="@+id/txtText"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        app:iconPadding="18dp"
+        app:iconSize="22dp"
+        app:leftIcon="@drawable/ic_action_off"
+        app:leftText="OFF"
+        app:rightIcon="@drawable/ic_action_on"
+        app:rightText="ON"
+        app:selectedTextSize="14sp"
+        app:textSize="12sp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="75dp"
-        android:textOn="Status: ON"
-        android:textOff="Status: OFF"/>
+        android:layout_above="@+id/txtText"
+        app:sliderBackgroundColor="@color/colorPrimaryDark"
+        />
 
     <TextView
         android:text="Home"

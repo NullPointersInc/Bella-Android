@@ -16,39 +16,56 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ToggleButton
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        app:iconPadding="18dp"
+        app:iconSize="22dp"
+        app:leftIcon="@drawable/ic_action_off"
+        app:leftText="OFF"
+        app:rightIcon="@drawable/ic_action_on"
+        app:rightText="ON"
+        app:selectedTextSize="14sp"
+        app:textSize="12sp"
         android:id="@+id/toggleButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
-        android:text="ToggleButton"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:padding="20dp"
-        android:background="@drawable/btn_toggle" />
+        android:layout_centerHorizontal="true" />
 
-    <ToggleButton
+    <io.ghyeok.stickyswitch.widget.StickySwitch
         android:id="@+id/toggleButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        app:iconPadding="18dp"
+        app:iconSize="22dp"
+        app:leftIcon="@drawable/ic_action_off"
+        app:leftText="OFF"
+        app:rightIcon="@drawable/ic_action_on"
+        app:rightText="ON"
+        app:selectedTextSize="14sp"
+        app:textSize="12sp"
         android:layout_marginTop="110dp"
-        android:text="ToggleButton"
         android:layout_below="@+id/toggleButton2"
         android:layout_alignStart="@+id/toggleButton2"
         android:padding="20dp"
-        android:background="@drawable/btn_toggle"
         android:layout_centerHorizontal="true"/>
 
-    <ToggleButton
+    <io.ghyeok.stickyswitch.widget.StickySwitch
         android:id="@+id/toggleButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        app:iconPadding="18dp"
+        app:iconSize="22dp"
+        app:leftIcon="@drawable/ic_action_soff"
+        app:leftText="OFF"
+        app:rightIcon="@drawable/ic_action_son"
+        app:rightText="ON"
+        app:selectedTextSize="14sp"
+        app:textSize="12sp"
         android:layout_marginTop="104dp"
-        android:text="ToggleButton"
         android:layout_below="@+id/toggleButton3"
         android:layout_centerHorizontal="true"
-        android:padding="20dp"
-        android:background="@drawable/btn_toggle"/>
+        android:padding="20dp" />
 
     <TextView
         android:id="@+id/textView10"
@@ -69,29 +86,29 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/toggleButton4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
         android:paddingBottom="20dp"
         android:text="Light 2"
         android:textAlignment="center"
         android:textColor="#CFD8DC"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="73dp"
+        android:layout_below="@+id/toggleButton2"
+        android:layout_alignStart="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/toggleButton4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
         android:paddingBottom="20dp"
         android:text="Sprinkler"
         android:textAlignment="center"
         android:textColor="#CFD8DC"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="65dp"
+        android:layout_below="@+id/toggleButton3"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
