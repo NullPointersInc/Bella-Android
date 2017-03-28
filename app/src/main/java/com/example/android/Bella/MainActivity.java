@@ -3,6 +3,7 @@
     import android.Manifest;
     import android.animation.Animator;
     import android.annotation.TargetApi;
+    import android.app.NotificationManager;
     import android.bluetooth.BluetoothAdapter;
     import android.bluetooth.BluetoothDevice;
     import android.bluetooth.BluetoothSocket;
@@ -15,12 +16,14 @@
     import android.net.ConnectivityManager;
     import android.os.AsyncTask;
     import android.os.Build;
+    import android.os.CountDownTimer;
     import android.os.Handler;
     import android.os.Vibrator;
     import android.speech.RecognitionListener;
     import android.speech.SpeechRecognizer;
     import android.support.v4.app.ActivityCompat;
     import android.support.v4.app.ActivityOptionsCompat;
+    import android.support.v4.app.NotificationCompat;
     import android.support.v4.content.ContextCompat;
     import android.support.v7.app.AlertDialog;
     import android.support.v7.app.AppCompatActivity;
@@ -86,7 +89,7 @@
         boolean doubleBackToExitPressedOnce;
         TransitionInflater tf;
 
-        //bluetooth recieve initializer
+        //bluetooth receive initializer
         InputStream mmInputStream;
         volatile boolean stopWorker;
         Thread workerThread;
@@ -114,6 +117,11 @@
         HashMap<String,String> contexts = new HashMap<>();
         File file = new File("song.txt");
 
+        //Notification
+        NotificationCompat.Builder mBuilder;
+        public boolean notifB1 = false;
+        public boolean notifB2 = false;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
 
@@ -135,7 +143,12 @@
             final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_face);
 
             final SpannableString sassyDesc = new SpannableString("This will tell you which activity you are currently in");
-            sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "somtimes".length(), sassyDesc.length(), 0);
+            sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "sometimes".length(), sassyDesc.length(), 0);
+
+            mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_notif_bulb)
+                    .setContentTitle("The bulb seems to be switched ON for too long!")
+                    .setContentText("Tap to switch off the bulb");
 
             // We have a sequence of targets, so lets build it!
             final TapTargetSequence sequence = new TapTargetSequence(this)
@@ -372,8 +385,8 @@
                     }
                 }
             });
-
         }
+
 
         @Override
         protected void onDestroy() {
@@ -386,9 +399,10 @@
             }
             super.onDestroy();
             Sensey.getInstance().stop();
-            timer.cancel();
-            timer.purge();
-
+            if(shakeStatus) {
+                timer.purge();
+            }
+            Disconnect();
         }
 
         @Override
@@ -805,6 +819,9 @@
                         tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                         play(path);
+                        int mNotificationId = 001;
+                        NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        nM.notify(mNotificationId, mBuilder.build());
                     } else if(txt.contains("lean on")) {
                         song = "Major Lazor";
                         tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
@@ -943,6 +960,11 @@
                 } else if (id == R.id.help_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
+                    startActivity(intent,compat.toBundle());
+                    return true;
+                } else if (id == R.id.connect_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
                 }
@@ -1225,18 +1247,36 @@
 
         private void statuscheck(String s) {
             if (s.contains("T1")) {
+                notifB1 = true;
+                new CountDownTimer(10000,1000) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    public void onFinish() {
+                        notif(1);
+                    }
+                }.start();
                 status.setChecked(true);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T2")) {
+                notifB2 = true;
+                new CountDownTimer(10000,1000) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    public void onFinish() {
+                        notif(2);
+                    }
+                }.start();
                 status.setChecked(true);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T3")) {
                 status.setChecked(true);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
+                notifB1 = false;
                 status.setChecked(true);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
+                notifB2 = false;
                 status.setChecked(true);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T6")) {
@@ -1282,7 +1322,25 @@
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else {
                 status.setChecked(false);
-                tts.speak("Recieved an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak("Received an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
+            }
+        }
+
+        private void notif(int b) {
+            if(b==1) {
+                if (notifB1) {
+                    int notifID = 001;
+                    NotificationManager mNotifyMgr =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    mNotifyMgr.notify(notifID, mBuilder.build());
+                }
+            } else if(b==2) {
+                if (notifB2) {
+                    int notifID = 002;
+                    NotificationManager mNotifyMgr =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    mNotifyMgr.notify(notifID, mBuilder.build());
+                }
             }
         }
     }
