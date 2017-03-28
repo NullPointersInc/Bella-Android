@@ -35,8 +35,7 @@ public class SettingActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this,MainActivity.class);
-                startActivity(intent);
+                SettingActivity.super.onBackPressed();
             }
         });
 
