@@ -54,6 +54,7 @@
     import android.text.SpannableString;
     import android.text.style.StyleSpan;
     import android.text.style.UnderlineSpan;
+    import android.transition.Fade;
     import android.transition.Transition;
     import android.transition.TransitionInflater;
     import android.util.Log;
@@ -95,6 +96,7 @@
         Thread workerThread;
         byte[] readBuffer;
         int readBufferPosition;
+        public String updateStatus;
 
         private SpeechRecognizer speech;
         public Vibrator myVib;
@@ -132,6 +134,10 @@
             tf = TransitionInflater.from(this);
             Transition t = tf.inflateTransition(R.transition.transactivity);
             getWindow().setExitTransition(t);
+
+            Fade s = new Fade();
+            s.setDuration(1000);
+            getWindow().setReturnTransition(s);
 
             SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = sharedPref.edit();
@@ -275,6 +281,8 @@
             txtText.setVisibility(View.INVISIBLE);
 
             status.setEnabled(false);
+
+            updateStatus = "FFF";
             if(hardware) {
                 //receive the address of the bluetooth device
                 Intent newint = getIntent();
@@ -500,7 +508,7 @@
                 a.start();
             }
         } */
-        
+
         @Override
         public void onInit(int status) {
             if(status == TextToSpeech.SUCCESS) {
@@ -625,6 +633,8 @@
                         tts.speak("Sorry, Incorrect information.", TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
+            }  else if (txt.contains("status")) {
+                command(1111);
             } else if (txt.contains("disconnect")){
                 tts.speak("Disconnecting.", TextToSpeech.QUEUE_FLUSH, null);
                 Disconnect();
@@ -966,8 +976,14 @@
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
+                } else if (id == R.id.status_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent intent = new Intent(MainActivity.this,StatusActivity.class);
+                    intent.putExtra("status", updateStatus);
+                    startActivity(intent,compat.toBundle());
+                    return true;
                 }
-                return true;
+                    return true;
             }
         });
             popup.show();
@@ -1216,6 +1232,16 @@
                     {
                         msg("Error");
                     }
+                } else if (i == 1111) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("X:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
                 }
             }
         }
@@ -1319,6 +1345,13 @@
             } else {
                 status.setChecked(false);
                 tts.speak("Received an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
+                //calling StatusActivity
+
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, StatusActivity.class);
+                updateStatus = s;
+                i.putExtra("status", updateStatus);
+                startActivity(i,compat.toBundle());
             }
         }
 

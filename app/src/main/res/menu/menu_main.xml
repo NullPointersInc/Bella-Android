@@ -22,4 +22,9 @@
         android:orderInCategory="100"
         android:title="Connect"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/status_settings"
+        android:orderInCategory="100"
+        android:title="Status"
+        app:showAsAction="never" />
 </menu>
