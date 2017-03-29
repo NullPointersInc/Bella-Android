@@ -696,6 +696,14 @@
                 if (launchIntent != null) {
                     startActivity(launchIntent);//null pointer check in case package name was not found
                 }
+                else //in case the app is not found
+                {   Intent app_intent;
+                    app_intent = new Intent(Intent.ACTION_VIEW);
+                    app_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    app_intent.setData(Uri.parse("https://play.google.com/store/details?id=" + "com.google.android.deskclock"));
+                    startActivity(app_intent);
+
+                }
             }else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
