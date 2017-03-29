@@ -730,7 +730,14 @@
                     intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
                     startActivity(intent);
                 }
-            }else if (txt.contains("date") && txt.contains("time")) {
+            }else if (txt.contains("watch")) {
+                String s = txt.substring(txt.lastIndexOf("watch")+5,txt.length());
+                s=s.replace(" ","+");
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
+
+            }
+            else
+             if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("date")) {
