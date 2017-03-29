@@ -34,6 +34,7 @@
     import java.io.IOException;
     import java.io.InputStream;
     import java.util.ArrayList;
+    import java.util.Calendar;
     import java.util.HashMap;
     import java.util.Locale;
     import android.media.MediaPlayer;
@@ -703,6 +704,31 @@
                     app_intent.setData(Uri.parse("https://play.google.com/store/details?id=" + "com.google.android.deskclock"));
                     startActivity(app_intent);
 
+                }
+            }else if(txt.contains("remind")||txt.contains("reminder")){
+                if(txt.contains("to")) {
+                    Calendar cal = Calendar.getInstance();
+                    Intent intent = new Intent(Intent.ACTION_EDIT);
+                    String s = txt.substring(txt.lastIndexOf("to") + 2, txt.length());
+                    intent.putExtra("title", s);
+                    intent.setType("vnd.android.cursor.item/event");
+                    intent.putExtra("beginTime", cal.getTimeInMillis());
+                    intent.putExtra("allDay", false);
+                    intent.putExtra("rrule", "FREQ=DAILY");
+                    intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Calendar cal = Calendar.getInstance();
+                    Intent intent = new Intent(Intent.ACTION_EDIT);
+                    intent.putExtra("title", "Reminder");
+                    intent.setType("vnd.android.cursor.item/event");
+                    intent.putExtra("beginTime", cal.getTimeInMillis());
+                    intent.putExtra("allDay", false);
+                    intent.putExtra("rrule", "FREQ=DAILY");
+                    intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
+                    startActivity(intent);
                 }
             }else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
