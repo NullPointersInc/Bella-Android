@@ -50,6 +50,7 @@
     import android.text.SpannableString;
     import android.text.style.StyleSpan;
     import android.text.style.UnderlineSpan;
+    import android.transition.Explode;
     import android.transition.Fade;
     import android.transition.Transition;
     import android.transition.TransitionInflater;
@@ -131,9 +132,13 @@
 
             Sensey.getInstance().init(this);
 
-            tf = TransitionInflater.from(this);
-            Transition t = tf.inflateTransition(R.transition.transactivity);
-            getWindow().setExitTransition(t);
+            /*try {
+                tf = TransitionInflater.from(this);
+                Transition t = tf.inflateTransition(R.transition.transactivity);
+                getWindow().setExitTransition(t);
+            } catch (Exception e) {
+                Log.d("Exit transition", "fuck this shit");
+            }*/
 
             Fade s = new Fade();
             s.setDuration(1000);
