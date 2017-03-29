@@ -24,6 +24,7 @@ public class StatusActivity extends AppCompatActivity {
     Toolbar t;
     TextView t1,t2,t3;
     StickySwitch b1,b2,b3;
+    String status;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,11 +32,12 @@ public class StatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status_activity);
 
+        status = getIntent().getStringExtra("status");
+
         Fade s = new Fade();
         s.setDuration(1000);
         getWindow().setEnterTransition(s);
 
-        status();
         t = (Toolbar)findViewById(R.id.toolbar);
         t1 = (TextView)findViewById(R.id.textView10);
         t2 = (TextView)findViewById(R.id.textView11);
@@ -82,6 +84,22 @@ public class StatusActivity extends AppCompatActivity {
                 revealEffect(b3);
             }
         },900);
+
+        if (status.charAt(0) == 'T') {
+            b1.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(0) == 'F') {
+            b1.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if (status.charAt(1) == 'T') {
+            b2.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(1) == 'F') {
+            b2.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if (status.charAt(2) == 'T') {
+            b3.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(2) == 'F') {
+            b3.setDirection(StickySwitch.Direction.LEFT);
+        }
     }
 
     void revealEffect(View v) {
@@ -93,32 +111,6 @@ public class StatusActivity extends AppCompatActivity {
             a.setDuration(1000);
             v.setVisibility(View.VISIBLE);
             a.start();
-        }
-    }
-
-    void status()
-    {
-        try {
-            Bundle bundle = getIntent().getExtras();
-            String status = bundle.getString("status");
-
-            if (status.charAt(0) == 'T') {
-                b1.setDirection(StickySwitch.Direction.RIGHT);
-            } else if (status.charAt(0) == 'F') {
-                b1.setDirection(StickySwitch.Direction.LEFT);
-            }
-            if (status.charAt(1) == 'T') {
-                b2.setDirection(StickySwitch.Direction.RIGHT);
-            } else if (status.charAt(1) == 'F') {
-                b2.setDirection(StickySwitch.Direction.LEFT);
-            }
-            if (status.charAt(2) == 'T') {
-                b3.setDirection(StickySwitch.Direction.RIGHT);
-            } else if (status.charAt(2) == 'F') {
-                b3.setDirection(StickySwitch.Direction.LEFT);
-            }
-        } catch (NullPointerException ne) {
-            Log.d("menu","triggered");
         }
     }
 }

@@ -587,10 +587,10 @@
                         //turn off lights
                         command(001);
                         status.setDirection(StickySwitch.Direction.LEFT);
-                    } else if (txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two"))) {
+                    } else if (txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two") || txt.contains("light to"))) {
                         //turn off lights
                         command(010);
-                    } else if (txt.contains(" off") && (txt.contains("light 2") || txt.contains("light two"))) {
+                    } else if (txt.contains(" off") && (txt.contains("light 2") || txt.contains("light two") || txt.contains("light to"))) {
                         //turn off lights
                         command(011);
                     } else {
@@ -1119,7 +1119,7 @@
                                             {
                                                //do your action based on recieved data
                                                // Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
-                                                tts.speak("Status recieved", TextToSpeech.QUEUE_FLUSH, null);
+                                                // tts.speak("Status recieved", TextToSpeech.QUEUE_FLUSH, null);
                                                 statuscheck(data);
                                             }
                                         });
@@ -1265,6 +1265,7 @@
         }
 
         private void statuscheck(String s) {
+            s = s.replaceAll("[\u0000-\u001f]", "");
             if (s.contains("T1")) {
                  c1 = new CountDownTimer(20000,1000) {
                     public void onTick(long millisUntilFinished) {
@@ -1290,19 +1291,19 @@
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
                 c1.cancel();
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T6")) {
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned Off sprinklers forcefully", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F1")) {
-                status.setDirection(StickySwitch.Direction.LEFT);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F2")) {
-                status.setDirection(StickySwitch.Direction.LEFT);
+                status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F3")) {
                 status.setDirection(StickySwitch.Direction.LEFT);
@@ -1336,16 +1337,16 @@
                 String d = "The garden contains "+c+" percent moisture";
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
-            } else {
-                status.setDirection(StickySwitch.Direction.LEFT);
-                tts.speak("Received an unknown value!", TextToSpeech.QUEUE_FLUSH, null);
-                //calling StatusActivity
-
+            } else if (s.length()>2){
+                Log.d("string: ",s);
+                tts.speak("Status Received!", TextToSpeech.QUEUE_FLUSH, null);
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, StatusActivity.class);
-                updateStatus = s;
-                i.putExtra("status", updateStatus);
-                startActivity(i,compat.toBundle());
+                Intent intent = new Intent(MainActivity.this,StatusActivity.class);
+                intent.putExtra("status", s);
+                startActivity(intent,compat.toBundle());
+            } else {
+                Log.d("String: ",s);
+                tts.speak("Unknown value received!",TextToSpeech.QUEUE_FLUSH,null);
             }
         }
 
