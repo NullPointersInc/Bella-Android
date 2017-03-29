@@ -18,8 +18,10 @@
     import android.os.AsyncTask;
     import android.os.Build;
     import android.os.CountDownTimer;
+    import android.os.Environment;
     import android.os.Handler;
     import android.os.Vibrator;
+    import android.provider.MediaStore;
     import android.speech.RecognitionListener;
     import android.speech.SpeechRecognizer;
     import android.support.v4.app.ActivityCompat;
@@ -734,6 +736,14 @@
                 String s = txt.substring(txt.lastIndexOf("watch")+5,txt.length());
                 s=s.replace(" ","+");
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
+
+            }else if (txt.contains("photo")||txt.contains("capture")||txt.contains("snap")||txt.contains("pic")||txt.contains("picture")) {
+                 
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES));
+                intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+                startActivityForResult(intent, 1);
 
             }
             else
