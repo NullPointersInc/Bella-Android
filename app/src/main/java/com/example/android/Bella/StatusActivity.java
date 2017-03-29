@@ -107,18 +107,24 @@ public class StatusActivity extends AppCompatActivity {
         },900);
 
         if (status.charAt(0) == 'T') {
+            b1.setSwitchColor(getResources().getColor(R.color.green));
             b1.setDirection(StickySwitch.Direction.RIGHT);
         } else if (status.charAt(0) == 'F') {
+            b1.setSwitchColor(getResources().getColor(R.color.red));
             b1.setDirection(StickySwitch.Direction.LEFT);
         }
         if (status.charAt(1) == 'T') {
+            b2.setSwitchColor(getResources().getColor(R.color.green));
             b2.setDirection(StickySwitch.Direction.RIGHT);
         } else if (status.charAt(1) == 'F') {
+            b2.setSwitchColor(getResources().getColor(R.color.red));
             b2.setDirection(StickySwitch.Direction.LEFT);
         }
         if (status.charAt(2) == 'T') {
+            b3.setSwitchColor(getResources().getColor(R.color.green));
             b3.setDirection(StickySwitch.Direction.RIGHT);
         } else if (status.charAt(2) == 'F') {
+            b3.setSwitchColor(getResources().getColor(R.color.red));
             b3.setDirection(StickySwitch.Direction.LEFT);
         }
     }

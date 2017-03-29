@@ -1294,6 +1294,7 @@
                         notif(1);
                     }
                 }.start();
+                status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T2")) {
@@ -1304,37 +1305,48 @@
                         notif(2);
                     }
                 }.start();
+                status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T3")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
                 c1.cancel();
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F1")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F2")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F3")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Warning! the soil is too wet to be watered", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F4")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 1 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F5")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 2 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F6")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Please! allow me to water your plants", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F7")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Sprinkler already turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {

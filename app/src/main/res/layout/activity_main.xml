@@ -26,6 +26,7 @@
         android:layout_marginBottom="75dp"
         android:layout_above="@+id/txtText"
         app:sliderBackgroundColor="@color/colorPrimaryDark"
+        app:switchColor="@color/red"
         />
 
     <TextView
