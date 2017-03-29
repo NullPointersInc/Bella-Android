@@ -57,6 +57,7 @@
     import android.view.Display;
     import android.view.MenuInflater;
     import android.view.MenuItem;
+    import android.view.MotionEvent;
     import android.view.View;
     import android.view.ViewAnimationUtils;
     import android.widget.Button;
@@ -143,6 +144,12 @@
             progressBar = (ProgressBar) findViewById(R.id.progressBar1);
             btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
             status = (StickySwitch) findViewById(R.id.toggleButton);
+            status.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
             loader = (com.tuyenmonkey.mkloader.MKLoader) findViewById(R.id.listen);
             //Initially progressbar is invisible
             progressBar.setVisibility(View.INVISIBLE);
