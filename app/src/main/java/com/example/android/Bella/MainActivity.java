@@ -14,6 +14,7 @@
     import android.graphics.Typeface;
     import android.graphics.drawable.Drawable;
     import android.net.ConnectivityManager;
+    import android.net.Uri;
     import android.os.AsyncTask;
     import android.os.Build;
     import android.os.CountDownTimer;
@@ -941,7 +942,13 @@
                 } else if ((txt.contains("hey") || txt.contains("hi") || txt.contains("hello")) && ((!txt.contains("bella") || !txt.contains("Bella")))) {
                     tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
-                    tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                    //tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                    String s = txt;
+                    s=s.replace(" ", "+");
+                    tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.in/search?q="+s));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             }
         }
