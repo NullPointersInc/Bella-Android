@@ -3,6 +3,7 @@
     import android.Manifest;
     import android.animation.Animator;
     import android.app.NotificationManager;
+    import android.app.PendingIntent;
     import android.bluetooth.BluetoothAdapter;
     import android.bluetooth.BluetoothDevice;
     import android.bluetooth.BluetoothSocket;
@@ -372,6 +373,18 @@
             };
 
             Sensey.getInstance().startShakeDetection(10, 2000, shakeListener);
+
+            Intent resultIntent = new Intent(this, MainActivity.class);
+
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            mBuilder.setContentIntent(resultPendingIntent);
 
             btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -1296,9 +1309,6 @@
             } else if (s.contains("T5")) {
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.contains("T6")) {
-                status.setDirection(StickySwitch.Direction.RIGHT);
-                tts.speak("Turned Off sprinklers forcefully", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F1")) {
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -1317,6 +1327,9 @@
             } else if (s.contains("F6")) {
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Please! allow me to water your plants", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("F7")) {
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("Sprinkler already turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 String c = s.substring(2,4);
                 String d = "Container 1 is low on surplus with just, "+c+" percent filled";
