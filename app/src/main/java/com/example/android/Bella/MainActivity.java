@@ -95,6 +95,7 @@
         InputStream mmInputStream;
         volatile boolean stopWorker;
         Thread workerThread;
+
         byte[] readBuffer;
         int readBufferPosition;
         public String updateStatus;
@@ -689,7 +690,12 @@
                     Intent in = new Intent(MainActivity.this, WeatherActivity2.class);
                     startActivity(in);
                 }
-            } else if (txt.contains("date") && txt.contains("time")) {
+            } else if(txt.contains("alarm")){
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.deskclock");
+                if (launchIntent != null) {
+                    startActivity(launchIntent);//null pointer check in case package name was not found
+                }
+            }else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("date")) {
