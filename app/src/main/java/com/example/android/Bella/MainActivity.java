@@ -738,7 +738,7 @@
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
 
             }else if (txt.contains("photo")||txt.contains("capture")||txt.contains("snap")||txt.contains("pic")||txt.contains("picture")) {
-                 
+
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES));
@@ -746,6 +746,15 @@
                 startActivityForResult(intent, 1);
 
             }
+            else if(txt.contains("navigate")) {
+                String s = txt.substring(txt.lastIndexOf("to")+2, txt.length());
+                s=s.replace(" ","+");
+                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr="+s);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+
+        }
             else
              if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
@@ -1006,12 +1015,22 @@
                     tts.speak("Sorry, Were you talking to me? You can call me bella", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     //tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
+                    if(txt.contains("search")){
+                        String s = txt.substring(txt.lastIndexOf("search")+6, txt.length());
+                        s=s.replace(" ", "+");
+                        tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.in/search?q="+s));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    else{
                     String s = txt;
                     s=s.replace(" ", "+");
                     tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.in/search?q="+s));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    }
                 }
             }
         }
