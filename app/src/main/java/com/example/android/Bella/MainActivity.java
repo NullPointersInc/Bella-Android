@@ -823,25 +823,7 @@
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
                 }
                 else {
-                    /* try {
-                        FileOutputStream f = new FileOutputStream(file);
-                        ObjectOutputStream s = new ObjectOutputStream(f);
-                        s.writeObject(context);
-                        s.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    File file = new File("song.txt");
-                    try {
-                        FileInputStream f = new FileInputStream(file);
-                        ObjectInputStream s = new ObjectInputStream(f);
-                        HashMap<String, Object> fileObj2 = (HashMap<String, Object>) s.readObject();
-                        s.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
-
+                    txt = txt.toLowerCase();
                     if((txt.contains("is this") || txt.contains("is it")) && txt.contains("good")) {
                         if(contexts.get(song)=="null") {
                             tts.speak("I don't know if it is a good song", TextToSpeech.QUEUE_FLUSH, null);
@@ -914,9 +896,6 @@
                         tts.speak("Playing help me lose my mind by Disclosure", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/bbdy28pwg6lwxp5/HelpMeLoseMyMind.mp3?dl=1";
                         play(path);
-                        int mNotificationId = 001;
-                        NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        nM.notify(mNotificationId, mBuilder.build());
                     } else if(txt.contains("lean on")) {
                         song = "Major Lazor";
                         tts.speak("Playing Lean On by Major Lazor", TextToSpeech.QUEUE_FLUSH, null);
@@ -962,7 +941,6 @@
                             play(path);
                         }
                     } else {
-                        //tts.speak("Song not available at the moment or not specified! Sorry!", TextToSpeech.QUEUE_FLUSH, null);
                         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.music");
                         if (launchIntent != null) {
                             startActivity(launchIntent);//null pointer check in case package name was not found
