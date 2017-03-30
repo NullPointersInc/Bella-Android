@@ -814,7 +814,7 @@
                     Log.e("Text","Ans="+aggregate);
                     tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
                 } else {
-                    tts.speak("Divide by zero error!" , TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak("That sounds like a trick question." , TextToSpeech.QUEUE_FLUSH, null);
                 }
 
 
@@ -916,7 +916,7 @@
                         tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
                         play(path);
-                    } else if(txt.contains("play")){
+                    } else if(txt.contains("play") && (txt.contains("random")||txt.contains("any"))) {
                         String[] songs = { "Disclosure", "Major Lazor", "Chainsmokers", "2SYL","Charlie Puth"};
                         song = songs[(int) (Math.random() * songs.length)];
                         if(song.equals("Disclosure")) {
@@ -941,23 +941,28 @@
                             play(path);
                         }
                     } else {
-                        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.music");
-                        if (launchIntent != null) {
-                            startActivity(launchIntent);//null pointer check in case package name was not found
-                        }
-                        else //in case the app is not found
-                        {   Intent app_intent;
-                            app_intent = new Intent(Intent.ACTION_VIEW);
-                            app_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            app_intent.setData(Uri.parse("https://play.google.com/store/details?id=" + "com.google.android.music"));
-                            startActivity(app_intent);
-
-                        }
+                            String s = txt.substring(txt.lastIndexOf("song")+4,txt.length());
+                            s=s.replace(" ","+");
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
                     }
                 }
-            } else if (txt.contains("bored")) {
-                tts.speak("Go, get a life!", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (txt.contains("you") || txt.contains("born") || txt.contains("birthday")) {
+            } else if (txt.contains("your") && txt.contains("food")) {
+                 tts.speak("I don't eat much, but when I do, I take megabytes!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (txt.contains("your") && txt.contains("car")) {
+                 tts.speak("I like fast ones!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (txt.contains("your") && txt.contains("color")) {
+                 tts.speak("The primary color of this app!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (txt.contains("you") && (txt.contains("boy")||txt.contains("girl")||txt.contains("male")||txt.contains("female"))) {
+                 tts.speak("I'm all inclusive.", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (((txt.contains("I'm") || txt.contains("I am")) && txt.contains("bored")) || txt.contains("joke")) {
+                 String[] jokes = { "Why do fish live in salt water? Because, pepper water makes them sneeze."
+                         , "Did you hear about the new anti-gravity book? Apparently, you can't put it down."
+                         , "What do you call a bear with no teeth? A gummy bear"
+                         , "Why can't you trust an atom? Because they make up literally everything."
+                         , "What do you call a can opener that doesn't work? A can't opener."};
+                 String joke = jokes[(int) (Math.random() * jokes.length)];
+                 tts.speak(joke, TextToSpeech.QUEUE_FLUSH, null);
+            } else if ((txt.contains("you") || txt.contains("your")) && (txt.contains("born") || txt.contains("birthday"))) {
                 tts.speak("I came to life on 5th of February 2017. I had a great day!", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
