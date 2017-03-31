@@ -732,12 +732,12 @@
                     intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
                     startActivity(intent);
                 }
-            }else if (txt.contains("watch")) {
+            } else if (txt.contains("watch")) {
                 String s = txt.substring(txt.lastIndexOf("watch")+5,txt.length());
                 s=s.replace(" ","+");
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
 
-            }else if (txt.contains("photo")||txt.contains("capture")||txt.contains("snap")||txt.contains("pic")||txt.contains("picture")) {
+            } else if (txt.contains("photo")||txt.contains("capture")||txt.contains("snap")||txt.contains("pic")||txt.contains("picture")) {
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Environment.getExternalStoragePublicDirectory(
@@ -745,8 +745,7 @@
                 intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
                 startActivityForResult(intent, 1);
 
-            }
-            else if(txt.contains("navigate")) {
+            } else if(txt.contains("navigate")) {
                 String s = txt.substring(txt.lastIndexOf("to")+2, txt.length());
                 s=s.replace(" ","+");
                 String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr="+s);
@@ -754,9 +753,38 @@
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
 
-        }
-            else
-             if (txt.contains("date") && txt.contains("time")) {
+            } else if (txt.contains("mail") || (txt.contains("email"))) {
+                String address = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                address = address.replaceAll(" ","");
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("message/rfc822");
+                emailIntent.setPackage("com.google.android.gmail");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{address});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Body");
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+            } else if(txt.contains("add") || txt.contains("list")) {
+                String list = txt.substring(txt.lastIndexOf("add")+4, txt.lastIndexOf("to"));
+                String listName = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                list = list.replaceAll(" ","\n");
+                Intent keepIntent = new Intent(Intent.ACTION_SEND);
+                keepIntent.setType("text/plain");
+                keepIntent.setPackage("com.google.android.keep");
+                keepIntent.putExtra(Intent.EXTRA_SUBJECT, listName);
+                keepIntent.putExtra(Intent.EXTRA_TEXT, list);
+                try {
+                    startActivity(keepIntent);
+                } catch (Exception e) {
+                    Intent app_intent;
+                    app_intent = new Intent(Intent.ACTION_VIEW);
+                    app_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    app_intent.setData(Uri.parse("https://play.google.com/store/details?id=" + "com.google.android.keep"));
+                    startActivity(app_intent);
+                }
+
+            } else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("date")) {
@@ -978,16 +1006,6 @@
                         System.exit(0);
                     }
                 }, 1000000);
-            } else if (txt.contains("mail") || (txt.contains("email"))) {
-                 String address = txt.substring(txt.lastIndexOf("to")+3,txt.length());
-                 address=address.replaceAll(" ","");
-                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                 emailIntent.setType("message/rfc822");
-                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{address});
-                 emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
-                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Body");
-                 emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             } else{
                 if (txt.contains("news")) {
                     if (isNetworkAvailable() == 0) {
