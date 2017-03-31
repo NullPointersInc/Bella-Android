@@ -758,14 +758,14 @@
                 address = address.replaceAll(" ","");
                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 emailIntent.setType("message/rfc822");
-                emailIntent.setPackage("com.google.android.gmail");
+                emailIntent.setPackage("com.google.android.gm");
                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{address});
                 emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Body");
                 emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 
-            } else if(txt.contains("add") || txt.contains("list")) {
+            } else if(txt.contains("add") && txt.contains("list") && txt.contains("to")) {
                 String list = txt.substring(txt.lastIndexOf("add")+4, txt.lastIndexOf("to"));
                 String listName = txt.substring(txt.lastIndexOf("to")+3,txt.length());
                 list = list.replaceAll(" ","\n");
