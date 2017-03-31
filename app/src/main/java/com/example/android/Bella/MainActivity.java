@@ -784,6 +784,14 @@
                     startActivity(app_intent);
                 }
 
+            } else if (txt.contains("message") || txt.contains("text")) {
+                String num = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                num = num.replaceAll(" ","");
+                Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+                smsIntent.setType("vnd.android-dir/mms-sms");
+                smsIntent.putExtra("address",num);
+                smsIntent.putExtra("sms_body","your desired message");
+                startActivity(smsIntent);
             } else if (txt.contains("date") && txt.contains("time")) {
                 String datetime = DateFormat.getDateTimeInstance().format(new Date());
                 tts.speak("It is"+datetime, TextToSpeech.QUEUE_FLUSH, null);
