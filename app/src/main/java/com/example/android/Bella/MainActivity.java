@@ -978,7 +978,17 @@
                         System.exit(0);
                     }
                 }, 1000000);
-            } else {
+            } else if (txt.contains("mail") || (txt.contains("email"))) {
+                 String address = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                 address=address.replaceAll(" ","");
+                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                 emailIntent.setType("message/rfc822");
+                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{address});
+                 emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Body");
+                 emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            } else{
                 if (txt.contains("news")) {
                     if (isNetworkAvailable() == 0) {
 
