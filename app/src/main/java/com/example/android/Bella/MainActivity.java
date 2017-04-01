@@ -711,7 +711,7 @@
                 if(txt.contains("to")) {
                     Calendar cal = Calendar.getInstance();
                     Intent intent = new Intent(Intent.ACTION_EDIT);
-                    String s = txt.substring(txt.lastIndexOf("to") + 2, txt.length());
+                    String s = txt.substring(txt.lastIndexOf(" to ") + 4, txt.length());
                     intent.putExtra("title", s);
                     intent.setType("vnd.android.cursor.item/event");
                     intent.putExtra("beginTime", cal.getTimeInMillis());
@@ -746,7 +746,7 @@
                 startActivityForResult(intent, 1);
 
             } else if(txt.contains("navigate")) {
-                String s = txt.substring(txt.lastIndexOf("to")+2, txt.length());
+                String s = txt.substring(txt.lastIndexOf(" to ")+4, txt.length());
                 s=s.replace(" ","+");
                 String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr="+s);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -754,7 +754,7 @@
                 startActivity(intent);
 
             } else if (txt.contains("mail") || (txt.contains("email"))) {
-                String address = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                String address = txt.substring(txt.lastIndexOf(" to ")+4,txt.length());
                 address = address.replaceAll(" ","");
                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 emailIntent.setType("message/rfc822");
@@ -767,7 +767,7 @@
 
             } else if(txt.contains("add") && txt.contains("list") && txt.contains("to")) {
                 String list = txt.substring(txt.lastIndexOf("add")+4, txt.lastIndexOf("to"));
-                String listName = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                String listName = txt.substring(txt.lastIndexOf(" to ")+4,txt.length());
                 list = list.replaceAll(" ","\n");
                 Intent keepIntent = new Intent(Intent.ACTION_SEND);
                 keepIntent.setType("text/plain");
@@ -785,7 +785,7 @@
                 }
 
             } else if (txt.contains("message") || txt.contains("text")) {
-                String num = txt.substring(txt.lastIndexOf("to")+3,txt.length());
+                String num = txt.substring(txt.lastIndexOf(" to ")+4,txt.length());
                 num = num.replaceAll(" ","");
                 Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
                 smsIntent.setType("vnd.android-dir/mms-sms");
