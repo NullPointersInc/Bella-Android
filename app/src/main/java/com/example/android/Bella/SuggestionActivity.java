@@ -40,8 +40,8 @@ public class SuggestionActivity extends AppCompatActivity {
         });
 
         mainListView = (ListView) findViewById(R.id.list_item_suggestion);
-        final String[] queries = { "How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
-                "What date is it today?","What time is it now?","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer"};
+        final String[] queries = {"Check my home status", "Add an alarm", "Navigate me to places", "Remind me to feed my cat","How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
+                "What date is it today?","What time is it now?","Take a picture","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer", "Watch a video"};
 
         ArrayList<String> suggestionList = new ArrayList<String>();
         suggestionList.addAll( Arrays.asList(queries) );
