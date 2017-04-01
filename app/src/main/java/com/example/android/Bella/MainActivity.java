@@ -686,8 +686,6 @@
                         startActivity(i,compat.toBundle());
                     }
                 }, 2500);
-            } else if (txt.contains("feeling")) {
-                tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("weather")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
@@ -995,6 +993,8 @@
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
                     }
                 }
+            } else if (txt.contains("feeling") && txt.contains("you")) {
+                tts.speak("Never been better!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("your") && txt.contains("food")) {
                  tts.speak("I don't eat much, but when I do, I take megabytes!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("your") && txt.contains("car")) {
