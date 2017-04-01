@@ -9,4 +9,17 @@
     <string name="title_activity_device_list">device_list</string>
     <string name="help_settings">Help</string>
     <string name="title_activity_status">StatusActivity</string>
+    <string name="title1">Check my home status</string>
+    <string name="title2">Add an alarm</string>
+    <string name="title3">Navigate me to places</string>
+    <string name="title4">Remind me to feed my cat</string>
+    <string name="title5">How\'s the weather today?</string>
+    <string name="title6">Play me some song</string>
+    <string name="title7">What is 15 + 20?</string>
+    <string name="title8">Fetch me latest news</string>
+    <string name="title9">Connect to my home</string>
+    <string name="title10">Turn On light1</string>
+    <string name="title11">Turn On Sprinklers</string>
+
+
 </resources>

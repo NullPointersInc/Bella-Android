@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.Bella.SuggestionActivity">
     android:background="#2D2D2D">
 
 
@@ -17,12 +20,99 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/list_item_suggestion"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar"
-        android:paddingStart="@dimen/activity_horizontal_margin"/>
 
-</RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2D2D2D">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+
+            <com.lucasurbas.listitemview.ListItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="@string/title1"
+                app:liv_icon="@drawable/ic_action_back"
+                app:liv_circularIcon="true"
+                app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title2"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title3"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title4"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" /><com.lucasurbas.listitemview.ListItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="@string/title5"
+                app:liv_icon="@drawable/ic_action_back"
+                app:liv_circularIcon="true"
+                app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title6"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false"
+                    android:textColorPrimary="white"/>
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title7"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title8"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title9"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title10"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+                <com.lucasurbas.listitemview.ListItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:liv_title="@string/title11"
+                    app:liv_icon="@drawable/ic_action_back"
+                    app:liv_circularIcon="true"
+                    app:liv_multiline="false" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
