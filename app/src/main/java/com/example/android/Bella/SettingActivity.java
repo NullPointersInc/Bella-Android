@@ -42,16 +42,16 @@ public class SettingActivity extends AppCompatActivity {
         source.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/ujwalp15/Bella"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent = new Intent(SettingActivity.this,WebActivity.class);
+                intent.putExtra("link", "https://github.com/ujwalp15/Bella");
                 startActivity(intent);
             }
         });
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://github.com/ujwalp15/Bella"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent = new Intent(SettingActivity.this,WebActivity.class);
+                intent.putExtra("link", "https://github.com/ujwalp15/Bella");
                 startActivity(intent);
             }
         });

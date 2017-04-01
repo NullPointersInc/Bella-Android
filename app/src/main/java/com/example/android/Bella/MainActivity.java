@@ -999,7 +999,7 @@
                  tts.speak("I don't eat much, but when I do, I take megabytes!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("your") && txt.contains("car")) {
                  tts.speak("I like fast ones!", TextToSpeech.QUEUE_FLUSH, null);
-            } else if (txt.contains("your") && txt.contains("color")) {
+            } else if (txt.contains("your") && (txt.contains("color") || txt.contains("colour"))) {
                  tts.speak("The primary color of this app!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (txt.contains("you") && (txt.contains("boy")||txt.contains("girl")||txt.contains("male")||txt.contains("female"))) {
                  tts.speak("I'm all inclusive.", TextToSpeech.QUEUE_FLUSH, null);
@@ -1050,18 +1050,19 @@
                     if(txt.contains("search")){
                         String s = txt.substring(txt.lastIndexOf("search")+6, txt.length());
                         s=s.replace(" ", "+");
+                        s="https://www.google.co.in/search?q="+s;
                         tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.in/search?q="+s));
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Intent intent = new Intent(MainActivity.this,WebActivity.class);
+                        intent.putExtra("link", s);
                         startActivity(intent);
-                    }
-                    else{
-                    String s = txt;
-                    s=s.replace(" ", "+");
-                    tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.in/search?q="+s));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    } else{
+                        String s = txt;
+                        s=s.replace(" ", "+");
+                        s="https://www.google.co.in/search?q="+s;
+                        tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent intent = new Intent(MainActivity.this,WebActivity.class);
+                        intent.putExtra("link", s);
+                        startActivity(intent);
                     }
                 }
             }
