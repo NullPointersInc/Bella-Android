@@ -8,4 +8,5 @@
     <color name="alert">#3F51B5</color>
     <color name="target">#3F51B5</color>
     <color name="white">#FFFFFF</color>
+    <color name="colorIconDark">#E0E0E0</color>
 </resources>

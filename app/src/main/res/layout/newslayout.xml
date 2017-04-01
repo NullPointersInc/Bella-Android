@@ -3,7 +3,7 @@
     android:id="@+id/newscontainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#2D2D2D"
     tools:context=".MainActivity"
     tools:ignore="MergeRootFrame" >
     <ProgressBar

@@ -3,21 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.Bella.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/setting_settings"
-        android:orderInCategory="100"
-        android:title="@string/setting_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/help_settings"
-        android:orderInCategory="100"
-        android:title="@string/help_settings"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/connect_settings"
         android:orderInCategory="100"
         android:title="Connect"
@@ -26,5 +11,20 @@
         android:id="@+id/status_settings"
         android:orderInCategory="100"
         android:title="Status"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Dev Info"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/setting_settings"
+        android:orderInCategory="100"
+        android:title="About"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/help_settings"
+        android:orderInCategory="100"
+        android:title="@string/help_settings"
         app:showAsAction="never" />
 </menu>

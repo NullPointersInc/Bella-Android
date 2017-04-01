@@ -46,7 +46,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SettingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.MaterialAboutActivity"/>
         <activity
             android:name=".SuggestionActivity"
             android:screenOrientation="portrait" />

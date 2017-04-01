@@ -7,7 +7,7 @@ android {
         applicationId "com.example.android.bella"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +38,10 @@ dependencies {
     compile 'com.github.nisrulz:sensey:1.7.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.GwonHyeok:StickySwitch:0.0.8'
+    compile 'com.github.daniel-stoneuk:material-about-library:1.8.2'
+    compile "com.mikepenz:iconics-core:2.8.2@aar"
+    compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
+    compile 'com.mikepenz:community-material-typeface:1.8.36.1@aar'
 }
 
 allprojects {
