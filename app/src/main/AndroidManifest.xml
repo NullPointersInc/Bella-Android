@@ -50,7 +50,8 @@
             android:theme="@style/AppTheme.MaterialAboutActivity"/>
         <activity
             android:name=".SuggestionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/SuggestionTheme"/>
         <activity android:name=".StatusActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".WebActivity"

@@ -46,6 +46,7 @@
                     app:liv_title="@string/title2"
                     app:liv_icon="@drawable/ic_action_back"
                     app:liv_circularIcon="true"
+
                     app:liv_multiline="false" />
                 <com.lucasurbas.listitemview.ListItemView
                     android:layout_width="match_parent"
@@ -74,7 +75,7 @@
                     app:liv_icon="@drawable/ic_action_back"
                     app:liv_circularIcon="true"
                     app:liv_multiline="false"
-                    android:textColorPrimary="white"/>
+                />
                 <com.lucasurbas.listitemview.ListItemView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

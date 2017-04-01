@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#364A5E</color>
-    <color name="textColorPrimary">#FFFFFF</color>
+
     <color name="colorPrimaryDark">#263238</color>
     <color name="colorAccent">#FF4081</color>
     <color name="red">#F44336</color>
@@ -10,4 +10,5 @@
     <color name="target">#3F51B5</color>
     <color name="white">#FFFFFF</color>
     <color name="colorIconDark">#E0E0E0</color>
+    <color name="icon_color">#FFFFFF</color>
 </resources>
