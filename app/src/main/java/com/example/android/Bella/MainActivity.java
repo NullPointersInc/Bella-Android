@@ -407,25 +407,38 @@
 
                 @Override
                 public void onClick(View v) {
-                    queryStatus=true;
-                    Sensey.getInstance().stopShakeDetection(shakeListener);
-                    txtText.setVisibility(View.INVISIBLE);
-                    myVib.vibrate(50);
-                    btnSpeak.setImageResource(R.drawable.ic_listen);
-                    progressBar.setVisibility(View.VISIBLE);
-                    loader.setVisibility(View.VISIBLE);
-                    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,Locale.getDefault());
-                    speech.startListening(intent);
-                    try {
+                    if ((ContextCompat.checkSelfPermission(MainActivity.this,
+                            Manifest.permission.RECORD_AUDIO)
+                            != PackageManager.PERMISSION_GRANTED)) {
 
-                        txtText.setText("");
-                    } catch (ActivityNotFoundException a) {
-                        Alerter.create(MainActivity.this)
-                                .setText("Oops! Your device doesn't support Speech to Text")
-                                .setBackgroundColor(R.color.alert)
-                                .show();
+                        Toast.makeText(MainActivity.this, "Please allow permission of recording audio.", Toast.LENGTH_SHORT).show();
+
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                                Manifest.permission.RECORD_AUDIO}, 1);
+
                     }
+                    else {
+                        queryStatus = true;
+                        Sensey.getInstance().stopShakeDetection(shakeListener);
+                        txtText.setVisibility(View.INVISIBLE);
+                        myVib.vibrate(50);
+                        btnSpeak.setImageResource(R.drawable.ic_listen);
+                        progressBar.setVisibility(View.VISIBLE);
+                        loader.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, Locale.getDefault());
+                        speech.startListening(intent);
+                        try {
+
+                            txtText.setText("");
+                        } catch (ActivityNotFoundException a) {
+                            Alerter.create(MainActivity.this)
+                                    .setText("Oops! Your device doesn't support Speech to Text")
+                                    .setBackgroundColor(R.color.alert)
+                                    .show();
+                        }
+                    }
+
                 }
             });
         }
