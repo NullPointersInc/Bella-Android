@@ -6,13 +6,14 @@
 
 ### Features
 * Fully functional AI
-* Play songs
-* Weather details
-* Perform arithmatic operations
 * Control Home appliances
-* Fetch News
 * Stand-alone Assistant
-* much more...
+* Helps in day-to-day functions
+* Fetch Weather 
+* Fetch News
+* Perform arithmetic operations
+* Play Songs
+  and much more.
 
 ## Creating your Bella
 All developers are welcome to use the source code to create derivate applications. There are several things I require from all developers for the moment.
