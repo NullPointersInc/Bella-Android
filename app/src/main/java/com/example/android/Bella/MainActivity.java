@@ -706,6 +706,7 @@
                     startActivity(in);
                 }
             } else if(txt.contains("alarm")){
+                tts.speak("Creating an alarm ", TextToSpeech.QUEUE_FLUSH, null);
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.deskclock");
                 if (launchIntent != null) {
                     startActivity(launchIntent);//null pointer check in case package name was not found
@@ -719,6 +720,7 @@
 
                 }
             }else if(txt.contains("remind")||txt.contains("reminder")){
+                tts.speak("Creating a reminder ", TextToSpeech.QUEUE_FLUSH, null);
                 if(txt.contains("to")) {
                     Calendar cal = Calendar.getInstance();
                     Intent intent = new Intent(Intent.ACTION_EDIT);
@@ -757,6 +759,7 @@
                 startActivityForResult(intent, 1);
 
             } else if(txt.contains("navigate")) {
+                tts.speak("Starting navigation ", TextToSpeech.QUEUE_FLUSH, null);
                 String s = txt.substring(txt.lastIndexOf(" to ")+4, txt.length());
                 s=s.replace(" ","+");
                 String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr="+s);
@@ -777,6 +780,7 @@
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 
             } else if(txt.contains("add") && txt.contains("list") && txt.contains("to")) {
+                tts.speak("Adding to shopping list ", TextToSpeech.QUEUE_FLUSH, null);
                 String list = txt.substring(txt.lastIndexOf("add")+4, txt.lastIndexOf("to"));
                 String listName = txt.substring(txt.lastIndexOf(" to ")+4,txt.length());
                 list = list.replaceAll(" ","\n");
