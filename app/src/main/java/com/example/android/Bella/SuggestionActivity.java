@@ -1,51 +1,176 @@
 package com.example.android.Bella;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.danielstone.materialaboutlibrary.MaterialAboutActivity;
+import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem;
+import com.danielstone.materialaboutlibrary.model.MaterialAboutCard;
+import com.danielstone.materialaboutlibrary.model.MaterialAboutList;
+import com.mikepenz.community_material_typeface_library.CommunityMaterial;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.context.IconicsContextWrapper;
 
-public class SuggestionActivity extends AppCompatActivity {
+public class SuggestionActivity extends MaterialAboutActivity {
 
-    Toolbar toolbar;
-    private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
+    int colorIcon = R.color.colorIconDark;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Fade s = new Fade();
-        s.setDuration(1000);
-        getWindow().setEnterTransition(s);
+    protected MaterialAboutList getMaterialAboutList(Context c) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.suggestion_activity);
+    MaterialAboutCard.Builder homeCardBuilder = new MaterialAboutCard.Builder();
+        homeCardBuilder.title("Home");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_back);
-        toolbar.setTitleTextColor(0xFFFFFFFF);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SuggestionActivity.super.onBackPressed();
-            }
-        });
+        homeCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Check my home status")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_home)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
 
-        /*mainListView = (ListView) findViewById(R.id.list_item_suggestion);
-        final String[] queries = {"Check my home status", "Add an alarm", "Navigate me to places", "Remind me to feed my cat","How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
-                "What date is it today?","What time is it now?","Take a picture","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer", "Watch a video"};
+        homeCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                    .text("Turn on light 1 in room")
+                    .icon(new IconicsDrawable(c)
+                            .icon(CommunityMaterial.Icon.cmd_lightbulb_on)
+                            .color(ContextCompat.getColor(c, colorIcon))
+                            .sizeDp(18))
+                    .build());
 
-        ArrayList<String> suggestionList = new ArrayList<String>();
-        suggestionList.addAll( Arrays.asList(queries) );
-        listAdapter = new ArrayAdapter<String>(this, R.layout.list_item_suggestion, suggestionList);
-        mainListView.setAdapter( listAdapter );*/
+        homeCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Turn off Sprinkler")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_blur_radial)
+                        .color(ContextCompat.getColor(c, colorIcon))
+            .sizeDp(18))
+            .build());
+
+        homeCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Give me the status of my kitchen")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_food_variant)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+    MaterialAboutCard.Builder detailCardBuilder = new MaterialAboutCard.Builder();
+        detailCardBuilder.title("Current Details");
+
+        detailCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("How's the weather today?")
+                .icon(new IconicsDrawable(c)
+                        .icon(GoogleMaterial.Icon.gmd_wb_sunny)
+                        .color(ContextCompat.getColor(c, colorIcon))
+            .sizeDp(18))
+            .build());
+
+        detailCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Get me the latest news")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_newspaper)
+                        .color(ContextCompat.getColor(c, colorIcon))
+            .sizeDp(18))
+            .build());
+
+    MaterialAboutCard.Builder aiCardBuilder = new MaterialAboutCard.Builder();
+
+        aiCardBuilder.title("AI");
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Play the song closer")
+                .icon(new IconicsDrawable(c)
+                        .icon(GoogleMaterial.Icon.gmd_music_note)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Is this a good song?")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_bookmark_music)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("What is 15 * 10?")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_calculator)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Tell me some joke")
+                .icon(new IconicsDrawable(c)
+                        .icon(GoogleMaterial.Icon.gmd_tag_faces)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("What date is it today?")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_calendar_today)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        aiCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("What is your favourite food?")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_food)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+    MaterialAboutCard.Builder taskCardBuilder = new MaterialAboutCard.Builder();
+        taskCardBuilder.title("Tasks");
+
+        taskCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Set an alarm")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_alarm)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        taskCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Remind me to feed my cat")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_calendar_clock)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        taskCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Add apple mango to shopping list")
+                .icon(new IconicsDrawable(c)
+                        .icon(GoogleMaterial.Icon.gmd_shopping_cart)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+        taskCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Navigate me to Yelahanka")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_navigation)
+                        .color(ContextCompat.getColor(c, colorIcon))
+                        .sizeDp(18))
+                .build());
+
+
+        return new MaterialAboutList(homeCardBuilder.build(), detailCardBuilder.build(), aiCardBuilder.build(), taskCardBuilder.build());
+}
+
+    @Override
+    protected CharSequence getActivityTitle() {
+        return "Suggestion";
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
 }
