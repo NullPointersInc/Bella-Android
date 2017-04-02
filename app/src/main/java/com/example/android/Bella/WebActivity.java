@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -29,10 +30,13 @@ public class WebActivity extends AppCompatActivity{
         Log.e("link:",link);
         progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
         w = (WebView) findViewById(R.id.link);
+        WebSettings webSettings = w.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         w.setWebViewClient(new myWebClient());
         w.loadUrl(link);
 
-    }public class myWebClient extends WebViewClient
+    }
+    public class myWebClient extends WebViewClient
     {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
