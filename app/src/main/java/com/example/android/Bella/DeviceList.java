@@ -1,8 +1,12 @@
 package com.example.android.Bella;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -61,7 +65,16 @@ public class DeviceList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                pairedDevicesList();
+                if(!myBluetooth.isEnabled()){
+
+                    Toast.makeText(DeviceList.this, "Please allow permission for bluetooth.", Toast.LENGTH_SHORT).show();
+                    Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(turnBTon,1);
+                    
+                }
+                else {
+                    pairedDevicesList();
+                }
             }
         });
 
