@@ -629,13 +629,18 @@
                     } else if (txt.contains(" off") && (txt.contains("light 1") || txt.contains("light one"))) {
                         //turn off lights
                         command(001);
-                        status.setDirection(StickySwitch.Direction.LEFT);
                     } else if (txt.contains(" on ") && (txt.contains("light 2") || txt.contains("light two") || txt.contains("light to"))) {
                         //turn off lights
                         command(010);
                     } else if (txt.contains(" off") && (txt.contains("light 2") || txt.contains("light two") || txt.contains("light to"))) {
                         //turn off lights
                         command(011);
+                    } else if (txt.contains(" on") && (txt.contains("fan") || txt.contains("fans"))) {
+                        //turn on fan
+                        command(1000);
+                    } else if (txt.contains(" off") && (txt.contains("fan") || txt.contains("fans"))) {
+                        //turn off fan
+                        command(1001);
                     } else {
                         tts.speak("Sorry, Incorrect information!", TextToSpeech.QUEUE_FLUSH, null);
                     }
@@ -1383,6 +1388,26 @@
                     {
                         msg("Error");
                     }
+                } else if(i == 1000) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("FT:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                } else if(i == 1001) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("FF:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
                 } else if (i == 1111) {
                     try
                     {
@@ -1486,24 +1511,44 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Sprinkler already turned off!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("S1")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
+                status.setDirection(StickySwitch.Direction.RIGHT);
+                tts.speak("Turned ON fan!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("S2")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
+                status.setDirection(StickySwitch.Direction.RIGHT);
+                tts.speak("fan already turned ON!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("S3")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("Turned off fan!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("S4")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("fan already turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 String c = s.substring(2,4);
                 String d = "Container 1 is low on surplus with just, "+c+" percent filled";
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C2")) {
                 String c = s.substring(2,4);
                 String d = "Container 2 is low on surplus with just, "+c+" percent filled";
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C3")) {
                 String c = s.substring(2,4);
                 String d = "Container 3 is low on surplus with just, "+c+" percent filled";
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("M1")) {
                 String c = s.substring(2,4);
                 String d = "The garden contains "+c+" percent moisture";
+                status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.length()>2){
