@@ -55,7 +55,8 @@
         <activity android:name=".StatusActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".WebActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

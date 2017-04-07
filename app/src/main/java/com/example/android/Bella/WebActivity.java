@@ -4,7 +4,9 @@ package com.example.android.Bella;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,6 +36,10 @@ public class WebActivity extends AppCompatActivity{
         webSettings.setJavaScriptEnabled(true);
         w.setWebViewClient(new myWebClient());
         w.loadUrl(link);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
     }
     public class myWebClient extends WebViewClient
