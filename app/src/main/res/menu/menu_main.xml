@@ -18,6 +18,11 @@
         android:title="Dev Info"
         app:showAsAction="never" />
     <item
+        android:id="@+id/features"
+        android:orderInCategory="100"
+        android:title="Features"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/setting_settings"
         android:orderInCategory="100"
         android:title="About"

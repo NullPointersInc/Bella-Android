@@ -29,9 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WeatherActivity"
             android:screenOrientation="portrait" />
@@ -62,6 +62,7 @@
             android:name=".WebActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".FeaturesActivity"></activity>
     </application>
 
 </manifest>

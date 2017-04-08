@@ -1138,6 +1138,11 @@
                     intent.putExtra("status", updateStatus);
                     startActivity(intent,compat.toBundle());
                     return true;
+                } else if (id == R.id.features) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent intent = new Intent(MainActivity.this,FeaturesActivity.class);
+                    startActivity(intent,compat.toBundle());
+                    return true;
                 }
                     return true;
             }
