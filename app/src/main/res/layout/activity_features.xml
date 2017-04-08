@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@mipmap/bella_launcher" />
 
             <TextView
@@ -53,8 +53,8 @@
                 android:textSize="@dimen/slide_desc" />
 
             <ImageView
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/home" />
 
             <TextView
@@ -77,8 +77,8 @@
                 android:textSize="@dimen/slide_desc" />
 
             <ImageView
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/machine" />
 
             <TextView
