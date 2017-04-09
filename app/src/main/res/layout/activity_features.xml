@@ -27,6 +27,11 @@
 
             </android.support.v7.widget.Toolbar>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n \n" />
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
@@ -99,26 +104,29 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/slide_desc" />
+            
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/music" />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/calc" />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/wetaher" />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/tasks" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/tasks"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
 
             <TextView
