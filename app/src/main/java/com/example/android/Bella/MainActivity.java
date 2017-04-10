@@ -183,7 +183,7 @@
                 }
             });
 
-            updateStatus = "FFF";
+            updateStatus = "FFFFFF";
             if(hardware) {
                 //receive the address of the bluetooth device
                 Intent newint = getIntent();
