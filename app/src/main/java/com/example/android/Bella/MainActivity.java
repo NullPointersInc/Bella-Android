@@ -71,6 +71,8 @@
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
+    import com.codemybrainsout.onboarder.AhoyOnboarderCard;
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
@@ -442,7 +444,6 @@
                 }
             });
         }
-
 
         @Override
         protected void onDestroy() {
