@@ -1,0 +1,49 @@
+Version 1.0:
+- Add Intro screen
+- Add webview
+- Add Suggestion Activity
+- Support for fan
+- Redesign on settings
+
+Version 0.9:
+- Add support for messaging
+- Add support for mailing
+- Add support for lists
+
+Version 0.8:
+- Add support for navigation
+- Add support for reminder
+- Add support for alarm
+- Switch to default google search
+
+Version 0.7:
+- Redesign Switch
+- Add app notification
+- Add animation
+- Minor Bug fixes
+
+Version 0.6
+- Material Overhaul
+- Add support for news
+- Minor bug fixes
+
+Version 0.5:
+- Add about and settings
+- Add tap-to-target
+
+Version 0.4:
+- License our project
+- Implement alerter
+
+Version 0.3:
+- Initial work with hardware
+- Add support for arithmetic operation
+- Major fixes
+
+Version 0.2:
+- Initial AI framework
+- Recognise songs
+- Material Overhaul
+
+Version 0.1:
+- Initial App

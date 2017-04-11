@@ -49,7 +49,7 @@ public class SettingActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_history)
                         .color(ContextCompat.getColor(c, colorIcon))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "Releases", "https://github.com/ujwalp15/Bella/Releases", true, false))
+                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "Releases", "https://github.com/Bella-Assistant/Bella-Android/blob/master/CHANGELOG", true, false))
                 .build());
 
         MaterialAboutCard.Builder authorCardBuilder = new MaterialAboutCard.Builder();
