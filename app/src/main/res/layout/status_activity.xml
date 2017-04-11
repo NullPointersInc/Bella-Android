@@ -121,6 +121,102 @@
         android:layout_below="@+id/toggleButton3"
         android:layout_centerHorizontal="true" />
 
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            app:iconPadding="18dp"
+            app:iconSize="22dp"
+            app:leftIcon="@drawable/con_empty"
+            app:leftText="LOW"
+            app:rightIcon="@drawable/con_full"
+            app:rightText="HIGH"
+            app:selectedTextSize="14sp"
+            app:textSize="12sp"
+            android:id="@+id/toggleButton5"
+            android:layout_marginTop="105dp"
+            android:layout_below="@+id/toggleButton4"
+            android:layout_centerHorizontal="true"
+            app:sliderBackgroundColor="@color/colorPrimaryDark"
+            app:switchColor="@color/red"/>
+
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            app:iconPadding="18dp"
+            app:iconSize="22dp"
+            app:leftIcon="@drawable/con_empty"
+            app:leftText="LOW"
+            app:rightIcon="@drawable/con_full"
+            app:rightText="HIGH"
+            app:selectedTextSize="14sp"
+            app:textSize="12sp"
+            android:id="@+id/toggleButton6"
+            android:layout_marginTop="105dp"
+            android:layout_below="@+id/toggleButton5"
+            android:layout_centerHorizontal="true"
+            app:sliderBackgroundColor="@color/colorPrimaryDark"
+            app:switchColor="@color/red"/>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="Container 1"
+            android:textAlignment="center"
+            android:textColor="#CFD8DC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="73dp"
+            android:layout_below="@+id/toggleButton4"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="Container 2"
+            android:textAlignment="center"
+            android:textColor="#CFD8DC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="73dp"
+            android:layout_below="@+id/toggleButton5"
+            android:layout_centerHorizontal="true" />
+
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            app:iconPadding="18dp"
+            app:iconSize="22dp"
+            app:leftIcon="@drawable/water_less"
+            app:leftText="LOW"
+            app:rightIcon="@drawable/water_full"
+            app:rightText="HIGH"
+            app:selectedTextSize="14sp"
+            app:textSize="12sp"
+            android:id="@+id/toggleButton7"
+            android:layout_marginTop="105dp"
+            android:layout_below="@+id/toggleButton6"
+            android:layout_centerHorizontal="true"
+            app:sliderBackgroundColor="@color/colorPrimaryDark"
+            app:switchColor="@color/red"/>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="Moisture Level"
+            android:textAlignment="center"
+            android:textColor="#CFD8DC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="73dp"
+            android:layout_below="@+id/toggleButton6"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 </ScrollView>

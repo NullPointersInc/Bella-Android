@@ -24,8 +24,8 @@ import io.ghyeok.stickyswitch.widget.StickySwitch;
 public class StatusActivity extends AppCompatActivity {
 
     Toolbar t;
-    TextView t1,t2,t3;
-    StickySwitch b1,b2,b3;
+    TextView t1,t2,t3,t4,t5,t6;
+    StickySwitch b1,b2,b3,b4,b5,b6;
     String status;
 
 
@@ -45,16 +45,28 @@ public class StatusActivity extends AppCompatActivity {
         t1 = (TextView)findViewById(R.id.textView10);
         t2 = (TextView)findViewById(R.id.textView11);
         t3 = (TextView)findViewById(R.id.textView12);
+        t4 = (TextView)findViewById(R.id.textView13);
+        t5 = (TextView)findViewById(R.id.textView14);
+        t6 = (TextView)findViewById(R.id.textView15);
         b1 = (StickySwitch) findViewById(R.id.toggleButton2);
         b2 = (StickySwitch) findViewById(R.id.toggleButton3);
         b3 = (StickySwitch) findViewById(R.id.toggleButton4);
+        b4 = (StickySwitch) findViewById(R.id.toggleButton5);
+        b5 = (StickySwitch) findViewById(R.id.toggleButton6);
+        b6 = (StickySwitch) findViewById(R.id.toggleButton7);
 
         t1.setVisibility(View.INVISIBLE);
         t2.setVisibility(View.INVISIBLE);
         t3.setVisibility(View.INVISIBLE);
+        t4.setVisibility(View.INVISIBLE);
+        t5.setVisibility(View.INVISIBLE);
+        t6.setVisibility(View.INVISIBLE);
         b1.setVisibility(View.INVISIBLE);
         b2.setVisibility(View.INVISIBLE);
         b3.setVisibility(View.INVISIBLE);
+        b4.setVisibility(View.INVISIBLE);
+        b5.setVisibility(View.INVISIBLE);
+        b6.setVisibility(View.INVISIBLE);
        b1.setOnTouchListener(new View.OnTouchListener() {
            @Override
            public boolean onTouch(View v, MotionEvent event) {
@@ -68,6 +80,24 @@ public class StatusActivity extends AppCompatActivity {
             }
         });
         b3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        b4.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        b5.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        b6.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -105,6 +135,28 @@ public class StatusActivity extends AppCompatActivity {
                 revealEffect(b3);
             }
         },900);
+        t4.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                revealEffect(t4);
+                revealEffect(b4);
+            }
+        },900);
+        t5.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                revealEffect(t5);
+                revealEffect(b5);
+            }
+        },900);
+        t6.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                revealEffect(t6);
+                revealEffect(b6);
+            }
+        },900);
+
 
         if (status.charAt(0) == 'T') {
             b1.setSwitchColor(getResources().getColor(R.color.green));
@@ -126,6 +178,27 @@ public class StatusActivity extends AppCompatActivity {
         } else if (status.charAt(2) == 'F') {
             b3.setSwitchColor(getResources().getColor(R.color.red));
             b3.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if(status.charAt(3) == 'T') {
+            b4.setSwitchColor(getResources().getColor(R.color.green));
+            b4.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(3) == 'F') {
+            b4.setSwitchColor(getResources().getColor(R.color.red));
+            b4.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if(status.charAt(4) == 'T') {
+            b5.setSwitchColor(getResources().getColor(R.color.green));
+            b5.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(4) == 'F') {
+            b5.setSwitchColor(getResources().getColor(R.color.red));
+            b5.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if(status.charAt(5) == 'T') {
+            b6.setSwitchColor(getResources().getColor(R.color.green));
+            b6.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(5) == 'F') {
+            b6.setSwitchColor(getResources().getColor(R.color.red));
+            b6.setDirection(StickySwitch.Direction.LEFT);
         }
     }
 
