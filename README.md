@@ -9,18 +9,18 @@
 * Control Home appliances
 * Stand-alone Assistant
 * Helps in day-to-day functions
-* Fetch Weather 
+* Fetch Weather
 * Fetch News
 * Perform arithmetic operations
 * Play Songs
   and much more.
 
 ## Creating your Bella
-All developers are welcome to use the source code to create derivate applications. There are several things I require from all developers for the moment.
+All developers are welcome to use the source code to create derivate applications. There are several things we require from all developers for the moment.
 
 1. Please do not use the name Bella for your app.
 2. Kindly do not use the standard logo as your app's logo.
-3. Please remember to read and follow the [Apache 2.0 license](https://github.com/ujwalp15/Bella/blob/test/LICENSE). Your derivate work must include this license.
+3. Please remember to read and follow the [Apache 2.0 license](https://github.com/Bella-Assistant/Bella-Android/blob/master/LICENSE). Your derivate work must include this license.
 
 ## License
 
