@@ -32,7 +32,6 @@
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
 
-    import java.io.File;
     import java.io.IOException;
     import java.io.InputStream;
     import java.util.ArrayList;
@@ -42,8 +41,6 @@
     import android.media.MediaPlayer;
     import java.text.DateFormat;
     import java.util.Date;
-    import java.util.Timer;
-    import java.util.TimerTask;
     import java.util.UUID;
 
     import android.speech.RecognizerIntent;
@@ -71,13 +68,9 @@
     import android.widget.TextView;
     import android.widget.Toast;
 
-    import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
-    import com.codemybrainsout.onboarder.AhoyOnboarderCard;
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
-    import com.github.nisrulz.sensey.Sensey;
-    import com.github.nisrulz.sensey.ShakeDetector;
     import com.tapadoo.alerter.Alerter;
 
     import org.jetbrains.annotations.NotNull;
@@ -112,12 +105,7 @@
         public static boolean hardware = false;
         String address = null;
         String song = null;
-        String query = null;
         boolean queryStatus = false;
-        boolean shakeStatus = false;
-
-        private Timer timer;
-        private TimerTask timerTask;
 
         BluetoothAdapter myBluetooth = null;
         BluetoothSocket btSocket = null;
@@ -125,7 +113,6 @@
         //SPP UUID. Look for it
         static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
         HashMap<String,String> contexts = new HashMap<>();
-        File file = new File("song.txt");
 
         //Notification
         NotificationCompat.Builder mBuilder;
@@ -136,8 +123,6 @@
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-
-            Sensey.getInstance().init(this);
 
             /*try {
                 tf = TransitionInflater.from(this);
@@ -344,7 +329,7 @@
             contexts.put("2SYL","null");
             contexts.put("Charlie Puth","null");
 
-            txtText.setHint("Shake to get suggestions!");
+            txtText.setHint("Hello! I am Bella.");
             new Handler().postDelayed(new Runnable() {
 
                 @Override
@@ -352,46 +337,6 @@
                     txtText.setText("How may I help you?");
                 }
             }, 3000);
-
-            final String[] queries = { "How's the weather today?", "Play me some song", "What is 15 + 20?", "Fetch me latest news","Connect to my home","Turn On light1","Turn On Sprinklers","Moisture status",
-                    "What date is it today?","What time is it now?","Is this is a good song?","When is your birthday?","What is 50 * 12","Play the song Closer"};
-            final boolean[] isSelected = new boolean[queries.length];
-            for (int i = 0; i< isSelected.length;i++)
-            {
-                isSelected[i] = false;
-            }
-            final ShakeDetector.ShakeListener shakeListener=new ShakeDetector.ShakeListener() {
-                @Override public void onShakeDetected() {
-                    shakeStatus = true;
-                }
-
-                @Override public void onShakeStopped() {
-                        txtText.setText(null);
-                        txtText.setHint("You can ask me the following!");
-                        timer = new Timer();
-                        timerTask = new TimerTask() {
-                            @Override
-                            public void run() {
-                                MainActivity.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        if (!queryStatus) {
-                                            int pos = (int) Math.random()*queries.length;
-                                            if (!(isSelected[pos]))
-                                            {
-                                                query = queries[pos];
-                                                isSelected[pos] = true;
-                                                txtText.setHint(query);
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        };
-                        timer.schedule(timerTask, 2000, 3000);
-                }
-            };
-
-            Sensey.getInstance().startShakeDetection(10, 2000, shakeListener);
 
             Intent resultIntent = new Intent(this, MainActivity.class);
 
@@ -421,7 +366,6 @@
                     }
                     else {
                         queryStatus = true;
-                        Sensey.getInstance().stopShakeDetection(shakeListener);
                         txtText.setVisibility(View.INVISIBLE);
                         myVib.vibrate(50);
                         btnSpeak.setImageResource(R.drawable.ic_listen);
@@ -455,10 +399,6 @@
 
             }
             super.onDestroy();
-            Sensey.getInstance().stop();
-            if(shakeStatus) {
-                timer.purge();
-            }
             Disconnect();
         }
 
@@ -1542,12 +1482,6 @@
             } else if (s.startsWith("C2")) {
                 String c = s.substring(2,4);
                 String d = "Container 2 is low on surplus with just, "+c+" percent filled";
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
-                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.startsWith("C3")) {
-                String c = s.substring(2,4);
-                String d = "Container 3 is low on surplus with just, "+c+" percent filled";
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
