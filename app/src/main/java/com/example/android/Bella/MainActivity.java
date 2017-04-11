@@ -85,10 +85,22 @@
         private TextView txtText;
         public TextView headText;
         public StickySwitch status;
-        private Button b1;
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
         TransitionInflater tf;
+
+        private SpeechRecognizer speech;
+        public Vibrator myVib;
+        private com.tuyenmonkey.mkloader.MKLoader loader;
+        public static boolean hardware = false;
+        String address = null;
+        String song = null;
+        boolean queryStatus = false;
+
+        //Bluetooth Stuff
+        BluetoothAdapter myBluetooth = null;
+        BluetoothSocket btSocket = null;
+        private boolean isBtConnected = false;
 
         //bluetooth receive initializer
         InputStream mmInputStream;
@@ -99,17 +111,6 @@
         int readBufferPosition;
         public String updateStatus;
 
-        private SpeechRecognizer speech;
-        public Vibrator myVib;
-        private com.tuyenmonkey.mkloader.MKLoader loader;
-        public static boolean hardware = false;
-        String address = null;
-        String song = null;
-        boolean queryStatus = false;
-
-        BluetoothAdapter myBluetooth = null;
-        BluetoothSocket btSocket = null;
-        private boolean isBtConnected = false;
         //SPP UUID. Look for it
         static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
         HashMap<String,String> contexts = new HashMap<>();
@@ -389,6 +390,16 @@
             });
         }
 
+        //runs when MainActivity opens
+        public void init(){
+            progressBar.setVisibility(View.INVISIBLE);
+            loader.setVisibility(View.INVISIBLE);
+            btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            txtText.setText(null);
+            txtText.setHint("How may I help You?");
+        }
+
+        //runs when MainActivity is closed
         @Override
         protected void onDestroy() {
             if(tts != null) {
@@ -402,6 +413,7 @@
             Disconnect();
         }
 
+        //duh!
         @Override
         public void onBackPressed() {
             if (doubleBackToExitPressedOnce) {
@@ -424,32 +436,28 @@
                 }
             }, 2000);
         }
+
+        //When stt starts recognising
         @Override
         public void onBeginningOfSpeech()
         {
             btnSpeak.setImageResource(R.drawable.ic_listen);
         }
 
+        //When stt recognises words
         @Override
         public void onBufferReceived(byte[] arg0)
         {
             btnSpeak.setImageResource(R.drawable.ic_listen);
         }
 
+        //Duh!
         @Override
         public void onEndOfSpeech()
         {
             btnSpeak.setImageResource(R.drawable.ic_action_voice);
             progressBar.setVisibility(View.INVISIBLE);
             loader.setVisibility(View.INVISIBLE);
-        }
-
-        public void init(){
-            progressBar.setVisibility(View.INVISIBLE);
-            loader.setVisibility(View.INVISIBLE);
-            btnSpeak.setImageResource(R.drawable.ic_action_voice);
-            txtText.setText(null);
-            txtText.setHint("How may I help You?");
         }
 
         @Override
@@ -475,6 +483,7 @@
 
         }
 
+        //Animation stuff, better don't mess here
         void revealEffect(View v) {
             if(Build.VERSION.SDK_INT > 20) {
                 int cx = v.getMeasuredWidth()/2;
@@ -487,6 +496,7 @@
             }
         }
 
+        //Runs when tts is initialised, don't touch
         @Override
         public void onInit(int status) {
             if(status == TextToSpeech.SUCCESS) {
@@ -502,6 +512,7 @@
 
         }
 
+        //Checks if permission is granted or not
         @Override
         public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
             switch (requestCode) {
@@ -534,6 +545,7 @@
         }
 
 
+        //Heart and soul of Bella's mind
         @Override
         public void onResults(Bundle data)
         {
@@ -1017,11 +1029,14 @@
                 }
             }
         }
+
+        //I don't know what this does, who cares!
         @Override
         public void onRmsChanged(float arg0)
         {
         }
 
+        //This plays song using mediaplayer class
         public void play (String path) {
             //set up MediaPlayer
             final MediaPlayer mp = new MediaPlayer();
@@ -1044,7 +1059,7 @@
 
 
 
-
+        //This handles menu
         public void showPopup(View v) {
             PopupMenu popup = new PopupMenu(this, v);
             MenuInflater inflater = popup.getMenuInflater();
@@ -1091,6 +1106,7 @@
             popup.show();
         }
 
+        //This part of code checks if network is available
         public int isNetworkAvailable() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             android.net.NetworkInfo wifi = cm
@@ -1104,6 +1120,8 @@
                 return 0;
             }
         }
+
+        //This part of code stops tts on long press
         public void stop() {
             btnSpeak.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -1178,7 +1196,7 @@
             }
         }
 
-
+        //This part of code prints a string using a material alerter
         private void msg(String s)
         {
             Alerter.create(MainActivity.this)
@@ -1188,7 +1206,7 @@
                     .show();
         }
 
-
+        //This part of code receives stream of data from hardware using InputStream
         void beginListenForData()
         {
             final Handler handler = new Handler();
@@ -1250,6 +1268,8 @@
             workerThread.start();
         }
 
+
+        //This part of code sends the respective command to hardware via bluetooth socket
         private void command(int i)
         {
             if (btSocket!=null)
