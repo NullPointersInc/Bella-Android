@@ -1504,12 +1504,12 @@
                     status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 } else if(e.equals("T") && g.equals("F")) {
-                    String d = "Container 1 is "+c+"percent filled and Container 2 is low on surplus with just, " + g + " percent filled";
+                    String d = "Container 1 is "+c+"percent filled and Container 2 is low on surplus with just, " + f + " percent filled";
                     status.setSwitchColor(getResources().getColor(R.color.red));
                     status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 } else if(e.equals("T") && g.equals("T")) {
-                    String d = "Container 1 and Container 2  are, " + c + "and"+ g +" percent filled";
+                    String d = "Container 1 and Container 2  are, " + c + "and"+ f +" percent filled";
                     status.setSwitchColor(getResources().getColor(R.color.red));
                     status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
