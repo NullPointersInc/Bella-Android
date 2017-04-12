@@ -9,6 +9,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="CustomActivityOnCrashTheme" parent="Theme.Mal.Dark.DarkActionBar">
+
+    </style>
+
+
     <style name="SuggestionTheme" parent="Theme.Mal.Dark.DarkActionBar">
         <item name="android:textColorPrimary">@color/white</item>
     </style>

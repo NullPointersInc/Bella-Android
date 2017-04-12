@@ -38,6 +38,7 @@ public class ForecastFragment extends Fragment {
         setHasOptionsMenu(true);
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         weatherTask.execute();
+        //throw new RuntimeException("Boom!");
     }
 
 

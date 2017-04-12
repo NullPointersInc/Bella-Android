@@ -76,6 +76,7 @@
     import org.jetbrains.annotations.NotNull;
     import org.w3c.dom.Text;
 
+    import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
     import io.ghyeok.stickyswitch.widget.StickySwitch;
 
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
@@ -133,6 +134,10 @@
             } catch (Exception e) {
                 Log.d("Exit transition", "fuck this shit");
             }*/
+            //custom app crash
+            CustomActivityOnCrash.setShowErrorDetails(false);
+            CustomActivityOnCrash.setDefaultErrorActivityDrawable(R.drawable.bellacoffee);
+            CustomActivityOnCrash.install(this);
 
             Fade s = new Fade();
             s.setDuration(1000);

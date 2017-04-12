@@ -20,6 +20,8 @@
     <string name="title9">Connect to my home</string>
     <string name="title10">Turn On light1</string>
     <string name="title11">Turn On Sprinklers</string>
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">Sorry, Bella has gone for coffee break</string>
+    <string name="customactivityoncrash_error_activity_restart_app">Call her back</string>
 
 
 </resources>
