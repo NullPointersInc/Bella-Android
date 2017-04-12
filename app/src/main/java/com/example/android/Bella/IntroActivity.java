@@ -23,7 +23,7 @@ public class IntroActivity extends AhoyOnboarderActivity {
             launchHomeScreen();
             finish();
         }
-        AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard("Bella", "Your Personal Assistant powered by Artificial Intelligence and Machine Learning.", R.mipmap.bella_launcher);
+        AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard("Bella", "Your Personal Assistant powered by Artificial Intelligence and Natural Language Processing.", R.mipmap.bella_launcher);
         AhoyOnboarderCard ahoyOnboarderCard2 = new AhoyOnboarderCard("Home Automation", "Control your house with voice commands.", R.drawable.home);
         AhoyOnboarderCard ahoyOnboarderCard3 = new AhoyOnboarderCard("Interactive", "Bella is interactive and can help you with daily tasks.", R.drawable.machine);
         AhoyOnboarderCard ahoyOnboarderCard4 = new AhoyOnboarderCard("Added Functionality", "Bella can play Music, fetch the news, predict the weather and much more!", R.drawable.tasks);

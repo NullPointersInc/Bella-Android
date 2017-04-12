@@ -787,51 +787,56 @@
                 tts.speak("Pretty good, but I am still trying to learn Bodmas, please bear with me", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
             } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
-                String input = txt.replaceAll("[^xX+-/0-9]","");
-                input = input.replace(" ","");
-                String parsedInteger = "";
-                String operator = "";
-                float aggregate=0;
-                int flag =0;
+                if(txt.contains(".")) {
+                    tts.speak("I am still learning to work with decimal numbers.", TextToSpeech.QUEUE_FLUSH, null);
+                    stop();
+                } else {
+                    String input = txt.replaceAll("[^xX+-/0-9]", "");
+                    input = input.replace(" ", "");
+                    String parsedInteger = "";
+                    String operator = "";
+                    float aggregate = 0;
+                    int flag = 0;
 
 
-                for (int i = 0; i< input.length(); i++) {
-                    char c = input.charAt(i);
-                    if(Character.isDigit(c)) {
-                        parsedInteger += c;
-                        Log.e("Text","Ans="+parsedInteger);
-                    }
+                    for (int i = 0; i < input.length(); i++) {
+                        char c = input.charAt(i);
+                        if (Character.isDigit(c)) {
+                            parsedInteger += c;
+                            Log.e("Text", "Ans=" + parsedInteger);
+                        }
 
-                    if(!Character.isDigit(c) || i == input.length()-1) {
-                        int parsed = Integer.parseInt(parsedInteger);
-                        if(operator.equals("")) {
-                            aggregate = parsed;
-                            Log.e("Text","Ans1="+aggregate);
-                        } else {
-                            if(operator.equals("+")) {
-                                aggregate += parsed;
-                                Log.e("Text","Ans2="+aggregate);
-                            } else if(operator.equals("-")) {
-                                aggregate -= parsed;
-                            } else if(operator.equals("x") || operator.equals("X")) {
-                                aggregate *= parsed;
+                        if (!Character.isDigit(c) || i == input.length() - 1) {
+                            int parsed = Integer.parseInt(parsedInteger);
+                            if (operator.equals("")) {
+                                aggregate = parsed;
+                                Log.e("Text", "Ans1=" + aggregate);
+                            } else {
+                                if (operator.equals("+")) {
+                                    aggregate += parsed;
+                                    Log.e("Text", "Ans2=" + aggregate);
+                                } else if (operator.equals("-")) {
+                                    aggregate -= parsed;
+                                } else if (operator.equals("x") || operator.equals("X")) {
+                                    aggregate *= parsed;
 
-                            } else if(operator.equals("/")) {
-                                if (Integer.valueOf(parsed)==0) {
-                                    flag = 1;
-                                } else {
-                                    aggregate /= parsed;
+                                } else if (operator.equals("/")) {
+                                    if (Integer.valueOf(parsed) == 0) {
+                                        flag = 1;
+                                    } else {
+                                        aggregate /= parsed;
+                                    }
                                 }
                             }
+                            parsedInteger = "";
+                            operator = "" + c;
                         }
-                        parsedInteger = "";
-                        operator = ""+c;
                     }
-                }
-                if(flag==0) {
-                    tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
-                } else {
-                    tts.speak("That sounds like a trick question." , TextToSpeech.QUEUE_FLUSH, null);
+                    if (flag == 0) {
+                        tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
+                    } else {
+                        tts.speak("That sounds like a trick question.", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                 }
             } else if (txt.contains("play") && txt.contains("song")) {
                 if(isNetworkAvailable()==0) {

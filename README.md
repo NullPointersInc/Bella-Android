@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://github.com/ujwalp15/Bella/blob/test/app/src/main/ic_launcher1-web.png" width="100" height="100"></p>
 
-<h3 align="center">An Assistant powered by Artificial Intelligence and Machine Learning</h3>
+<h3 align="center">An Assistant powered by Artificial Intelligence and Natural Language Processing.</h3>
 
 ### Features
 * Fully functional AI
