@@ -936,7 +936,7 @@
                         tts.speak("Playing We don't talk anymore by Charlie Puth", TextToSpeech.QUEUE_FLUSH, null);
                         String path = "https://www.dropbox.com/s/a1ahxsid403ebj3/lkAnyMore.mp3?dl=1";
                         play(path);
-                    } else if(txt.contains("play") && (txt.contains("random")||txt.contains("any"))) {
+                    } else if(txt.contains("play") && (txt.contains("random")||txt.contains("any")||txt.contains("some"))) {
                         String[] songs = { "Disclosure", "Major Lazor", "Chainsmokers", "2SYL","Charlie Puth"};
                         song = songs[(int) (Math.random() * songs.length)];
                         if(song.equals("Disclosure")) {
