@@ -7,21 +7,21 @@
         android:orderInCategory="100"
         android:title="Connect"
         app:showAsAction="never" />
-    <item
+    <!--<item
         android:id="@+id/status_settings"
         android:orderInCategory="100"
         android:title="Status"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="Dev Info"
         app:showAsAction="never" />
-    <item
+    <!--<item
         android:id="@+id/features"
         android:orderInCategory="100"
         android:title="Features"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
     <item
         android:id="@+id/setting_settings"
         android:orderInCategory="100"

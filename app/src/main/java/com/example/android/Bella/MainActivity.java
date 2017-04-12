@@ -1088,7 +1088,7 @@
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } else if (id == R.id.status_settings) {
+                } /*else if (id == R.id.status_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,StatusActivity.class);
                     intent.putExtra("status", updateStatus);
@@ -1099,7 +1099,7 @@
                     Intent intent = new Intent(MainActivity.this,FeaturesActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                }
+                } */
                     return true;
             }
         });
@@ -1415,24 +1415,10 @@
         private void statuscheck(String s) {
             s = s.replaceAll("[\u0000-\u001f]", "");
             if (s.contains("T1")) {
-                 c1 = new CountDownTimer(20000,1000) {
-                    public void onTick(long millisUntilFinished) {
-                    }
-                    public void onFinish() {
-                        notif(1);
-                    }
-                }.start();
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T2")) {
-                new CountDownTimer(10000,1000) {
-                    public void onTick(long millisUntilFinished) {
-                    }
-                    public void onFinish() {
-                        notif(2);
-                    }
-                }.start();
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -1494,24 +1480,41 @@
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("fan already turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
+                Log.d("s:",s);
                 String c = s.substring(2,4);
-                String d = "Container 1 is low on surplus with just, "+c+" percent filled";
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
-                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+                String e = s.substring(4,5);
+                String f = s.substring(7,9);
+                String g = s.substring(9,10);
+                if(e.equals("F") && g.equals("F")) {
+                    String d = "Container 1 and Container 2 is low on surplus with just, " + c + "and" + f + " percent filled respectively";
+                    status.setSwitchColor(getResources().getColor(R.color.red));
+                    status.setDirection(StickySwitch.Direction.LEFT);
+                    tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+                } else if(e.equals("F") && g.equals("T")) {
+                    String d = "Container 1 is low on surplus with, " + c + " percent filled and container 2 is "+f+" percent filled";
+                    status.setSwitchColor(getResources().getColor(R.color.red));
+                    status.setDirection(StickySwitch.Direction.LEFT);
+                    tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+                } else if(e.equals("T") && g.equals("F")) {
+                    String d = "Container 1 is "+c+"percent filled and Container 2 is low on surplus with just, " + g + " percent filled";
+                    status.setSwitchColor(getResources().getColor(R.color.red));
+                    status.setDirection(StickySwitch.Direction.LEFT);
+                    tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+                } else if(e.equals("T") && g.equals("T")) {
+                    String d = "Container 1 and Container 2  are, " + c + "and"+ g +" percent filled";
+                    status.setSwitchColor(getResources().getColor(R.color.red));
+                    status.setDirection(StickySwitch.Direction.LEFT);
+                    tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+                }
             } else if (s.startsWith("C2")) {
-                String c = s.substring(2,4);
-                String d = "Container 2 is low on surplus with just, "+c+" percent filled";
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
-                tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
+
             } else if (s.startsWith("M1")) {
                 String c = s.substring(2,4);
                 String d = "The garden contains "+c+" percent moisture";
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.length()>2){
+            } else if (s.length()>5){
                 Log.d("string: ",s);
                 tts.speak("Status Received!", TextToSpeech.QUEUE_FLUSH, null);
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
