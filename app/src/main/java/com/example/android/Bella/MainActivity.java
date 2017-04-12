@@ -74,6 +74,7 @@
     import com.tapadoo.alerter.Alerter;
 
     import org.jetbrains.annotations.NotNull;
+    import org.w3c.dom.Text;
 
     import io.ghyeok.stickyswitch.widget.StickySwitch;
 
@@ -777,12 +778,15 @@
             } else if (txt.contains("what all can you play") || txt.contains("what all songs can you play") || txt.contains("supported songs")) {
                 tts.speak("I can play. help me lose my mind by Disclosure. Lean On by Major Lazor. Closer by Chainsmokers. Ongoing things by 2SYL. We don't talk anymore by Charlie Puth. Soon I will support more songs.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
+            } else if(txt.contains("math") || txt.contains("maths") || txt.contains("mathematics")) {
+                tts.speak("Pretty good, but I am still trying to learn Bodmas, please bear with me", TextToSpeech.QUEUE_FLUSH, null);
+                stop();
             } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
                 String input = txt.replaceAll("[^xX+-/0-9]","");
                 input = input.replace(" ","");
                 String parsedInteger = "";
                 String operator = "";
-                int aggregate=0;
+                float aggregate=0;
                 int flag =0;
 
 
@@ -820,13 +824,10 @@
                     }
                 }
                 if(flag==0) {
-                    Log.e("Text","Ans="+aggregate);
                     tts.speak("It's " + aggregate, TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     tts.speak("That sounds like a trick question." , TextToSpeech.QUEUE_FLUSH, null);
                 }
-
-
             } else if (txt.contains("play") || txt.contains("song")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
