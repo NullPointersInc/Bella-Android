@@ -828,7 +828,7 @@
                 } else {
                     tts.speak("That sounds like a trick question." , TextToSpeech.QUEUE_FLUSH, null);
                 }
-            } else if (txt.contains("play") || txt.contains("song")) {
+            } else if (txt.contains("play") && txt.contains("song")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
                 }
@@ -952,6 +952,8 @@
                         }
                     } else {
                             String s = txt.substring(txt.lastIndexOf("song")+4,txt.length());
+                            String c = "Searching for the song "+s;
+                            tts.speak(c, TextToSpeech.QUEUE_FLUSH, null);
                             s=s.replace(" ","+");
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
                     }
