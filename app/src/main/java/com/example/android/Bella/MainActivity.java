@@ -573,7 +573,7 @@
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
-                if(!checkBT()) {
+                if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     headText.setText("Room");
