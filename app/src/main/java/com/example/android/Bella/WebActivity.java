@@ -36,10 +36,16 @@ public class WebActivity extends AppCompatActivity{
         webSettings.setJavaScriptEnabled(true);
         w.setWebViewClient(new myWebClient());
         w.loadUrl(link);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WebActivity.super.onBackPressed();
+            }
+        });
 
     }
     public class myWebClient extends WebViewClient
