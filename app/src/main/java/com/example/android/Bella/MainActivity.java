@@ -838,18 +838,18 @@
                         tts.speak("That sounds like a trick question.", TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
-            } else if (txt.contains("play") && txt.contains("song")) {
+            } else if (txt.contains("play") || txt.contains("song")) {
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to play songs", TextToSpeech.QUEUE_FLUSH, null);
                 }
                 else {
                     txt = txt.toLowerCase();
                     if((txt.contains("is this") || txt.contains("is it")) && txt.contains("good")) {
-                        if(contexts.get(song)=="null") {
+                        if(contexts.get(song).equals("null")) {
                             tts.speak("I don't know if it is a good song", TextToSpeech.QUEUE_FLUSH, null);
-                        } else if(contexts.get(song)=="false") {
+                        } else if(contexts.get(song).equals("false")) {
                             tts.speak("I don't think it is a good song", TextToSpeech.QUEUE_FLUSH, null);
-                        } else if (contexts.get(song)=="true") {
+                        } else if (contexts.get(song).equals("true")) {
                             tts.speak("I like this song", TextToSpeech.QUEUE_FLUSH, null);
                         } else {
                             tts.speak("You have said something that I did not understand, I will try to learn as I grow up!", TextToSpeech.QUEUE_FLUSH, null);
