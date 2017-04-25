@@ -132,7 +132,7 @@
                 Transition t = tf.inflateTransition(R.transition.transactivity);
                 getWindow().setExitTransition(t);
             } catch (Exception e) {
-                Log.d("Exit transition", "fuck this shit");
+
             }*/
             //custom app crash
             CustomActivityOnCrash.setShowErrorDetails(false);
@@ -1440,7 +1440,7 @@
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
-                c1.cancel();
+
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -1475,7 +1475,7 @@
             } else if (s.contains("F7")) {
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
-                tts.speak("Sprinkler already turned off!", TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak("turned off sprinkler", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("S1")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
