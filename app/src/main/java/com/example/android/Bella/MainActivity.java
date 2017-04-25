@@ -72,6 +72,7 @@
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
     import com.tapadoo.alerter.Alerter;
+    import com.thefinestartist.finestwebview.FinestWebView;
 
     import org.jetbrains.annotations.NotNull;
     import org.w3c.dom.Text;
@@ -1027,17 +1028,53 @@
                         s=s.replace(" ", "+");
                         s="https://www.google.co.in/search?q="+s;
                         tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent intent = new Intent(MainActivity.this,WebActivity.class);
-                        intent.putExtra("link", s);
-                        startActivity(intent);
+                        new FinestWebView.Builder(MainActivity.this).titleDefault("Search")
+                                .toolbarScrollFlags(0)
+                                .titleColorRes(R.color.finestWhite)
+                                .statusBarColorRes(R.color.colorPrimaryDark)
+                                .toolbarColorRes(R.color.colorPrimary)
+                                .iconDefaultColorRes(R.color.finestWhite)
+                                .progressBarColorRes(R.color.finestWhite)
+                                .menuSelector(R.drawable.selector_light_theme)
+                                .dividerHeight(0)
+                                .webViewBuiltInZoomControls(true)
+                                .webViewDisplayZoomControls(true)
+                                .webViewJavaScriptEnabled(true)
+                                .showSwipeRefreshLayout(true)
+                                .gradientDivider(false)
+                                //                    .setCustomAnimations(R.anim.slide_up, R.anim.hold, R.anim.hold, R.anim.slide_down)
+                                .setCustomAnimations(R.anim.fade_in_medium, R.anim.fade_out_medium, R.anim.fade_in_medium, R.anim.fade_out_medium)
+                                .disableIconBack(false)
+                                .disableIconClose(false)
+                                .disableIconForward(false)
+                                .disableIconMenu(false)
+                                .show(s);
                     } else{
                         String s = txt;
                         s=s.replace(" ", "+");
                         s="https://www.google.co.in/search?q="+s;
                         tts.speak("The web has returned following result", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent intent = new Intent(MainActivity.this,WebActivity.class);
-                        intent.putExtra("link", s);
-                        startActivity(intent);
+                        new FinestWebView.Builder(MainActivity.this).titleDefault("Search")
+                                .toolbarScrollFlags(0)
+                                .titleColorRes(R.color.finestWhite)
+                                .statusBarColorRes(R.color.colorPrimaryDark)
+                                .toolbarColorRes(R.color.colorPrimary)
+                                .iconDefaultColorRes(R.color.finestWhite)
+                                .progressBarColorRes(R.color.finestWhite)
+                                .menuSelector(R.drawable.selector_light_theme)
+                                .dividerHeight(0)
+                                .webViewBuiltInZoomControls(true)
+                                .webViewDisplayZoomControls(true)
+                                .webViewJavaScriptEnabled(true)
+                                .showSwipeRefreshLayout(true)
+                                .gradientDivider(false)
+                                //                    .setCustomAnimations(R.anim.slide_up, R.anim.hold, R.anim.hold, R.anim.slide_down)
+                                .setCustomAnimations(R.anim.fade_in_medium, R.anim.fade_out_medium, R.anim.fade_in_medium, R.anim.fade_out_medium)
+                                .disableIconBack(false)
+                                .disableIconClose(false)
+                                .disableIconForward(false)
+                                .disableIconMenu(false)
+                                .show(s);
                     }
                 }
             }

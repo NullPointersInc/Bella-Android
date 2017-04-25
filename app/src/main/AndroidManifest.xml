@@ -58,9 +58,13 @@
         <activity android:name=".StatusActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".FeaturesActivity"></activity>
-        <activity android:name=".WebActivity"
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/Theme.Mal.Dark.DarkActionBar"/>
+
+        <activity android:name=".WebViewActivity"/>
     </application>
 
 </manifest>
