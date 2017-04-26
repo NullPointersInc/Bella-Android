@@ -18,6 +18,16 @@ import com.mikepenz.iconics.context.IconicsContextWrapper;
 public class SettingActivity extends MaterialAboutActivity {
 
     int colorIcon = R.color.colorIconDark;
+    int red = R.color.red_500;
+    int lightRed = R.color.red_400;
+    int blue = R.color.light_blue_900;
+    int yellow = R.color.yellow_600;
+    int green = R.color.green_700;
+    int purple = R.color.purple_500;
+    int orange = R.color.orange_600;
+    int grey = R.color.grey_500;
+    int lightGreen = R.color.green_500;
+    int lightBlue = R.color.blue_500;
 
     @Override
     protected MaterialAboutList getMaterialAboutList(Context c) {
@@ -34,7 +44,7 @@ public class SettingActivity extends MaterialAboutActivity {
             appCardBuilder.addItem(ConvenienceBuilder.createVersionActionItem(c,
                     new IconicsDrawable(c)
                             .icon(GoogleMaterial.Icon.gmd_info_outline)
-                            .color(ContextCompat.getColor(c, colorIcon))
+                            .color(ContextCompat.getColor(c, red))
                             .sizeDp(18),
                     "Version",
                     false));
@@ -47,7 +57,7 @@ public class SettingActivity extends MaterialAboutActivity {
                 .text("Changelog")
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_history)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, purple))
                         .sizeDp(18))
                 .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "Releases", "https://github.com/Bella-Assistant/Bella-Android/blob/master/CHANGELOG", true, false))
                 .build());
@@ -61,7 +71,7 @@ public class SettingActivity extends MaterialAboutActivity {
                 .subText("Bangalore")
                 .icon(new IconicsDrawable(c)
                         .icon(GoogleMaterial.Icon.gmd_person)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, blue))
                         .sizeDp(18))
                 .build());
 
@@ -69,7 +79,7 @@ public class SettingActivity extends MaterialAboutActivity {
                 .text("Fork on GitHub")
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_github_circle)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, grey))
                         .sizeDp(18))
                 .setOnClickListener(ConvenienceBuilder.createWebsiteOnClickAction(c, Uri.parse("https://github.com/ujwalp15/Bella")))
                 .build());
@@ -81,7 +91,7 @@ public class SettingActivity extends MaterialAboutActivity {
             convenienceCardBuilder.addItem(ConvenienceBuilder.createVersionActionItem(c,
                     new IconicsDrawable(c)
                             .icon(CommunityMaterial.Icon.cmd_information_outline)
-                            .color(ContextCompat.getColor(c, colorIcon))
+                            .color(ContextCompat.getColor(c, lightRed))
                             .sizeDp(18),
                     "Revision",
                     true));
@@ -92,16 +102,16 @@ public class SettingActivity extends MaterialAboutActivity {
         convenienceCardBuilder.addItem(ConvenienceBuilder.createWebsiteActionItem(c,
                 new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_earth)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, green))
                         .sizeDp(18),
                 "Visit Website",
                 true,
-                Uri.parse("https://ujwalp15.github.io")));
+                Uri.parse("Coming soon!")));
 
         convenienceCardBuilder.addItem(ConvenienceBuilder.createRateActionItem(c,
                 new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_star)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, yellow))
                         .sizeDp(18),
                 "Rate this app",
                 null
@@ -110,7 +120,7 @@ public class SettingActivity extends MaterialAboutActivity {
         convenienceCardBuilder.addItem(ConvenienceBuilder.createEmailItem(c,
                 new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_email)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, grey))
                         .sizeDp(18),
                 "Send an email",
                 true,
@@ -120,7 +130,7 @@ public class SettingActivity extends MaterialAboutActivity {
         convenienceCardBuilder.addItem(ConvenienceBuilder.createPhoneItem(c,
                 new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_phone)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, blue))
                         .sizeDp(18),
                 "Call me",
                 true,
@@ -129,7 +139,7 @@ public class SettingActivity extends MaterialAboutActivity {
         convenienceCardBuilder.addItem(ConvenienceBuilder.createMapItem(c,
                 new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_map)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, lightGreen))
                         .sizeDp(18),
                 "Visit Bangalore",
                 null,
@@ -141,7 +151,7 @@ public class SettingActivity extends MaterialAboutActivity {
         otherCardBuilder.addItem(new MaterialAboutActionItem.Builder()
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_language_html5)
-                        .color(ContextCompat.getColor(c, colorIcon))
+                        .color(ContextCompat.getColor(c, orange))
                         .sizeDp(18))
                 .text("Contributions")
                 .subTextHtml("We believe in <b>Open-Source</b> ideology. <br />Therefore, the <i>source</i> is readily available to work with. This gives other developers a chance to contribute to our project<br/>Remember that we accept only pull-requests")
