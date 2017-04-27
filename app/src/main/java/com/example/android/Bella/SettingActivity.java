@@ -27,7 +27,7 @@ public class SettingActivity extends MaterialAboutActivity {
     int orange = R.color.orange_600;
     int grey = R.color.grey_500;
     int lightGreen = R.color.green_500;
-    int lightBlue = R.color.blue_500;
+    int brown = R.color.brown_500;
 
     @Override
     protected MaterialAboutList getMaterialAboutList(Context c) {
@@ -57,7 +57,7 @@ public class SettingActivity extends MaterialAboutActivity {
                 .text("Changelog")
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_history)
-                        .color(ContextCompat.getColor(c, purple))
+                        .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
                 .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "Releases", "https://github.com/Bella-Assistant/Bella-Android/blob/master/CHANGELOG", true, false))
                 .build());
@@ -145,10 +145,22 @@ public class SettingActivity extends MaterialAboutActivity {
                 null,
                 "bangalore"));
 
-        MaterialAboutCard.Builder otherCardBuilder = new MaterialAboutCard.Builder();
-        otherCardBuilder.title("Other");
+        MaterialAboutCard.Builder appCardBuilder1 = new MaterialAboutCard.Builder();
+        appCardBuilder1.title("Other");
 
-        otherCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+        appCardBuilder1.addItem(new MaterialAboutActionItem.Builder()
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_gavel)
+                        .color(ContextCompat.getColor(c, brown))
+                        .sizeDp(18))
+                .text("The Drill")
+                .subTextHtml("Logcat or GTFO")
+                .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
+                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "Logcat or GTFO", "http://i.bittwiddlers.org/LIt.png", true, true))
+                .build()
+        );
+
+        appCardBuilder1.addItem(new MaterialAboutActionItem.Builder()
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_language_html5)
                         .color(ContextCompat.getColor(c, orange))
@@ -160,7 +172,7 @@ public class SettingActivity extends MaterialAboutActivity {
         );
 
 
-        return new MaterialAboutList(appCardBuilder.build(), authorCardBuilder.build(), convenienceCardBuilder.build(), otherCardBuilder.build());
+        return new MaterialAboutList(appCardBuilder.build(), authorCardBuilder.build(), convenienceCardBuilder.build(), appCardBuilder1.build());
     }
 
     @Override
