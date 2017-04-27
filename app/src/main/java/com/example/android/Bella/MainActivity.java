@@ -2,6 +2,7 @@
 
     import android.Manifest;
     import android.animation.Animator;
+    import android.app.DownloadManager;
     import android.app.NotificationManager;
     import android.app.PendingIntent;
     import android.bluetooth.BluetoothAdapter;
@@ -71,6 +72,8 @@
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
+    import com.github.javiersantos.appupdater.AppUpdater;
+    import com.github.javiersantos.appupdater.enums.UpdateFrom;
     import com.tapadoo.alerter.Alerter;
     import com.thefinestartist.finestwebview.FinestWebView;
 
@@ -120,13 +123,14 @@
 
         //Notification
         NotificationCompat.Builder mBuilder;
-        CountDownTimer c1;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
+            checkForUpdate();
 
             /*try {
                 tf = TransitionInflater.from(this);
@@ -396,6 +400,18 @@
                 }
             });
         }
+
+        public void checkForUpdate() {
+            //Check for update
+            new AppUpdater(this)
+                    .setUpdateFrom(UpdateFrom.JSON)
+                    .setUpdateJSON("https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/update-changelog.json")
+                    .setTitleOnUpdateNotAvailable("Update not available")
+                    .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
+                    .setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
+                    .start();
+        }
+
 
         //runs when MainActivity opens
         public void init(){
@@ -1138,13 +1154,10 @@
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } /*else if (id == R.id.status_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent intent = new Intent(MainActivity.this,StatusActivity.class);
-                    intent.putExtra("status", updateStatus);
-                    startActivity(intent,compat.toBundle());
+                } else if (id == R.id.update_settings) {
+                    checkForUpdate();
                     return true;
-                } else if (id == R.id.features) {
+                } /*else if (id == R.id.features) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,FeaturesActivity.class);
                     startActivity(intent,compat.toBundle());

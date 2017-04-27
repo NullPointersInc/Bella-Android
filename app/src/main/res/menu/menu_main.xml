@@ -7,11 +7,6 @@
         android:orderInCategory="100"
         android:title="Connect"
         app:showAsAction="never" />
-    <!--<item
-        android:id="@+id/status_settings"
-        android:orderInCategory="100"
-        android:title="Status"
-        app:showAsAction="never" />-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -31,5 +26,10 @@
         android:id="@+id/help_settings"
         android:orderInCategory="100"
         android:title="@string/help_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/update_settings"
+        android:orderInCategory="100"
+        android:title="Check for Update"
         app:showAsAction="never" />
 </menu>
