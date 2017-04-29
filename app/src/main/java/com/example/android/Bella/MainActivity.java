@@ -629,6 +629,25 @@
                 Intent i = new Intent(MainActivity.this, SoilActivity.class);
                 i.putExtra("link",link);
                 startActivity(i,compat.toBundle());
+            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("Alaska") || txt.contains("location")) {
+                int link=5;
+                if(txt.contains("North Carolina")) {
+                    link = 3;
+                    tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("Hawaii")) {
+                    link = 4;
+                    tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("Miami")) {
+                    link = 2;
+                    tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("Alaska")) {
+                    link = 1;
+                    tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                }
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                i.putExtra("link",link);
+                startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);

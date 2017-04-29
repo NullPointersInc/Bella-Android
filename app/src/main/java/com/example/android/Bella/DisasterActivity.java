@@ -1,6 +1,9 @@
 package com.example.android.Bella;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.ghyeok.stickyswitch.widget.StickySwitch;
+
 public class DisasterActivity extends AppCompatActivity {
     Toolbar toolbar;
     private static String TAG = PowergridActivity.class.getSimpleName();
@@ -24,18 +29,31 @@ public class DisasterActivity extends AppCompatActivity {
     public String id;
     String info;
     int  link;
+    String city;
+    StickySwitch s1,s2,s3,s4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disaster);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        s1 = (StickySwitch)findViewById(R.id.toggleButton2);
+        s2 = (StickySwitch)findViewById(R.id.toggleButton3);
+        s3 = (StickySwitch)findViewById(R.id.toggleButton4);
+        s4 = (StickySwitch)findViewById(R.id.toggleButton5);
 
         link = getIntent().getIntExtra("link",0);
+        Log.d("Link: ",Integer.toString(link));
         if(link==1) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal1_1.json";
-        } else  {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal1_2.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/Tsunami.json";
+        } else if(link == 2) {
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/cyclone.json";
+        } else if(link == 3) {
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/volcano.json";
+        } else if(link == 4) {
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/flood.json";
+        } else {
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/normal.json";
         }
 
         setSupportActionBar(toolbar);
@@ -47,6 +65,7 @@ public class DisasterActivity extends AppCompatActivity {
                 DisasterActivity.super.onBackPressed();
             }
         });
+        city = "Bangalore";
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Please wait...");
@@ -64,19 +83,36 @@ public class DisasterActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
 
-               /* try {
+                try {
                     // Parsing json object response
                     // response will be a json object
-                    /*cityName = response.getString("c_name");
-                    type = response.getString("s_type");
-                    farm= response.getString("s_farm");*/
+                    city = response.getString("c_name");
+                    if (city.equals("Hawaii")) {
+                        notif("Warning! Volcano Alert","ETA: 1 hr");
+                        s4.setSwitchColor(getResources().getColor(R.color.red));
+                        s4.setDirection(StickySwitch.Direction.RIGHT);
+                    } else if (city.equals("Miami")) {
+                        notif("Warning! Cyclone Alert","ETA: 1 hr");
+                        s2.setSwitchColor(getResources().getColor(R.color.red));
+                        s2.setDirection(StickySwitch.Direction.RIGHT);
+                    } else if (city.equals("Alaska")) {
+                        notif("Warning! Tsunami Alert","ETA: 1 hr");
+                        s1.setSwitchColor(getResources().getColor(R.color.red));
+                        s1.setDirection(StickySwitch.Direction.RIGHT);
+                    } else if (city.equals("North Carolina")) {
+                        notif("Warning! Flood Alert","ETA: 1 hr");
+                        s3.setSwitchColor(getResources().getColor(R.color.red));
+                        s3.setDirection(StickySwitch.Direction.RIGHT);
+                    } else {
+                        notif("Mother Earth looks good","Have a nice day");
+                    }
 
-                /*} catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
-                }*/
+                }
                 hidepDialog();
             }
         }, new Response.ErrorListener() {
@@ -103,5 +139,14 @@ public class DisasterActivity extends AppCompatActivity {
     private void hidepDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+    private void notif(String title, String notif) {
+        int notifId=1;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.mipmap.bella_launcher);
+        mBuilder.setContentTitle(title);
+        mBuilder.setContentText(notif);
+        NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNM.notify(notifId,mBuilder.build());
     }
 }
