@@ -1,22 +1,26 @@
-{
-	"house": {
-		"id1": 1,
-		"g_limit": 350,
-		"production":500,
-		"curr_usg":275
-	},
-	
-	"industry":{
-		"id1": 2,
-		"g_limit": 1000,
-		"production":1500,
-		"curr_usg":880
-	},	
-	
-	"farming":{
-		"id1": 3,
-		"g_limit": 200,
-		"production":500,
-		"curr_usg":100
-	}
-}
+[
+  {
+    "house": {
+      "id1": "hh",
+      "g_limit": 350,
+      "production": 500,
+      "curr_usg": 275
+    }
+  },
+  {
+    "industry": {
+      "id1": 2,
+      "g_limit": 1000,
+      "production": 1500,
+      "curr_usg": 880
+    }
+  },
+  {
+    "farming": {
+      "id1": 3,
+      "g_limit": 200,
+      "production": 500,
+      "curr_usg": 100
+    }
+  }
+]
