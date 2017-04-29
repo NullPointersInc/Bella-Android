@@ -62,7 +62,7 @@ public class GarbageActivity extends AppCompatActivity {
             circularProgressBar.setColor(getResources().getColor(R.color.red));
         }
         circularProgressBar.setProgressWithAnimation(temp, animationDuration);
-        t1.setText(": "+temp+"%");
+        t1.setText("  " + temp+"%");
         temp=Integer.parseInt(status.substring(2,4));
         if (temp<50) {
             circularProgressBar2.setColor(getResources().getColor(R.color.green));
@@ -74,7 +74,7 @@ public class GarbageActivity extends AppCompatActivity {
             circularProgressBar2.setColor(getResources().getColor(R.color.red));
         }
         circularProgressBar2.setProgressWithAnimation(temp, animationDuration);
-        t2.setText(": "+temp+"%");
+        t2.setText("  " + temp+"%");
         temp=Integer.parseInt(status.substring(4,6));
         if (temp<50) {
             circularProgressBar3.setColor(getResources().getColor(R.color.green));
@@ -86,7 +86,7 @@ public class GarbageActivity extends AppCompatActivity {
             circularProgressBar3.setProgress(getResources().getColor(R.color.red));
         }
         circularProgressBar3.setProgressWithAnimation(temp, animationDuration);
-        t3.setText(": "+temp+"%");
+        t3.setText("  " + temp+"%");
         temp=Integer.parseInt(status.substring(6,8));
         if (temp<50) {
             circularProgressBar4.setColor(getResources().getColor(R.color.green));
@@ -98,7 +98,7 @@ public class GarbageActivity extends AppCompatActivity {
             circularProgressBar4.setColor(getResources().getColor(R.color.red));
         }
         circularProgressBar4.setProgressWithAnimation(temp, animationDuration);
-        t4.setText(": "+temp+"%");
+        t4.setText("  " + temp+"%");
         temp=Integer.parseInt(status.substring(8,10));
         if (temp<50) {
             circularProgressBar5.setColor(getResources().getColor(R.color.green));
@@ -111,7 +111,7 @@ public class GarbageActivity extends AppCompatActivity {
         }
 
         circularProgressBar5.setProgressWithAnimation(temp, animationDuration);
-        t5.setText(": "+temp+"%");
+        t5.setText("  " + temp+"%");
         temp=Integer.parseInt(status.substring(10,12));
         if (temp<50) {
             circularProgressBar6.setColor(getResources().getColor(R.color.green));
@@ -123,7 +123,7 @@ public class GarbageActivity extends AppCompatActivity {
             circularProgressBar6.setColor(getResources().getColor(R.color.red));
         }
         circularProgressBar6.setProgressWithAnimation(temp, animationDuration);
-        t6.setText(": "+temp+"%");
+        t6.setText("  " + temp+"%");
 
 
 
