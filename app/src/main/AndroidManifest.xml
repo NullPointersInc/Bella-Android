@@ -14,12 +14,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        tools:replace="android:icon"
+        android:name=".AppCont"
         android:allowBackup="true"
         android:icon="@mipmap/bella_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
             android:name=".IntroActivity"
             android:screenOrientation="portrait">
@@ -50,12 +51,13 @@
         <activity
             android:name=".SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MaterialAboutActivity"/>
+            android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity
             android:name=".SuggestionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MaterialAboutActivity"/>
-        <activity android:name=".StatusActivity"
+            android:theme="@style/AppTheme.MaterialAboutActivity" />
+        <activity
+            android:name=".StatusActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".GarbageActivity">
 
@@ -64,9 +66,11 @@
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Mal.Dark.DarkActionBar"/>
+            android:theme="@style/Theme.Mal.Dark.DarkActionBar" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".PowergridActivity">
 
-        <activity android:name=".WebViewActivity"/>
+        </activity>
     </application>
 
 </manifest>

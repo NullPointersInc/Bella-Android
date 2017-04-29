@@ -128,6 +128,7 @@
         //NASA Space Apps
         int energyUsed = 0;
         CountDownTimer t1,t2,t3;
+        int link=1;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -605,6 +606,18 @@
             } else if(txt.contains("garbage") && txt.contains("status")) {
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, GarbageActivity.class);
+                startActivity(i,compat.toBundle());
+            } else if(txt.contains("Power Grid") && txt.contains("status")) {
+                if(txt.contains("house")) {
+                    link = 1;
+                } else if(txt.contains("industry")) {
+                    link = 2;
+                } else {
+                    link = 3;
+                }
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                i.putExtra("link",link);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {

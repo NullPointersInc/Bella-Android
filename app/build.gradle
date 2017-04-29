@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.example.android.bella"
+        applicationId "com.example.android.Bella"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 10
@@ -47,6 +47,7 @@ dependencies {
     compile 'com.thefinestartist:finestwebview:1.2.7'
     compile 'com.github.javiersantos:AppUpdater:2.6.1'
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 allprojects {
