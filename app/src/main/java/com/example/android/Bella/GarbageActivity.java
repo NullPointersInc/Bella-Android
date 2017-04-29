@@ -52,21 +52,76 @@ public class GarbageActivity extends AppCompatActivity {
 
         int animationDuration = 2500; // 2500ms = 2,5s
         temp=Integer.parseInt(status.substring(0,2));
+        if (temp<50) {
+            circularProgressBar.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar.setColor(getResources().getColor(R.color.red));
+        }
         circularProgressBar.setProgressWithAnimation(temp, animationDuration);
         t1.setText(": "+temp+"%");
         temp=Integer.parseInt(status.substring(2,4));
+        if (temp<50) {
+            circularProgressBar2.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar2.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar2.setColor(getResources().getColor(R.color.red));
+        }
         circularProgressBar2.setProgressWithAnimation(temp, animationDuration);
         t2.setText(": "+temp+"%");
         temp=Integer.parseInt(status.substring(4,6));
+        if (temp<50) {
+            circularProgressBar3.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar3.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar3.setProgress(getResources().getColor(R.color.red));
+        }
         circularProgressBar3.setProgressWithAnimation(temp, animationDuration);
         t3.setText(": "+temp+"%");
         temp=Integer.parseInt(status.substring(6,8));
+        if (temp<50) {
+            circularProgressBar4.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar4.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar4.setColor(getResources().getColor(R.color.red));
+        }
         circularProgressBar4.setProgressWithAnimation(temp, animationDuration);
         t4.setText(": "+temp+"%");
         temp=Integer.parseInt(status.substring(8,10));
+        if (temp<50) {
+            circularProgressBar5.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar5.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar5.setColor(getResources().getColor(R.color.red));
+        }
+
         circularProgressBar5.setProgressWithAnimation(temp, animationDuration);
         t5.setText(": "+temp+"%");
         temp=Integer.parseInt(status.substring(10,12));
+        if (temp<50) {
+            circularProgressBar6.setColor(getResources().getColor(R.color.green));
+        }
+        else if (temp >= 50 && temp <70) {
+            circularProgressBar6.setColor(getResources().getColor(R.color.yellow_600));
+        }
+        else {
+            circularProgressBar6.setColor(getResources().getColor(R.color.red));
+        }
         circularProgressBar6.setProgressWithAnimation(temp, animationDuration);
         t6.setText(": "+temp+"%");
 
