@@ -127,7 +127,7 @@
 
         //NASA Space Apps
         int energyUsed = 0;
-        CountDownTimer t;
+        CountDownTimer t1,t2,t3;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -598,6 +598,13 @@
             } else if (txt.contains("connect")) {
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
+                startActivity(i,compat.toBundle());
+            } else if(txt.contains("energy")) {
+                String e = "Energy used is "+energyUsed+" units.";
+                tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
+            } else if(txt.contains("garbage") && txt.contains("status")) {
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, GarbageActivity.class);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
@@ -1482,35 +1489,51 @@
 
         public void statuscheck(String s) {
             s = s.replaceAll("[\u0000-\u001f]", "");
-            
+
             if (s.contains("T1")) {
                 Log.d("s: ",s);
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
-                t =  new CountDownTimer(10000,1000) {
+                t1 =  new CountDownTimer(30000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         energyUsed+=1;
                         Log.d("timer: ",Integer.toString(energyUsed));
+                        if(energyUsed>=30)
+                            notif("High Energy Usage","Please Switch off light 1 to save energy");
                     }
 
                     @Override
                     public void onFinish() {
-                        notif("High Energy Usage","Please Switch off light 1 to save energy");
+                            notif("High Energy Usage","Please Switch off light 1 to save energy");
                     }
                 }.start();
             } else if (s.contains("T2")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
+                t2 =  new CountDownTimer(30000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        energyUsed+=1;
+                        Log.d("timer: ",Integer.toString(energyUsed));
+                        if(energyUsed>=30)
+                            notif("High Energy Usage","Please Switch off light 2 to save energy");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                            notif("High Energy Usage","Please Switch off light 2 to save energy");
+                    }
+                }.start();
             } else if (s.contains("T3")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
                 try {
-                    t.cancel();
+                    t1.cancel();
                 } catch (NullPointerException ne) {
                     Log.e("NE","fuck this shit!");
                 }
@@ -1521,6 +1544,11 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
+                try {
+                    t2.cancel();
+                } catch (NullPointerException ne) {
+                    Log.e("NE","fuck this shit!");
+                }
             } else if (s.contains("F1")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
@@ -1553,6 +1581,20 @@
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned ON fan!", TextToSpeech.QUEUE_FLUSH, null);
+                t3 =  new CountDownTimer(30000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        energyUsed+=1;
+                        Log.d("timer: ",Integer.toString(energyUsed));
+                        if(energyUsed>=30)
+                            notif("High Energy Usage","Please Switch off light 2 to save energy");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                            notif("High Energy Usage","Please Switch off fan to save energy");
+                    }
+                }.start();
             } else if (s.contains("S2")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
@@ -1561,6 +1603,11 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned off fan!", TextToSpeech.QUEUE_FLUSH, null);
+                try {
+                    t3.cancel();
+                } catch (NullPointerException ne) {
+                    Log.e("NE","fuck this shit!");
+                }
             } else if (s.contains("S4")) {
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
