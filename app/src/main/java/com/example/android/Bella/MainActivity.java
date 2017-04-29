@@ -124,6 +124,11 @@
         //Notification
         NotificationCompat.Builder mBuilder;
 
+
+        //NASA Space Apps
+        int energyUsed = 0;
+        CountDownTimer t;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
 
@@ -1475,12 +1480,26 @@
             }
         }
 
-        private void statuscheck(String s) {
+        public void statuscheck(String s) {
             s = s.replaceAll("[\u0000-\u001f]", "");
+            
             if (s.contains("T1")) {
+                Log.d("s: ",s);
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
+                t =  new CountDownTimer(10000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        energyUsed+=1;
+                        Log.d("timer: ",Integer.toString(energyUsed));
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        notif("High Energy Usage","Please Switch off light 1 to save energy");
+                    }
+                }.start();
             } else if (s.contains("T2")) {
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
@@ -1490,7 +1509,11 @@
                 status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
-
+                try {
+                    t.cancel();
+                } catch (NullPointerException ne) {
+                    Log.e("NE","fuck this shit!");
+                }
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
@@ -1590,17 +1613,13 @@
             }
         }
 
-        private void notif(int b) {
-            if(b==1) {
-                    int notifID = 001;
-                    NotificationManager mNotifyMgr =
-                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    mNotifyMgr.notify(notifID, mBuilder.build());
-            } else if(b==2) {
-                    int notifID = 002;
-                    NotificationManager mNotifyMgr =
-                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    mNotifyMgr.notify(notifID, mBuilder.build());
-            }
+        private void notif(String title, String notif) {
+            int notifId=1;
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+            mBuilder.setSmallIcon(R.mipmap.bella_launcher);
+            mBuilder.setContentTitle("Warning! "+title);
+            mBuilder.setContentText(notif);
+            NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mNM.notify(notifId,mBuilder.build());
         }
     }
