@@ -15,6 +15,8 @@ public class GarbageActivity extends AppCompatActivity {
     Toolbar toolbar;
     CircularProgressBar circularProgressBar,circularProgressBar2,circularProgressBar3,circularProgressBar4,circularProgressBar5,circularProgressBar6;
     TextView t1,t2,t3,t4,t5,t6;
+    String status;
+    int temp;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Fade s = new Fade();
@@ -23,6 +25,7 @@ public class GarbageActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garbage);
+        status = getIntent().getStringExtra("Status");
         circularProgressBar = (CircularProgressBar)findViewById(R.id.circle_progress1);
         circularProgressBar2 = (CircularProgressBar)findViewById(R.id.circle_progress2);
         circularProgressBar3 = (CircularProgressBar)findViewById(R.id.circle_progress3);
@@ -48,18 +51,25 @@ public class GarbageActivity extends AppCompatActivity {
         });
 
         int animationDuration = 2500; // 2500ms = 2,5s
-        circularProgressBar.setProgressWithAnimation(65, animationDuration);
-        t1.setText(": "+"65%");
-        circularProgressBar2.setProgressWithAnimation(30, animationDuration);
-        t2.setText(": "+"65%");
-        circularProgressBar3.setProgressWithAnimation(85, animationDuration);
-        t3.setText(": "+"65%");
-        circularProgressBar4.setProgressWithAnimation(65, animationDuration);
-        t4.setText(": "+"65%");
-        circularProgressBar5.setProgressWithAnimation(52, animationDuration);
-        t5.setText(": "+"65%");
-        circularProgressBar6.setProgressWithAnimation(65, animationDuration);
-        t6.setText(": "+"65%");
+        temp=Integer.parseInt(status.substring(0,2));
+        circularProgressBar.setProgressWithAnimation(temp, animationDuration);
+        t1.setText(": "+temp+"%");
+        temp=Integer.parseInt(status.substring(2,4));
+        circularProgressBar2.setProgressWithAnimation(temp, animationDuration);
+        t2.setText(": "+temp+"%");
+        temp=Integer.parseInt(status.substring(4,6));
+        circularProgressBar3.setProgressWithAnimation(temp, animationDuration);
+        t3.setText(": "+temp+"%");
+        temp=Integer.parseInt(status.substring(6,8));
+        circularProgressBar4.setProgressWithAnimation(temp, animationDuration);
+        t4.setText(": "+temp+"%");
+        temp=Integer.parseInt(status.substring(8,10));
+        circularProgressBar5.setProgressWithAnimation(temp, animationDuration);
+        t5.setText(": "+temp+"%");
+        temp=Integer.parseInt(status.substring(10,12));
+        circularProgressBar6.setProgressWithAnimation(temp, animationDuration);
+        t6.setText(": "+temp+"%");
+
 
 
     }

@@ -604,9 +604,8 @@
                 String e = "Energy used is "+energyUsed+" units.";
                 tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
             } else if(txt.contains("garbage") && txt.contains("status")) {
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, GarbageActivity.class);
-                startActivity(i,compat.toBundle());
+                command(1011);
+
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
                     link = 1;
@@ -1502,6 +1501,17 @@
                         msg("Error");
                     }
                 }
+                else if (i==1011){
+                    try
+                    {
+                        btSocket.getOutputStream().write("GG:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                }
             }
         }
         private void Disconnect()
@@ -1689,16 +1699,23 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
-            } else if (s.length()>5){
+            } else if (s.length()>10){
+                Log.d("String: ",s);
+                tts.speak("Garbage status recieved.",TextToSpeech.QUEUE_FLUSH,null) ;
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, GarbageActivity.class);
+                i.putExtra("Status",s);
+                startActivity(i,compat.toBundle());
+
+
+            } else  if (s.length()>5){
                 Log.d("string: ",s);
                 tts.speak("Status Received!", TextToSpeech.QUEUE_FLUSH, null);
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent intent = new Intent(MainActivity.this,StatusActivity.class);
                 intent.putExtra("status", s);
                 startActivity(intent,compat.toBundle());
-            } else {
-                Log.d("String: ",s);
-                tts.speak("Unknown value received!",TextToSpeech.QUEUE_FLUSH,null);
+
             }
         }
 
