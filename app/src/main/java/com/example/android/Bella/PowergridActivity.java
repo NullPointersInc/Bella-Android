@@ -23,8 +23,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import java.util.Timer;
-
 import io.ghyeok.stickyswitch.widget.StickySwitch;
 
 

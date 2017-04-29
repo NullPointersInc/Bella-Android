@@ -607,7 +607,7 @@
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, GarbageActivity.class);
                 startActivity(i,compat.toBundle());
-            } else if(txt.contains("Power Grid") && txt.contains("status")) {
+            } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
                     link = 1;
                 } else if(txt.contains("industry")) {
@@ -617,6 +617,16 @@
                 }
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                i.putExtra("link",link);
+                startActivity(i,compat.toBundle());
+            } else if(txt.contains("grow") || txt.contains("crop")) {
+                if(txt.contains("land 1")) {
+                    link = 1;
+                } else {
+                    link = 2;
+                }
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, SoilActivity.class);
                 i.putExtra("link",link);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {

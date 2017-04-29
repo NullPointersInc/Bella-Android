@@ -59,18 +59,16 @@
         <activity
             android:name=".StatusActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GarbageActivity">
-
-        </activity>
+        <activity android:name=".GarbageActivity"></activity>
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Mal.Dark.DarkActionBar" />
         <activity android:name=".WebViewActivity" />
-        <activity android:name=".PowergridActivity">
-
-        </activity>
+        <activity android:name=".PowergridActivity"></activity>
+        <activity android:name=".DisasterActivity"></activity>
+        <activity android:name=".SoilActivity"></activity>
     </application>
 
 </manifest>
