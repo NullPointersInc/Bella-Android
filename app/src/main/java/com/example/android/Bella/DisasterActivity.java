@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import io.ghyeok.stickyswitch.widget.StickySwitch;
 
 public class DisasterActivity extends AppCompatActivity {
@@ -29,7 +32,7 @@ public class DisasterActivity extends AppCompatActivity {
     private static String TAG = PowergridActivity.class.getSimpleName();
     private ProgressDialog pDialog;
     public String id;
-    String info;
+    String info,nlat,nlng,lat,lng;
     int  l;
     String city;
     StickySwitch s1,s2,s3,s4;
@@ -80,14 +83,24 @@ public class DisasterActivity extends AppCompatActivity {
         Log.d("l: ",Integer.toString(l));
         if(l==1) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/Tsunami.json";
+            nlat = "41.775177";
+            nlng = "-124.197371";
         } else if(l == 2) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/cyclone.json";
+            nlat = "25.7959";
+            nlng ="- 80.2870";
         } else if(l == 4) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/volcano.json";
+            nlat = "19.539722";
+            nlng = "-155.141389";
         } else if(l == 3) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/flood.json";
+            nlat = "35.256527";
+            nlng = "-80.964532";
+
         } else {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/normal.json";
+
         }
 
         setSupportActionBar(toolbar);
@@ -121,6 +134,8 @@ public class DisasterActivity extends AppCompatActivity {
                     // Parsing json object response
                     // response will be a json object
                     city = response.getString("c_name");
+                    lat = response.getString("lat");
+                    lng =  response.getString("lng");
                     if (city.equals("Hawaii")) {
                         notif("Warning! Volcano Alert","ETA: 1 hr");
                         s4.setSwitchColor(getResources().getColor(R.color.red));
@@ -176,7 +191,10 @@ public class DisasterActivity extends AppCompatActivity {
     }
     private void notif(String title, String notif) {
         int notifId=1;
-        Intent resultIntent = new Intent(this, MainActivity.class);
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?saddr="+lat+","+lng+"&daddr="+nlat+","+nlng);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+       // startActivity(intent);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.bella_launcher);
         mBuilder.setContentTitle(title);
@@ -185,7 +203,7 @@ public class DisasterActivity extends AppCompatActivity {
                 PendingIntent.getActivity(
                         this,
                         0,
-                        resultIntent,
+                        intent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
