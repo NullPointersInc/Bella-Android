@@ -604,8 +604,11 @@
                 String e = "Energy used is "+energyUsed+" units.";
                 tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
             } else if(txt.contains("garbage") && txt.contains("status")) {
-                command(1011);
-
+                if(!hardware) {
+                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    command(1011);
+                }
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
                     link = 1;
@@ -677,7 +680,7 @@
                     }
                 }
             } else if (txt.contains("kitchen") || txt.contains("Kitchen")) {
-                if(!checkBT()) {
+                if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     headText.setText("Kitchen");
@@ -689,7 +692,7 @@
                 }
                 }
             } else if (txt.contains("garden") || txt.contains("Garden")) {
-                if(!checkBT()) {
+                if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     headText.setText("Garden");
