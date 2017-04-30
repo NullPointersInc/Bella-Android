@@ -633,7 +633,7 @@
                 Intent i = new Intent(MainActivity.this, SoilActivity.class);
                 i.putExtra("link",link);
                 startActivity(i,compat.toBundle());
-            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("Alaska") || txt.contains("location")) {
+            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
                 int l=5;
                 if(txt.contains("North Carolina")) {
                     l = 3;
@@ -644,7 +644,7 @@
                 } else if (txt.contains("Miami")) {
                     l = 2;
                     tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("Alaska")) {
+                } else if (txt.contains("California")) {
                     l = 1;
                     tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 }
