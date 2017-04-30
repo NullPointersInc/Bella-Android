@@ -745,15 +745,20 @@
                 intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
                 startActivityForResult(intent, 1);
 
-            } else if(txt.contains("navigate")) {
-                tts.speak("Starting navigation ", TextToSpeech.QUEUE_FLUSH, null);
-                String s = txt.substring(txt.lastIndexOf(" to ")+4, txt.length());
-                s=s.replace(" ","+");
-                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr="+s);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                intent.setPackage("com.google.android.apps.maps");
-                startActivity(intent);
-
+            } else if((txt.contains("navigate") || txt.contains("take me")) && txt.contains("to")) {
+                if(txt.substring(txt.length()-3,txt.length()).equals(" to")) {
+                    tts.speak("Please specify a destination address.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    Log.d("to: ",Integer.toString(txt.lastIndexOf("to+1")));
+                    Log.d("to: ",Integer.toString(txt.length()));
+                    tts.speak("Starting navigation ", TextToSpeech.QUEUE_FLUSH, null);
+                    String s = txt.substring(txt.lastIndexOf(" to ") + 4, txt.length());
+                    s = s.replace(" ", "+");
+                    String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=" + s);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps");
+                    startActivity(intent);
+                }
             } else if (txt.contains("mail") || (txt.contains("email"))) {
                 String address = txt.substring(txt.lastIndexOf(" to ")+4,txt.length());
                 address = address.replaceAll(" ","");
