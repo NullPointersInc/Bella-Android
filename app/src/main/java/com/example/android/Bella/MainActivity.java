@@ -647,7 +647,7 @@
                 }
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                i.putExtra("link",l);
+                i.putExtra("l",l);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
