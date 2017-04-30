@@ -136,7 +136,7 @@
                 app:leftText="NO"
                 app:rightIcon="@drawable/ic_action_warningg"
                 app:rightText="YES"
-                app:selectedTextSize="14sp"
+                app:selectedTextSize="15sp"
                 app:textSize="12sp"
                 android:id="@+id/toggleButton5"
                 android:layout_marginTop="105dp"
