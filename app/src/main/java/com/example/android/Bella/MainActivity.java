@@ -1032,46 +1032,86 @@
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
                     link = 1;
+                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                    i.putExtra("link",link);
+                    startActivity(i,compat.toBundle());
                 } else if(txt.contains("industry")) {
                     link = 2;
-                } else
                     tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, PowergridActivity.class);
-                i.putExtra("link",link);
-                startActivity(i,compat.toBundle());
-            } else if(txt.contains("grow") || txt.contains("crop")) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                    i.putExtra("link",link);
+                    startActivity(i,compat.toBundle());
+                }
+                else if (txt.contains("farmer")){
+                    link = 3;
+                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                    i.putExtra("link",link);
+                    startActivity(i,compat.toBundle());
+                }
+                else
+                    tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
+
+            } else if(txt.contains("grow") && txt.contains("crop") && txt.contains("land")) {
                 if(txt.contains("land 1")) {
                     link = 1;
                     tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
-                } else {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, SoilActivity.class);
+                    i.putExtra("link",link);
+                    startActivity(i,compat.toBundle());
+                } else if(txt.contains("land 2")){
                     link = 2;
                     tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, SoilActivity.class);
+                    i.putExtra("link",link);
+                    startActivity(i,compat.toBundle());
+                }
+                else {
+                    tts.speak("This land is not registered under you. ", TextToSpeech.QUEUE_FLUSH,null);
                 }
 
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                i.putExtra("link",link);
-                startActivity(i,compat.toBundle());
+
             } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
                 int l=5;
                 if(txt.contains("North Carolina")) {
                     l = 3;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                    i.putExtra("l",l);
+                    startActivity(i,compat.toBundle());
                     tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("Hawaii")) {
                     l = 4;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                    i.putExtra("l",l);
+                    startActivity(i,compat.toBundle());
                     tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("Miami")) {
                     l = 2;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                    i.putExtra("l",l);
+                    startActivity(i,compat.toBundle());
                     tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("California")) {
                     l = 1;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                    i.putExtra("l",l);
+                    startActivity(i,compat.toBundle());
                     tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 }
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                i.putExtra("l",l);
-                startActivity(i,compat.toBundle());
+                else {
+                    tts.speak("Sorry !! Data is not available for this city",TextToSpeech.QUEUE_FLUSH, null);
+                }
+
             } else if (txt.contains("exit") && txt.contains("app")){
                 tts.speak("Have a good day", TextToSpeech.QUEUE_FLUSH, null);
                 final Handler handler = new Handler();

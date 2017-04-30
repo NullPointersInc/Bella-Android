@@ -49,7 +49,7 @@ public class PowergridActivity extends AppCompatActivity {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_1.json";
         } else if(link==2) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_2.json";
-        } else {
+        } else if (link==3){
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_3.json";
         }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -222,6 +222,7 @@ public class PowergridActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.bella_launcher);
         mBuilder.setContentTitle("Warning! "+title);
+        mBuilder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
         mBuilder.setContentText(notif);
         NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNM.notify(notifId,mBuilder.build());
