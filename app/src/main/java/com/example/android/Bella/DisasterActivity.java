@@ -198,7 +198,9 @@ public class DisasterActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.bella_launcher);
         mBuilder.setContentTitle(title);
-        mBuilder.setContentText(notif);
+        mBuilder.setContentText("Navigate to a safe location ");
+        mBuilder.setSubText(notif);
+        mBuilder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         this,
