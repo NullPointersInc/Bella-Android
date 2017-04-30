@@ -611,9 +611,8 @@
                     link = 1;
                 } else if(txt.contains("industry")) {
                     link = 2;
-                } else {
-                    link = 3;
-                }
+                } else
+                tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, PowergridActivity.class);
                 i.putExtra("link",link);
@@ -621,31 +620,34 @@
             } else if(txt.contains("grow") || txt.contains("crop")) {
                 if(txt.contains("land 1")) {
                     link = 1;
+                    tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                 } else {
                     link = 2;
+                    tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
                 }
+
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, SoilActivity.class);
                 i.putExtra("link",link);
                 startActivity(i,compat.toBundle());
             } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("Alaska") || txt.contains("location")) {
-                int link=5;
+                int l=5;
                 if(txt.contains("North Carolina")) {
-                    link = 3;
+                    l = 3;
                     tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("Hawaii")) {
-                    link = 4;
+                    l = 4;
                     tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("Miami")) {
-                    link = 2;
+                    l = 2;
                     tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
                 } else if (txt.contains("Alaska")) {
-                    link = 1;
+                    l = 1;
                     tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
                 }
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                i.putExtra("link",link);
+                i.putExtra("link",l);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
@@ -704,7 +706,7 @@
                         tts.speak("Sorry, Incorrect information.", TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
-            }  else if (txt.contains("status")) {
+            }  else if (txt.contains("status")&&txt.contains("home")) {
                 command(1111);
             } else if (txt.contains("disconnect")){
                 tts.speak("Disconnecting.", TextToSpeech.QUEUE_FLUSH, null);

@@ -28,7 +28,7 @@ public class DisasterActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     public String id;
     String info;
-    int  link;
+    int  l;
     String city;
     StickySwitch s1,s2,s3,s4;
 
@@ -74,15 +74,15 @@ public class DisasterActivity extends AppCompatActivity {
 
 
 
-        link = getIntent().getIntExtra("link",0);
-        Log.d("Link: ",Integer.toString(link));
-        if(link==1) {
+        l = getIntent().getIntExtra("l",0);
+        Log.d("l: ",Integer.toString(l));
+        if(l==1) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/Tsunami.json";
-        } else if(link == 2) {
+        } else if(l == 2) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/cyclone.json";
-        } else if(link == 3) {
+        } else if(l == 4) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/volcano.json";
-        } else if(link == 4) {
+        } else if(l == 3) {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/flood.json";
         } else {
             info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/normal.json";
