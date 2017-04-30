@@ -9,19 +9,20 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.ghyeok.stickyswitch.widget.StickySwitch;
 
@@ -56,6 +57,36 @@ public class PowergridActivity extends AppCompatActivity {
         s2 = (StickySwitch)findViewById(R.id.toggleButton3);
         s3 = (StickySwitch)findViewById(R.id.toggleButton4);
         s4 = (StickySwitch)findViewById(R.id.toggleButton5);
+        s1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+        s2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+        s3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+
+        s4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+
         Log.d("link: ",Integer.toString(link));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_back);

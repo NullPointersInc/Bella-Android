@@ -46,6 +46,7 @@ dependencies {
     compile 'com.codemybrainsout.onboarding:onboarder:1.0.3'
     compile 'com.thefinestartist:finestwebview:1.2.7'
     compile 'com.github.javiersantos:AppUpdater:2.6.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }

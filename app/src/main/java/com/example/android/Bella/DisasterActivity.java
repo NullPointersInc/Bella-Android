@@ -42,6 +42,38 @@ public class DisasterActivity extends AppCompatActivity {
         s3 = (StickySwitch)findViewById(R.id.toggleButton4);
         s4 = (StickySwitch)findViewById(R.id.toggleButton5);
 
+        s1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+        s2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+        s3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+
+        s4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return ;
+            }
+        });
+
+
+
+
         link = getIntent().getIntExtra("link",0);
         Log.d("Link: ",Integer.toString(link));
         if(link==1) {

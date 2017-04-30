@@ -63,7 +63,6 @@ public class SoilActivity extends AppCompatActivity {
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
         makeJsonObjectRequest();
-        fuckyou();
     }
 
     private void makeJsonObjectRequest() {
@@ -128,7 +127,5 @@ public class SoilActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-    private void fuckyou() {
 
-    }
 }
