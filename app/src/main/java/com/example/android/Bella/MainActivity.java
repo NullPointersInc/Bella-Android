@@ -1726,11 +1726,22 @@
 
         private void notif(String title, String notif) {
             int notifId=1;
+            Intent resultIntent = new Intent(this, MainActivity.class);
+
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
             mBuilder.setSmallIcon(R.mipmap.bella_launcher);
             mBuilder.setContentTitle("Warning! "+title);
             mBuilder.setContentText(notif);
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
             NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder.setContentIntent(resultPendingIntent);
             mNM.notify(notifId,mBuilder.build());
         }
     }

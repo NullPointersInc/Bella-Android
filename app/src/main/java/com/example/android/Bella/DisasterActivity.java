@@ -1,8 +1,10 @@
 package com.example.android.Bella;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -174,11 +176,21 @@ public class DisasterActivity extends AppCompatActivity {
     }
     private void notif(String title, String notif) {
         int notifId=1;
+        Intent resultIntent = new Intent(this, MainActivity.class);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.bella_launcher);
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(notif);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
         NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder.setContentIntent(resultPendingIntent);
         mNM.notify(notifId,mBuilder.build());
     }
 }
