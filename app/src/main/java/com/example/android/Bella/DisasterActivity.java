@@ -144,7 +144,7 @@ public class DisasterActivity extends AppCompatActivity {
                         notif("Warning! Cyclone Alert","ETA: 1 hr");
                         s2.setSwitchColor(getResources().getColor(R.color.red));
                         s2.setDirection(StickySwitch.Direction.RIGHT);
-                    } else if (city.equals("Alaska")) {
+                    } else if (city.equals("California")) {
                         notif("Warning! Tsunami Alert","ETA: 1 hr");
                         s1.setSwitchColor(getResources().getColor(R.color.red));
                         s1.setDirection(StickySwitch.Direction.RIGHT);

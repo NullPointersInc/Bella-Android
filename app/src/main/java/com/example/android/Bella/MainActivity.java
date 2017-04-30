@@ -600,58 +600,6 @@
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i,compat.toBundle());
-            } else if(txt.contains("energy")) {
-                String e = "Energy used is "+energyUsed+" units.";
-                tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
-            } else if(txt.contains("garbage") && txt.contains("status")) {
-                if(!hardware) {
-                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
-                } else {
-                    command(1011);
-                }
-            } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
-                if(txt.contains("house")) {
-                    link = 1;
-                } else if(txt.contains("industry")) {
-                    link = 2;
-                } else
-                tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, PowergridActivity.class);
-                i.putExtra("link",link);
-                startActivity(i,compat.toBundle());
-            } else if(txt.contains("grow") || txt.contains("crop")) {
-                if(txt.contains("land 1")) {
-                    link = 1;
-                    tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
-                } else {
-                    link = 2;
-                    tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
-                }
-
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                i.putExtra("link",link);
-                startActivity(i,compat.toBundle());
-            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
-                int l=5;
-                if(txt.contains("North Carolina")) {
-                    l = 3;
-                    tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("Hawaii")) {
-                    l = 4;
-                    tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("Miami")) {
-                    l = 2;
-                    tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("California")) {
-                    l = 1;
-                    tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                }
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                i.putExtra("l",l);
-                startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
@@ -1067,7 +1015,59 @@
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            }  else if (txt.contains("exit") && txt.contains("app")){
+            } else if(txt.contains("energy")) {
+                String e = "Energy used is "+energyUsed+" units.";
+                tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
+            } else if(txt.contains("garbage") && txt.contains("status")) {
+                if(!hardware) {
+                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    command(1011);
+                }
+            } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
+                if(txt.contains("house")) {
+                    link = 1;
+                } else if(txt.contains("industry")) {
+                    link = 2;
+                } else
+                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, PowergridActivity.class);
+                i.putExtra("link",link);
+                startActivity(i,compat.toBundle());
+            } else if(txt.contains("grow") || txt.contains("crop")) {
+                if(txt.contains("land 1")) {
+                    link = 1;
+                    tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
+                } else {
+                    link = 2;
+                    tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
+                }
+
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, SoilActivity.class);
+                i.putExtra("link",link);
+                startActivity(i,compat.toBundle());
+            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
+                int l=5;
+                if(txt.contains("North Carolina")) {
+                    l = 3;
+                    tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("Hawaii")) {
+                    l = 4;
+                    tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("Miami")) {
+                    l = 2;
+                    tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
+                } else if (txt.contains("California")) {
+                    l = 1;
+                    tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
+                }
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                Intent i = new Intent(MainActivity.this, DisasterActivity.class);
+                i.putExtra("l",l);
+                startActivity(i,compat.toBundle());
+            } else if (txt.contains("exit") && txt.contains("app")){
                 tts.speak("Have a good day", TextToSpeech.QUEUE_FLUSH, null);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
