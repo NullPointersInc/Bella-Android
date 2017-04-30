@@ -814,7 +814,7 @@
             } else if(txt.contains("math") || txt.contains("maths") || txt.contains("mathematics")) {
                 tts.speak("Pretty good, but I am still trying to learn Bodmas, please bear with me", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            } else if(txt.contains("+") || txt.contains("-") || txt.contains("x") || txt.contains("X") || txt.contains("/")) {
+            } else if(txt.contains("+") || txt.contains("-") || txt.contains(" x ") || txt.contains("X") || txt.contains("/")) {
                 if(txt.contains(".")) {
                     tts.speak("I am still learning to work with decimal numbers.", TextToSpeech.QUEUE_FLUSH, null);
                     stop();
