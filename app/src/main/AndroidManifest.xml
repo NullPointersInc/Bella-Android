@@ -68,7 +68,10 @@
         <activity android:name=".WebViewActivity" />
         <activity android:name=".PowergridActivity"></activity>
         <activity android:name=".DisasterActivity"></activity>
-        <activity android:name=".SoilActivity"></activity>
+        <activity android:name=".SoilActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.MaterialAboutActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -69,6 +69,11 @@
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import com.android.volley.Request;
+    import com.android.volley.Response;
+    import com.android.volley.VolleyError;
+    import com.android.volley.VolleyLog;
+    import com.android.volley.toolbox.JsonObjectRequest;
     import com.getkeepsafe.taptargetview.TapTarget;
     import com.getkeepsafe.taptargetview.TapTargetSequence;
     import com.getkeepsafe.taptargetview.TapTargetView;
@@ -78,10 +83,22 @@
     import com.thefinestartist.finestwebview.FinestWebView;
 
     import org.jetbrains.annotations.NotNull;
+    import org.json.JSONException;
+    import org.json.JSONObject;
     import org.w3c.dom.Text;
 
     import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
     import io.ghyeok.stickyswitch.widget.StickySwitch;
+
+    import static com.example.android.Bella.SoilActivity.cityName;
+    import static com.example.android.Bella.SoilActivity.type;
+    import static com.example.android.Bella.SoilActivity.farm;
+    import static com.example.android.Bella.SoilActivity.crop;
+    import static com.example.android.Bella.SoilActivity.cover;
+    import static com.example.android.Bella.SoilActivity.ssnE;
+    import static com.example.android.Bella.SoilActivity.ssnS;
+    import static com.example.android.Bella.SoilActivity.info;
+
 
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
@@ -1056,21 +1073,106 @@
                 else
                     tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
 
-            } else if(txt.contains("grow") && txt.contains("crop") && txt.contains("land")) {
+            } else if(txt.contains("grow") && txt.contains("land")) {
+                final String TAG = SoilActivity.class.getSimpleName();
                 if(txt.contains("land 1")) {
-                    link = 1;
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_1.json";
+                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, info, null, new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d(TAG, response.toString());
+
+                            try {
+                                // Parsing json object response
+                                // response will be a json object
+                                cityName = response.getString("c_name");
+                                Log.d("City: ", cityName);
+                                type = response.getString("s_type");
+                                farm = response.getString("s_farm");
+                                crop = response.getString("s_crop1");
+                                cover = response.getString("s_cover");
+                                ssnS = response.getString("ssn_s");
+                                ssnE = response.getString("ssn_e");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: " + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            Toast.makeText(getApplicationContext(),
+                                    error.getMessage(), Toast.LENGTH_SHORT).show();
+                            // hide the progress dialog
+                        }
+                    });
+                    // Adding request to request queue
+                    AppCont.getInstance().addToRequestQueue(jsonObjReq);
                     tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                    i.putExtra("link",link);
-                    startActivity(i,compat.toBundle());
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                            Intent i = new Intent(MainActivity.this, SoilActivity.class);
+                            startActivity(i,compat.toBundle());
+                        }
+                    }, 3000);
+
                 } else if(txt.contains("land 2")){
-                    link = 2;
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_2.json";
+                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, info, null, new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d(TAG, response.toString());
+
+                            try {
+                                // Parsing json object response
+                                // response will be a json object
+                                cityName = response.getString("c_name");
+                                Log.d("City: ", cityName);
+                                type = response.getString("s_type");
+                                farm = response.getString("s_farm");
+                                crop = response.getString("s_crop1");
+                                cover = response.getString("s_cover");
+                                ssnS = response.getString("ssn_s");
+                                ssnE = response.getString("ssn_e");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: " + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            Toast.makeText(getApplicationContext(),
+                                    error.getMessage(), Toast.LENGTH_SHORT).show();
+                            // hide the progress dialog
+                        }
+                    });
+                    // Adding request to request queue
+                    AppCont.getInstance().addToRequestQueue(jsonObjReq);
                     tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                    i.putExtra("link",link);
-                    startActivity(i,compat.toBundle());
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                            Intent i = new Intent(MainActivity.this, SoilActivity.class);
+                            startActivity(i,compat.toBundle());
+                        }
+                    }, 3000);
+
                 }
                 else {
                     tts.speak("This land is not registered under you. ", TextToSpeech.QUEUE_FLUSH,null);

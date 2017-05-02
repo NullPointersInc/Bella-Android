@@ -1,12 +1,16 @@
 package com.example.android.Bella;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.renderscript.RenderScript;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,118 +18,152 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.danielstone.materialaboutlibrary.MaterialAboutActivity;
+import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem;
+import com.danielstone.materialaboutlibrary.items.MaterialAboutTitleItem;
+import com.danielstone.materialaboutlibrary.model.MaterialAboutCard;
+import com.danielstone.materialaboutlibrary.model.MaterialAboutList;
+import com.mikepenz.community_material_typeface_library.CommunityMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.context.IconicsContextWrapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class SoilActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    TextView t1,t2,t3,t4,t5,t6,t7;
-    private static String TAG = SoilActivity.class.getSimpleName();
-    private ProgressDialog pDialog;
+public class SoilActivity extends MaterialAboutActivity {
     public String id;
-    public String info;
-    int  link;
-    String cityName,type ,farm,crop,cover,ssnS,ssnE ;
+    public static String info;
+    public static String cityName, type, farm, crop, cover, ssnS, ssnE;
+
+    int red = R.color.red_500;
+    int lightRed = R.color.red_400;
+    int blue = R.color.light_blue_900;
+    int yellow = R.color.yellow_600;
+    int green = R.color.green_700;
+    int purple = R.color.purple_500;
+    int orange = R.color.orange_600;
+    int grey = R.color.grey_500;
+    int lightGreen = R.color.green_500;
+    int brown = R.color.brown_500;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soil);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    protected MaterialAboutList getMaterialAboutList(final Context c) {
+        /*cityName= "Colorado";
+        type = "Mollisols";
+        farm = "Crop Rotation";
+        crop = "Corn";
+        cover = "Mustard, Soya";
+        ssnS = "June";
+        ssnE = "September";*/
 
-        link = getIntent().getIntExtra("link",0);
-        if(link==1) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal1_1.json";
-        } else  {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal1_2.json";
-        }
+        Log.d("City: ",cityName);
 
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_back);
-        toolbar.setTitleTextColor(0xFFFFFFFF);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SoilActivity.super.onBackPressed();
-            }
-        });
-        t1 = (TextView)findViewById(R.id.city_name);
-        t2 = (TextView)findViewById(R.id.soil_type);
-        t3 = (TextView)findViewById(R.id.farm_type);
-        t4 = (TextView)findViewById(R.id.crop_type);
-        t5 = (TextView)findViewById(R.id.cover_crop);
-        t6 = (TextView)findViewById(R.id.starts);
-        t7 = (TextView)findViewById(R.id.ends);
 
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
-        makeJsonObjectRequest();
+        MaterialAboutCard.Builder appCardBuilder = new MaterialAboutCard.Builder();
+
+        appCardBuilder.addItem(new MaterialAboutTitleItem.Builder()
+                .text("Crop Prediction")
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_auto_fix)
+                        .color(ContextCompat.getColor(c, red))
+                        .sizeDp(18))
+                .build());
+
+        appCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("City")
+                .subText(cityName)
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_city)
+                        .color(ContextCompat.getColor(c, brown))
+                        .sizeDp(18))
+                .build());
+
+        MaterialAboutCard.Builder authorCardBuilder = new MaterialAboutCard.Builder();
+        authorCardBuilder.title("Type");
+
+        authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Soil Type")
+                .subText(type)
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_blackberry)
+                        .color(ContextCompat.getColor(c, brown))
+                        .sizeDp(18))
+                .build());
+
+        authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
+                .text("Farm Type")
+                .subText(farm)
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_blur)
+                        .color(ContextCompat.getColor(c, grey))
+                        .sizeDp(18))
+                .build());
+
+        MaterialAboutCard.Builder appCardBuilder2 = new MaterialAboutCard.Builder();
+        appCardBuilder2.title("Crop Details");
+
+        appCardBuilder2.addItem(new MaterialAboutActionItem.Builder()
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_barley)
+                        .color(ContextCompat.getColor(c, brown))
+                        .sizeDp(18))
+                .text("Crop Type")
+                .subText(crop)
+                .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
+                .build()
+        );
+
+
+        appCardBuilder2.addItem(new MaterialAboutActionItem.Builder()
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_basket_fill)
+                        .color(ContextCompat.getColor(c, orange))
+                        .sizeDp(18))
+                .text("Cover")
+                .subText(cover)
+                .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
+                .build()
+        );
+
+
+        MaterialAboutCard.Builder appCardBuilder1 = new MaterialAboutCard.Builder();
+        appCardBuilder1.title("Season");
+
+        appCardBuilder1.addItem(new MaterialAboutActionItem.Builder()
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_ray_start_arrow)
+                        .color(ContextCompat.getColor(c, brown))
+                        .sizeDp(18))
+                .text("Start Season")
+                .subText(ssnS)
+                .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
+                .build()
+        );
+
+        appCardBuilder1.addItem(new MaterialAboutActionItem.Builder()
+                .icon(new IconicsDrawable(c)
+                        .icon(CommunityMaterial.Icon.cmd_ray_end_arrow)
+                        .color(ContextCompat.getColor(c, orange))
+                        .sizeDp(18))
+                .text("End Season")
+                .subText(ssnE)
+                .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
+                .build()
+        );
+
+        return new MaterialAboutList(appCardBuilder.build(), authorCardBuilder.build(), appCardBuilder2.build(), appCardBuilder1.build());
+
+
     }
 
-    private void makeJsonObjectRequest() {
-
-        showpDialog();
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, info, null, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-
-                try {
-                    // Parsing json object response
-                    // response will be a json object
-                    cityName = response.getString("c_name");
-                    Log.d("City: ",cityName);
-                    type = response.getString("s_type");
-                    farm= response.getString("s_farm");
-                    crop = response.getString("s_crop1");
-                    cover = response.getString("s_cover");
-                    ssnS = response.getString("ssn_s");
-                    ssnE = response.getString("ssn_e");
-                    t1.setText("City: "+cityName);
-                    t2.setText("Soil Type: "+type);
-                    t3.setText("Farm Type: "+farm);
-                    t4.setText("Crop: "+crop);
-                    t5.setText("Crop Cover: "+cover);
-                    t6.setText("Start Season: "+ssnS);
-                    t7.setText("End Season:"+ssnE);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
-                            "Error: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-                hidepDialog();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                // hide the progress dialog
-                hidepDialog();
-            }
-        });
-
-        // Adding request to request queue
-        AppCont.getInstance().addToRequestQueue(jsonObjReq);
+    @Override
+    protected CharSequence getActivityTitle() {
+        return "Crop";
     }
 
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
-
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
 }
