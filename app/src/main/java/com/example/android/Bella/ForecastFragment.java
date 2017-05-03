@@ -1,6 +1,8 @@
 package com.example.android.Bella;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,16 +30,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.thefinestartist.utils.content.ContextUtil.getSharedPreferences;
+
 public class ForecastFragment extends Fragment {
     public ForecastFragment() {
     }
+    SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        FetchWeatherTask weatherTask = new FetchWeatherTask();
-        weatherTask.execute();
+        sharedPreferences = getContext().getSharedPreferences("temp", MODE_PRIVATE);
+
         //throw new RuntimeException("Boom!");
     }
 
@@ -49,6 +55,8 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         String forecastArray[] = {};
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        weatherTask.execute();
        /* String forecastArray[] =
                 {
                         "Today - Sunny - 88/63",
@@ -222,11 +230,16 @@ public class ForecastFragment extends Fragment {
                 for ( String dayForecastStr : result){
                     mForeCastAdapter.add(dayForecastStr);
                 }
-                String s = result[0].substring(result[0].lastIndexOf("/")-2,result[0].lastIndexOf("/"));
 
-                Intent i = new Intent(getContext(),MainActivity.class);
-                i.putExtra("EXTRA", s);
-                startActivity(i);
+
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                String s = result[0].substring(result[0].lastIndexOf("/")-2,result[0].lastIndexOf("/"));
+                editor.putString("num",s);
+                editor.commit();
+
+              
             }
         }
     }

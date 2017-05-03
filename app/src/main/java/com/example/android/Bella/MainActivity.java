@@ -698,16 +698,16 @@
                 else {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
-                    Intent im = new Intent(MainActivity.this, WeatherActivity.class);
-                    startActivity(im,compat.toBundle());
-                    String s = getIntent().getStringExtra("EXTRA");
-                    if(s==null) {
+                    SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
+                    String s = settings.getString("num", "");
+                    if(s=="") {
                         tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
                     } else {
                         tts.speak("Today's forecast for Bengaluru is " + s + " degrees", TextToSpeech.QUEUE_FLUSH, null);
                     }
-                    Intent in = new Intent(MainActivity.this, WeatherActivity2.class);
-                    startActivity(in);
+                    Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                    startActivity(im,compat.toBundle());
+
                 }
             } else if(txt.contains("alarm")){
                 tts.speak("Creating an alarm ", TextToSpeech.QUEUE_FLUSH, null);
