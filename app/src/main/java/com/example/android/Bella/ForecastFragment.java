@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,10 +31,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import xyz.matteobattilana.library.Common.Constants;
+import xyz.matteobattilana.library.WeatherView;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.thefinestartist.utils.content.ContextUtil.getSharedPreferences;
 
 public class ForecastFragment extends Fragment {
+    String p = "bangalore";
     public ForecastFragment() {
     }
     SharedPreferences sharedPreferences;
@@ -43,7 +48,11 @@ public class ForecastFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         sharedPreferences = getContext().getSharedPreferences("temp", MODE_PRIVATE);
-
+        if(WeatherActivity.S.equals("")) {
+            p = "bangalore";
+        } else {
+            p = WeatherActivity.S.toLowerCase();
+        }
         //throw new RuntimeException("Boom!");
     }
 
@@ -57,16 +66,6 @@ public class ForecastFragment extends Fragment {
         String forecastArray[] = {};
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         weatherTask.execute();
-       /* String forecastArray[] =
-                {
-                        "Today - Sunny - 88/63",
-                        "Tomorrow - Foggy - 70/40",
-                        "Weds - Cloudy - 72/63",
-                        "Thurs - Asteroids - 81/65",
-                        "Fri - Heavy Rain - 67/44",
-                        "Sat - Help trapped in weather station - 55/39",
-                        "Sun - Sunny - 84/63"
-                };*/
         List<String> weekForecast = new ArrayList(Arrays.asList(forecastArray));
         mForeCastAdapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -160,7 +159,7 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q={Bangalore}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa");
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q={"+p+"}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa");
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();

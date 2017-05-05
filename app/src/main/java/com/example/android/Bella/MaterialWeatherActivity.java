@@ -41,7 +41,7 @@ public class MaterialWeatherActivity extends AppCompatActivity {
 
         ts.setTypeface(custom_font);
 
-        if(value>=35) {
+        if(value>=40) {
             mWeatherView.setWeather(Constants.weatherStatus.SUN)
                     .setCurrentLifeTime(2000)
                     .setCurrentFadeOutTime(1000)
@@ -54,7 +54,7 @@ public class MaterialWeatherActivity extends AppCompatActivity {
             ts.setText("It's Sunny");
             root.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_sunny));
             window.setStatusBarColor(getResources().getColor(R.color.orange_900));
-        } else if ((value<35) && (value>=20)) {
+        } else if ((value<40) && (value>=20)) {
             mWeatherView.setWeather(Constants.weatherStatus.RAIN)
                     .setCurrentLifeTime(2000)
                     .setCurrentFadeOutTime(1000)

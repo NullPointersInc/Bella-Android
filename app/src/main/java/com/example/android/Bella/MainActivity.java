@@ -691,11 +691,26 @@
                     }
                 }, 2500);
             } else if (txt.contains("weather")) {
+                String c="bangalore";
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
                     init();
-                }
-                else {
+                } else if(txt.contains("forecast") && (txt.contains("of") || txt.contains("in"))) {
+                    if(txt.contains("of")) {
+                        c = txt.substring(txt.lastIndexOf(" of ") + 4, txt.length());
+                    } else {
+                        c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
+                    }
+                    tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
+                    Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                    im.putExtra("city",c);
+                    startActivity(im);
+                } else if(txt.contains("of") || txt.contains("in")) {
+                    if(txt.contains("of")) {
+                        c = txt.substring(txt.lastIndexOf(" of ") + 4, txt.length());
+                    } else {
+                        c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
+                    }
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
                     SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
@@ -703,10 +718,17 @@
                     if(s.equals("")) {
                         tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
                         Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                        im.putExtra("city",c);
                         startActivity(im,compat.toBundle());
                     } else {
                         int val = Integer.parseInt(s);
-                        tts.speak("Today's forecast for Bengaluru is " + s + " degrees", TextToSpeech.QUEUE_FLUSH, null);
+                        if(txt.contains("of")) {
+                            c = txt.substring(txt.lastIndexOf(" of ") + 4, txt.length());
+                        } else {
+                            c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
+                        }
+                        String k = "Today's forecast for"+ c +" is " + s + " degrees";
+                        tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
                         Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
                         im.putExtra("value",val);
                         startActivity(im);
