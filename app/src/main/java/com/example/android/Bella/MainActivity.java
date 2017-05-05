@@ -700,13 +700,17 @@
                     tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
                     SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
                     String s = settings.getString("num", "");
-                    if(s=="") {
+                    if(s.equals("")) {
                         tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                        startActivity(im,compat.toBundle());
                     } else {
+                        int val = Integer.parseInt(s);
                         tts.speak("Today's forecast for Bengaluru is " + s + " degrees", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
+                        im.putExtra("value",val);
+                        startActivity(im);
                     }
-                    Intent im = new Intent(MainActivity.this, WeatherActivity.class);
-                    startActivity(im,compat.toBundle());
 
                 }
             } else if(txt.contains("alarm")){

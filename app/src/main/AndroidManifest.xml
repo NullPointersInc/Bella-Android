@@ -56,19 +56,20 @@
         <activity
             android:name=".StatusActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GarbageActivity"></activity>
+        <activity android:name=".GarbageActivity" />
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Mal.Dark.DarkActionBar" />
         <activity android:name=".WebViewActivity" />
-        <activity android:name=".PowergridActivity"></activity>
-        <activity android:name=".DisasterActivity"></activity>
-        <activity android:name=".SoilActivity"
+        <activity android:name=".PowergridActivity" />
+        <activity android:name=".DisasterActivity" />
+        <activity
+            android:name=".SoilActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MaterialAboutActivity">
-        </activity>
+            android:theme="@style/AppTheme.MaterialAboutActivity"></activity>
+        <activity android:name=".MaterialWeatherActivity"></activity>
     </application>
 
 </manifest>
