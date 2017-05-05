@@ -428,7 +428,7 @@
             //Check for update
             new AppUpdater(this)
                     .setUpdateFrom(UpdateFrom.JSON)
-                    .setUpdateJSON("https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/update-changelog.json")
+                    .setUpdateJSON("https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/alpha/update-changelog.json")
                     .setTitleOnUpdateNotAvailable("Update not available")
                     .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                     .setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
@@ -440,7 +440,7 @@
         public void init(){
             progressBar.setVisibility(View.INVISIBLE);
             loader.setVisibility(View.INVISIBLE);
-            btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            btnSpeak.setImageResource(R.drawable.ic_action_listen);
             txtText.setText(null);
             txtText.setHint("How may I help You?");
         }
@@ -501,7 +501,7 @@
         @Override
         public void onEndOfSpeech()
         {
-            btnSpeak.setImageResource(R.drawable.ic_action_voice);
+            btnSpeak.setImageResource(R.drawable.ic_action_listen);
             progressBar.setVisibility(View.INVISIBLE);
             loader.setVisibility(View.INVISIBLE);
         }
@@ -600,7 +600,7 @@
 
                 @Override
                 public void run() {
-                    btnSpeak.setImageResource(R.drawable.ic_action_voice);
+                    btnSpeak.setImageResource(R.drawable.ic_action_listen);
                 }
             }, 1000);
             ArrayList<String> text = data.getStringArrayList(

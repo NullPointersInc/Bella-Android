@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.Bella.MainActivity"
     android:orientation="vertical"
-    android:background="#364A5E"
+    android:background="@color/colorPrimary"
     android:weightSum="1">
 
     <io.ghyeok.stickyswitch.widget.StickySwitch
@@ -89,7 +89,7 @@
             android:layout_gravity="bottom|center"
             app:backgroundTint="@color/colorAccent"
             app:fabSize="normal"
-            android:src="@drawable/ic_action_voice"
+            android:src="@drawable/ic_action_listen"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_alignParentBottom="true"

@@ -3,6 +3,8 @@ package com.example.android.Bella;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import com.danielstone.materialaboutlibrary.ConvenienceBuilder;
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity;
@@ -183,5 +185,11 @@ public class SettingActivity extends MaterialAboutActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_MaterialAboutActivity);
+        super.onCreate(savedInstanceState);
     }
 }

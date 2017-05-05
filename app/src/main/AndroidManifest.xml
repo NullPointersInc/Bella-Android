@@ -61,15 +61,19 @@
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Mal.Dark.DarkActionBar" />
+            android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".PowergridActivity" />
         <activity android:name=".DisasterActivity" />
         <activity
             android:name=".SoilActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MaterialAboutActivity"></activity>
-        <activity android:name=".MaterialWeatherActivity"></activity>
+            android:theme="@style/AppTheme.MaterialAboutActivity">
+
+        </activity>
+        <activity android:name=".MaterialWeatherActivity">
+
+        </activity>
     </application>
 
 </manifest>

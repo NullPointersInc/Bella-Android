@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121"
+    android:background="@color/background"
     tools:context="com.example.android.Bella.PowergridActivity">
 
     <android.support.v7.widget.Toolbar
