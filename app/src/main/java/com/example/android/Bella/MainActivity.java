@@ -1074,45 +1074,9 @@
                     tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
 
             } else if(txt.contains("grow") && txt.contains("land")) {
-                final String TAG = SoilActivity.class.getSimpleName();
                 if(txt.contains("land 1")) {
                     info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_1.json";
-                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, info, null, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d(TAG, response.toString());
-
-                            try {
-                                // Parsing json object response
-                                // response will be a json object
-                                cityName = response.getString("c_name");
-                                Log.d("City: ", cityName);
-                                type = response.getString("s_type");
-                                farm = response.getString("s_farm");
-                                crop = response.getString("s_crop1");
-                                cover = response.getString("s_cover");
-                                ssnS = response.getString("ssn_s");
-                                ssnE = response.getString("ssn_e");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(),
-                                        "Error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d(TAG, "Error: " + error.getMessage());
-                            Toast.makeText(getApplicationContext(),
-                                    error.getMessage(), Toast.LENGTH_SHORT).show();
-                            // hide the progress dialog
-                        }
-                    });
-                    // Adding request to request queue
-                    AppCont.getInstance().addToRequestQueue(jsonObjReq);
+                    fetchSoilDetails(info);
                     tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -1126,42 +1090,7 @@
 
                 } else if(txt.contains("land 2")){
                     info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_2.json";
-                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, info, null, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d(TAG, response.toString());
-
-                            try {
-                                // Parsing json object response
-                                // response will be a json object
-                                cityName = response.getString("c_name");
-                                Log.d("City: ", cityName);
-                                type = response.getString("s_type");
-                                farm = response.getString("s_farm");
-                                crop = response.getString("s_crop1");
-                                cover = response.getString("s_cover");
-                                ssnS = response.getString("ssn_s");
-                                ssnE = response.getString("ssn_e");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(),
-                                        "Error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d(TAG, "Error: " + error.getMessage());
-                            Toast.makeText(getApplicationContext(),
-                                    error.getMessage(), Toast.LENGTH_SHORT).show();
-                            // hide the progress dialog
-                        }
-                    });
-                    // Adding request to request queue
-                    AppCont.getInstance().addToRequestQueue(jsonObjReq);
+                    fetchSoilDetails(info);
                     tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -1177,8 +1106,6 @@
                 else {
                     tts.speak("This land is not registered under you. ", TextToSpeech.QUEUE_FLUSH,null);
                 }
-
-
             } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
                 int l=5;
                 if(txt.contains("North Carolina")) {
@@ -1362,12 +1289,7 @@
                 } else if (id == R.id.update_settings) {
                     checkForUpdate();
                     return true;
-                } /*else if (id == R.id.features) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent intent = new Intent(MainActivity.this,FeaturesActivity.class);
-                    startActivity(intent,compat.toBundle());
-                    return true;
-                } */
+                }
                     return true;
             }
         });
@@ -1890,5 +1812,45 @@
             NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder.setContentIntent(resultPendingIntent);
             mNM.notify(notifId,mBuilder.build());
+        }
+
+        public void fetchSoilDetails(String s) {
+            final String TAG = SoilActivity.class.getSimpleName();
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        cityName = response.getString("c_name");
+                        Log.d("City: ", cityName);
+                        type = response.getString("s_type");
+                        farm = response.getString("s_farm");
+                        crop = response.getString("s_crop1");
+                        cover = response.getString("s_cover");
+                        ssnS = response.getString("ssn_s");
+                        ssnE = response.getString("ssn_e");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                }
+            });
+            // Adding request to request queue
+            AppCont.getInstance().addToRequestQueue(jsonObjReq);
         }
     }

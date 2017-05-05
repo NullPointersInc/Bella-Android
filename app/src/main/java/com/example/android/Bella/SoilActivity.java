@@ -1,23 +1,8 @@
 package com.example.android.Bella;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.renderscript.RenderScript;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity;
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem;
 import com.danielstone.materialaboutlibrary.items.MaterialAboutTitleItem;
@@ -26,9 +11,6 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.context.IconicsContextWrapper;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class SoilActivity extends MaterialAboutActivity {
@@ -49,13 +31,6 @@ public class SoilActivity extends MaterialAboutActivity {
 
     @Override
     protected MaterialAboutList getMaterialAboutList(final Context c) {
-        /*cityName= "Colorado";
-        type = "Mollisols";
-        farm = "Crop Rotation";
-        crop = "Corn";
-        cover = "Mustard, Soya";
-        ssnS = "June";
-        ssnE = "September";*/
 
         Log.d("City: ",cityName);
 
