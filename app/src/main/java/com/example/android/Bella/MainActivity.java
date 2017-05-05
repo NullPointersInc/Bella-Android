@@ -50,6 +50,7 @@
     import android.content.Intent;
     import android.support.v7.widget.PopupMenu;
     import android.text.SpannableString;
+    import android.text.format.Time;
     import android.text.style.StyleSpan;
     import android.text.style.UnderlineSpan;
     import android.transition.Explode;
@@ -83,6 +84,7 @@
     import com.thefinestartist.finestwebview.FinestWebView;
 
     import org.jetbrains.annotations.NotNull;
+    import org.json.JSONArray;
     import org.json.JSONException;
     import org.json.JSONObject;
     import org.w3c.dom.Text;
@@ -119,6 +121,11 @@
         String address = null;
         String song = null;
         boolean queryStatus = false;
+
+        String max;
+        String min;
+
+        JSONArray list;
 
         //Bluetooth Stuff
         BluetoothAdapter myBluetooth = null;
@@ -701,6 +708,8 @@
                     } else {
                         c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
                     }
+                    String t="http://api.openweathermap.org/data/2.5/forecast/daily?q={"+c+"}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa";
+                    fetchWeatherDetails(t);
                     tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
                     Intent im = new Intent(MainActivity.this, WeatherActivity.class);
                     im.putExtra("city",c);
@@ -1877,6 +1886,48 @@
                         cover = response.getString("s_cover");
                         ssnS = response.getString("ssn_s");
                         ssnE = response.getString("ssn_e");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                }
+            });
+            // Adding request to request queue
+            AppCont.getInstance().addToRequestQueue(jsonObjReq);
+        }
+
+
+        public void fetchWeatherDetails(String s) {
+            final String TAG = SoilActivity.class.getSimpleName();
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        list= response.getJSONArray("list");
+
+                        JSONObject temp= list.getJSONObject(0);
+                        JSONObject temp1= temp.getJSONObject("temp");
+                        max= temp1.getString("max");
+                        min= temp1.getString("min");
+                        Log.e(max,min);
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(),
