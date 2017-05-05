@@ -427,8 +427,8 @@
         public void checkForUpdate() {
             //Check for update
             new AppUpdater(this)
-                    .setUpdateFrom(UpdateFrom.JSON)
-                    .setUpdateJSON("https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/alpha/update-changelog.json")
+                    .setUpdateFrom(UpdateFrom.XML)
+                    .setUpdateXML("https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/alpha/update-changelog.xml")
                     .setTitleOnUpdateNotAvailable("Update not available")
                     .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                     .setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)

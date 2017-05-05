@@ -1,0 +1,12 @@
+<AppUpdater>
+  <update>
+    <latestVersion>1.1.0</latestVersion>
+    <latestVersionCode>10</latestVersionCode>
+    <url>https://github.com/Bella-Assistant/Bella-Android/releases</url>
+    <releaseNotes>
+- First major release,
+- Material Webview,
+- Matured AI
+    </releaseNotes>
+  </update>
+</AppUpdater>
