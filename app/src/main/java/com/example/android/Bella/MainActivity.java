@@ -734,6 +734,24 @@
                         startActivity(im);
                     }
 
+                } else {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
+                    SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
+                    String s = settings.getString("num", "");
+                    if(s.equals("")) {
+                        tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent im = new Intent(MainActivity.this, WeatherActivity.class);
+                        im.putExtra("city",c);
+                        startActivity(im,compat.toBundle());
+                    } else {
+                        int val = Integer.parseInt(s);
+                        String k = "Today's forecast for"+ c +" is " + s + " degrees";
+                        tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
+                        Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
+                        im.putExtra("value",val);
+                        startActivity(im);
+                    }
                 }
             } else if(txt.contains("alarm")){
                 tts.speak("Creating an alarm ", TextToSpeech.QUEUE_FLUSH, null);
