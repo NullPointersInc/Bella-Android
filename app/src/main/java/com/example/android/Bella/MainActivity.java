@@ -1101,7 +1101,7 @@
 
             } else if(txt.contains("grow") && txt.contains("land")) {
                 if(txt.contains("land 1")) {
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_1.json";
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/Bella-Jsons/goal1_1.json";
                     fetchSoilDetails(info);
                     tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
@@ -1115,7 +1115,7 @@
                     }, 3000);
 
                 } else if(txt.contains("land 2")){
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/nasa/goal1_2.json";
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/Bella-Jsons/goal1_2.json";
                     fetchSoilDetails(info);
                     tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();

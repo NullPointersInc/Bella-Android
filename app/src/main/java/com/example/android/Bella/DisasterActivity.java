@@ -82,24 +82,24 @@ public class DisasterActivity extends AppCompatActivity {
         l = getIntent().getIntExtra("l",0);
         Log.d("l: ",Integer.toString(l));
         if(l==1) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/Tsunami.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/Tsunami.json";
             nlat = "41.775177";
             nlng = "-124.197371";
         } else if(l == 2) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/cyclone.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/cyclone.json";
             nlat = "25.7959";
             nlng ="- 80.2870";
         } else if(l == 4) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/volcano.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/volcano.json";
             nlat = "19.539722";
             nlng = "-155.141389";
         } else if(l == 3) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/flood.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/flood.json";
             nlat = "35.256527";
             nlng = "-80.964532";
 
         } else {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/normal.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/normal.json";
 
         }
 
