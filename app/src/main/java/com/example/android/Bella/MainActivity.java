@@ -124,6 +124,7 @@
 
         String max;
         String min;
+        String c="bangalore";
 
         JSONArray list;
 
@@ -698,7 +699,6 @@
                     }
                 }, 2500);
             } else if (txt.contains("weather")) {
-                String c="bangalore";
                 if(isNetworkAvailable()==0) {
                     tts.speak("It seems like internet connection is unavailable so I am unable to fetch weather report", TextToSpeech.QUEUE_FLUSH, null);
                     init();
@@ -708,8 +708,6 @@
                     } else {
                         c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
                     }
-                    String t="http://api.openweathermap.org/data/2.5/forecast/daily?q={"+c+"}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa";
-                    fetchWeatherDetails(t);
                     tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
                     Intent im = new Intent(MainActivity.this, WeatherActivity.class);
                     im.putExtra("city",c);
@@ -720,47 +718,36 @@
                     } else {
                         c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
                     }
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
-                    SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
-                    String s = settings.getString("num", "");
-                    if(s.equals("")) {
-                        tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent im = new Intent(MainActivity.this, WeatherActivity.class);
-                        im.putExtra("city",c);
-                        startActivity(im,compat.toBundle());
-                    } else {
-                        int val = Integer.parseInt(s);
-                        if(txt.contains("of")) {
-                            c = txt.substring(txt.lastIndexOf(" of ") + 4, txt.length());
-                        } else {
-                            c = txt.substring(txt.lastIndexOf(" in ") + 4, txt.length());
+                    String t="http://api.openweathermap.org/data/2.5/forecast/daily?q={"+c+"}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa";
+                    fetchWeatherDetails(t);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            String k = "Today's forecast for"+ c +" is, " + max + " degrees";
+                            tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
+                            Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
+                            im.putExtra("value",max);
+                            startActivity(im);
                         }
-                        String k = "Today's forecast for"+ c +" is " + s + " degrees";
-                        tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
-                        Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
-                        im.putExtra("value",val);
-                        startActivity(im);
-                    }
+                    }, 1000);
 
                 } else {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    tts.speak(" ", TextToSpeech.QUEUE_FLUSH, null); // Initialize tts engine
-                    SharedPreferences settings = getSharedPreferences("temp", MODE_PRIVATE);
-                    String s = settings.getString("num", "");
-                    if(s.equals("")) {
-                        tts.speak("Fetching weather information.", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent im = new Intent(MainActivity.this, WeatherActivity.class);
-                        im.putExtra("city",c);
-                        startActivity(im,compat.toBundle());
-                    } else {
-                        int val = Integer.parseInt(s);
-                        String k = "Today's forecast for"+ c +" is " + s + " degrees";
-                        tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
-                        Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
-                        im.putExtra("value",val);
-                        startActivity(im);
-                    }
+                    String t="http://api.openweathermap.org/data/2.5/forecast/daily?q={bangalore}&mode=json&units=metric&cnt=7&appid=8ef3e7bbb7fc9e9bb6f0ab01cba793fa";
+                    fetchWeatherDetails(t);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            String k = "Today's forecast for Bangalore" +" is, " + max + " degrees";
+                            tts.speak(k, TextToSpeech.QUEUE_FLUSH, null);
+                            Intent im = new Intent(MainActivity.this, MaterialWeatherActivity.class);
+                            im.putExtra("value",max);
+                            startActivity(im);
+                        }
+                    }, 1000);
+
+
                 }
             } else if(txt.contains("alarm")){
                 tts.speak("Creating an alarm ", TextToSpeech.QUEUE_FLUSH, null);
