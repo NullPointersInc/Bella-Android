@@ -16,7 +16,6 @@ import com.mikepenz.iconics.context.IconicsContextWrapper;
 public class SoilActivity extends MaterialAboutActivity {
     public String id;
     public static String info;
-    public static String cityName, type, farm, crop, cover, ssnS, ssnE;
 
     int red = R.color.red_500;
     int lightRed = R.color.red_400;
@@ -32,7 +31,7 @@ public class SoilActivity extends MaterialAboutActivity {
     @Override
     protected MaterialAboutList getMaterialAboutList(final Context c) {
 
-        Log.d("City: ",cityName);
+
 
 
         MaterialAboutCard.Builder appCardBuilder = new MaterialAboutCard.Builder();
@@ -46,8 +45,8 @@ public class SoilActivity extends MaterialAboutActivity {
                 .build());
 
         appCardBuilder.addItem(new MaterialAboutActionItem.Builder()
-                .text("City")
-                .subText(cityName)
+                .text("State")
+                .subText("Chhattisgarh")
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_city)
                         .color(ContextCompat.getColor(c, brown))
@@ -59,7 +58,7 @@ public class SoilActivity extends MaterialAboutActivity {
 
         authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
                 .text("Soil Type")
-                .subText(type)
+                .subText(MainActivity.soil_type)
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_blackberry)
                         .color(ContextCompat.getColor(c, brown))
@@ -68,7 +67,7 @@ public class SoilActivity extends MaterialAboutActivity {
 
         authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
                 .text("Farm Type")
-                .subText(farm)
+                .subText("Crop rotation")
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_blur)
                         .color(ContextCompat.getColor(c, grey))
@@ -84,7 +83,7 @@ public class SoilActivity extends MaterialAboutActivity {
                         .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
                 .text("Crop Type")
-                .subText(crop)
+                .subText(MainActivity.temp_crop+","+MainActivity.temp_crop2)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
@@ -96,7 +95,7 @@ public class SoilActivity extends MaterialAboutActivity {
                         .color(ContextCompat.getColor(c, orange))
                         .sizeDp(18))
                 .text("Cover")
-                .subText(cover)
+                .subText("Green Manure, Legumes")
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
@@ -111,7 +110,7 @@ public class SoilActivity extends MaterialAboutActivity {
                         .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
                 .text("Start Season")
-                .subText(ssnS)
+                .subText(MainActivity.start_month)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
@@ -122,7 +121,7 @@ public class SoilActivity extends MaterialAboutActivity {
                         .color(ContextCompat.getColor(c, orange))
                         .sizeDp(18))
                 .text("End Season")
-                .subText(ssnE)
+                .subText(MainActivity.end_month)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );

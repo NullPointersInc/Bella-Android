@@ -92,13 +92,6 @@
     import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
     import io.ghyeok.stickyswitch.widget.StickySwitch;
 
-    import static com.example.android.Bella.SoilActivity.cityName;
-    import static com.example.android.Bella.SoilActivity.type;
-    import static com.example.android.Bella.SoilActivity.farm;
-    import static com.example.android.Bella.SoilActivity.crop;
-    import static com.example.android.Bella.SoilActivity.cover;
-    import static com.example.android.Bella.SoilActivity.ssnE;
-    import static com.example.android.Bella.SoilActivity.ssnS;
     import static com.example.android.Bella.SoilActivity.info;
 
 
@@ -113,6 +106,7 @@
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
         TransitionInflater tf;
+        public static String type_name, soil_type, start_month, end_month, temp_crop, temp_crop2;
 
         private SpeechRecognizer speech;
         public Vibrator myVib;
@@ -1128,11 +1122,17 @@
 
             } else if(txt.contains("grow") && txt.contains("land")) {
                 if(txt.contains("land 1")) {
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal1_1.json";
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/soil.json";
                     fetchSoilDetails(info);
-                    tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            tts.speak("I may suggest you to grow"+temp_crop+"or"+temp_crop2+"according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
+                        }
+                    }, 1000);
+                    final Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
@@ -1898,19 +1898,41 @@
                     try {
                         // Parsing json object response
                         // response will be a json object
-                        cityName = response.getString("c_name");
+                        /*cityName = response.getString("c_name");
                         Log.d("City: ", cityName);
                         type = response.getString("s_type");
                         farm = response.getString("s_farm");
                         crop = response.getString("s_crop1");
                         cover = response.getString("s_cover");
                         ssnS = response.getString("ssn_s");
-                        ssnE = response.getString("ssn_e");
+                        ssnE = response.getString("ssn_e");*/
+                        JSONArray type = response.getJSONArray("Chhattisgarh");
+                        soil_type = type.getString(0);
+                        JSONObject soil = response.getJSONObject(soil_type).getJSONObject("crop");
+                        JSONArray name = soil.getJSONArray("type");
+                        JSONObject obj = name.getJSONObject(0);
+                        type_name = obj.getString("name");
+                        JSONArray tmp = obj.getJSONArray("seasons");
+                        start_month = tmp.getString(0);
+                        end_month = tmp.getString(1);
+                        JSONArray tmp2 = obj.getJSONArray("crops");
+                        temp_crop= tmp2.getString(0);
+                        temp_crop2=tmp2.getString(1);
+                        Log.e(type_name,start_month);
+                        Log.e(end_month,temp_crop);
+                        Log.e(temp_crop2,"ashish");
+
+
+
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("error", e.getMessage());
                         Toast.makeText(getApplicationContext(),
                                 "Error: " + e.getMessage(),
                                 Toast.LENGTH_LONG).show();
+                        Log.e("error", e.getMessage());
                     }
                 }
             }, new Response.ErrorListener() {
