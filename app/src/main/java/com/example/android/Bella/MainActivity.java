@@ -1054,11 +1054,16 @@
                             play(path);
                         }
                     } else {
-                            String s = txt.substring(txt.lastIndexOf("song")+4,txt.length());
-                            String c = "Searching for the song "+s;
-                            tts.speak(c, TextToSpeech.QUEUE_FLUSH, null);
-                            s=s.replace(" ","+");
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
+                            if(!(txt.length()==4)) {
+                                String s = txt.substring(txt.lastIndexOf("song") + 4, txt.length());
+                                String c = "Searching for the song " + s;
+                                tts.speak(c, TextToSpeech.QUEUE_FLUSH, null);
+                                s = s.replace(" ", "+");
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+s)));
+                            } else {
+                                tts.speak("Please, specify the song name", TextToSpeech.QUEUE_FLUSH, null);
+                                stop();
+                            }
                     }
                 }
             } else if (txt.contains("feeling") && txt.contains("you")) {
@@ -1123,7 +1128,7 @@
 
             } else if(txt.contains("grow") && txt.contains("land")) {
                 if(txt.contains("land 1")) {
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/Bella-Jsons/goal1_1.json";
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal1_1.json";
                     fetchSoilDetails(info);
                     tts.speak("I may suggest you to grow corns according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
@@ -1137,7 +1142,7 @@
                     }, 3000);
 
                 } else if(txt.contains("land 2")){
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/Bella-Jsons/goal1_2.json";
+                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal1_2.json";
                     fetchSoilDetails(info);
                     tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
                     final Handler handler = new Handler();
@@ -1259,7 +1264,6 @@
                                 .webViewJavaScriptEnabled(true)
                                 .showSwipeRefreshLayout(true)
                                 .gradientDivider(false)
-                                //                    .setCustomAnimations(R.anim.slide_up, R.anim.hold, R.anim.hold, R.anim.slide_down)
                                 .setCustomAnimations(R.anim.fade_in_medium, R.anim.fade_out_medium, R.anim.fade_in_medium, R.anim.fade_out_medium)
                                 .disableIconBack(false)
                                 .disableIconClose(false)
