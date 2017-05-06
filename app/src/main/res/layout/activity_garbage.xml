@@ -41,14 +41,13 @@
         app:cpb_background_progressbar_color="#FFCDD2"
         app:cpb_background_progressbar_width="5dp"
         app:cpb_progressbar_color="#F44336"
-        app:cpb_progress="60"
         app:cpb_progressbar_width="10dp"/>
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="25dp"
         android:text="Bin 1"
         android:textColor="@color/white"
@@ -61,7 +60,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="Bin 2"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="35dp"
         android:layout_above="@+id/circle_progress3"
         android:layout_alignStart="@+id/circle_progress4" />
 
@@ -93,10 +92,11 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView18"
+        android:layout_alignStart="@+id/circle_progress3"
         android:layout_below="@+id/circle_progress3"
         android:layout_marginTop="17dp"
         android:textColor="@color/white"
+        android:layout_marginStart="35dp"
         android:text="Bin 3" />
 
     <TextView
@@ -106,6 +106,7 @@
         android:layout_alignBottom="@+id/textView20"
         android:layout_alignEnd="@+id/textView19"
         android:textColor="@color/white"
+        android:layout_marginStart="5dp"
         android:text="Bin 4" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -139,8 +140,9 @@
         android:layout_marginTop="18dp"
         android:textColor="@color/white"
         android:text="Bin 5"
+        android:layout_marginStart="33dp"
         android:layout_below="@+id/circle_progress5"
-        android:layout_alignStart="@+id/textView20" />
+        android:layout_alignStart="@+id/circle_progress5" />
 
     <TextView
         android:id="@+id/textView23"
@@ -148,6 +150,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="Bin 6"
+        android:layout_marginStart="3dp"
         android:layout_alignBaseline="@+id/textView22"
         android:layout_alignBottom="@+id/textView22"
         android:layout_alignStart="@+id/textView21" />
@@ -157,18 +160,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="TextView"
         android:textSize="20sp"
-        android:layout_above="@+id/textView18"
-        android:layout_alignStart="@+id/textView18"
-        android:layout_marginBottom="40dp" />
+        android:layout_alignTop="@+id/circle_progress1"
+        android:layout_alignStart="@+id/circle_progress1"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="36dp" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="TextView"
         android:layout_alignBaseline="@+id/textView24"
         android:textSize="20sp"
         android:layout_alignBottom="@+id/textView24"
@@ -179,7 +181,6 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_above="@+id/textView20"
@@ -190,7 +191,6 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_alignBaseline="@+id/textView26"
@@ -201,7 +201,6 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textColor="@color/white"
         android:layout_marginBottom="38dp"
         android:textSize="20sp"
@@ -212,7 +211,6 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_alignBaseline="@+id/textView28"
