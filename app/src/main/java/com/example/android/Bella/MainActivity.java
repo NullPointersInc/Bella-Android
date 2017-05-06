@@ -1098,10 +1098,26 @@
                     Intent i = new Intent(MainActivity.this, GarbageActivity.class);
                     startActivity(i,compat.toBundle());
                 } else if(txt.contains("collection") || txt.contains("collect")){
-                    tts.speak("Currently Not available",TextToSpeech.QUEUE_FLUSH,null) ;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, GarbageCollection.class);
-                    startActivity(i,compat.toBundle());
+                    new FinestWebView.Builder(MainActivity.this).titleDefault("Garbage Collection")
+                            .toolbarScrollFlags(0)
+                            .titleColorRes(R.color.finestWhite)
+                            .statusBarColorRes(R.color.colorPrimaryDark)
+                            .toolbarColorRes(R.color.colorPrimary)
+                            .iconDefaultColorRes(R.color.finestWhite)
+                            .progressBarColorRes(R.color.finestWhite)
+                            .menuSelector(R.drawable.selector_light_theme)
+                            .dividerHeight(0)
+                            .webViewBuiltInZoomControls(true)
+                            .webViewDisplayZoomControls(true)
+                            .webViewJavaScriptEnabled(true)
+                            .showSwipeRefreshLayout(true)
+                            .gradientDivider(false)
+                            .setCustomAnimations(R.anim.fade_in_medium, R.anim.fade_out_medium, R.anim.fade_in_medium, R.anim.fade_out_medium)
+                            .disableIconBack(false)
+                            .disableIconClose(false)
+                            .disableIconForward(false)
+                            .disableIconMenu(false)
+                            .show("https://bella-assistant.github.io/Bella-Garbage");
                 }
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
