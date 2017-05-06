@@ -46,7 +46,7 @@ public class SoilActivity extends MaterialAboutActivity {
 
         appCardBuilder.addItem(new MaterialAboutActionItem.Builder()
                 .text("State")
-                .subText("Chhattisgarh")
+                .subText(MainActivity.city)
                 .icon(new IconicsDrawable(c)
                         .icon(CommunityMaterial.Icon.cmd_city)
                         .color(ContextCompat.getColor(c, brown))

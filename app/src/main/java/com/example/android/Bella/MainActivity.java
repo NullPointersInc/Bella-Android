@@ -106,7 +106,7 @@
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
         TransitionInflater tf;
-        public static String type_name, soil_type, start_month, end_month, temp_crop, temp_crop2;
+        public static String type_name, soil_type, start_month, end_month, temp_crop, temp_crop2,city;
 
         private SpeechRecognizer speech;
         public Vibrator myVib;
@@ -1146,8 +1146,8 @@
                 else
                     tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
 
-            } else if(txt.contains("grow") && txt.contains("land")) {
-                if(txt.contains("land 1")) {
+            } else if(txt.contains("grow") && txt.contains("crop")) {
+                    city=txt.substring(txt.lastIndexOf(" in ")+4, txt.length());
                     info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/soil.json";
                     fetchSoilDetails(info);
                     final Handler handler = new Handler();
@@ -1167,24 +1167,8 @@
                         }
                     }, 3000);
 
-                } else if(txt.contains("land 2")){
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal1_2.json";
-                    fetchSoilDetails(info);
-                    tts.speak("Seems like the soil would be suitable for winter wheat really well", TextToSpeech.QUEUE_FLUSH,null);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                            Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                            startActivity(i,compat.toBundle());
-                        }
-                    }, 3000);
 
-                }
-                else {
-                    tts.speak("This land is not registered under you. ", TextToSpeech.QUEUE_FLUSH,null);
-                }
+
             } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
                 int l=5;
                 if(txt.contains("North Carolina")) {
@@ -1907,7 +1891,7 @@
                         cover = response.getString("s_cover");
                         ssnS = response.getString("ssn_s");
                         ssnE = response.getString("ssn_e");*/
-                        JSONArray type = response.getJSONArray("Chhattisgarh");
+                        JSONArray type = response.getJSONArray(city);
                         soil_type = type.getString(0);
                         JSONObject soil = response.getJSONObject(soil_type).getJSONObject("crop");
                         JSONArray name = soil.getJSONArray("type");
