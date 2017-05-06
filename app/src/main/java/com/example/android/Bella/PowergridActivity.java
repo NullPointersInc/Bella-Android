@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.zagum.switchicon.SwitchIconView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,9 @@ public class PowergridActivity extends AppCompatActivity {
     public int lim,pro,usage;
     String info;
     int  link;
-    StickySwitch s1,s2,s3,s4;
+    SwitchIconView s1,s2,s3,s4;
+    int white=R.color.white;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Fade s = new Fade();
@@ -46,17 +49,17 @@ public class PowergridActivity extends AppCompatActivity {
         setContentView(R.layout.activity_power_grid);
         link = getIntent().getIntExtra("link",0);
         if(link==1) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_1.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal2_1.json";
         } else if(link==2) {
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_2.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal2_2.json";
         } else if (link==3){
-            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Android/master/goal2_3.json";
+            info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/goal2_3.json";
         }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        s1 = (StickySwitch)findViewById(R.id.toggleButton2);
-        s2 = (StickySwitch)findViewById(R.id.toggleButton3);
-        s3 = (StickySwitch)findViewById(R.id.toggleButton4);
-        s4 = (StickySwitch)findViewById(R.id.toggleButton5);
+        s1 = (SwitchIconView)findViewById(R.id.toggleButton2);
+        s2 = (SwitchIconView)findViewById(R.id.toggleButton3);
+        s3 = (SwitchIconView)findViewById(R.id.toggleButton4);
+        s4 = (SwitchIconView)findViewById(R.id.toggleButton5);
         s1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,8 +185,7 @@ public class PowergridActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     notif("High Energy Usage","House");
-                    s1.setSwitchColor(getResources().getColor(R.color.red));
-                    s1.setDirection(StickySwitch.Direction.RIGHT);
+                    s1.switchState();
                 }
             }.start();
         } else if(link == 2) {
@@ -196,8 +198,7 @@ public class PowergridActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     notif("High Energy Usage","Industry");
-                    s2.setSwitchColor(getResources().getColor(R.color.red));
-                    s2.setDirection(StickySwitch.Direction.RIGHT);
+                    s2.switchState();
                 }
             }.start();
         } else {
@@ -210,8 +211,7 @@ public class PowergridActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     notif("High Energy Usage","Farming");
-                    s3.setSwitchColor(getResources().getColor(R.color.red));
-                    s3.setDirection(StickySwitch.Direction.RIGHT);
+                    s3.switchState();
                 }
             }.start();
         }
@@ -221,6 +221,7 @@ public class PowergridActivity extends AppCompatActivity {
         int notifId=1;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.bella_launcher);
+        mBuilder.setColor(getResources().getColor(white));
         mBuilder.setContentTitle("Warning! "+title);
         mBuilder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
         mBuilder.setContentText(notif);

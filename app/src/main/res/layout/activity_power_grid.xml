@@ -18,82 +18,120 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:iconPadding="18dp"
-        app:iconSize="22dp"
-        app:rightIcon="@drawable/ic_action_flashoff"
-        app:rightText="OFF"
-        app:leftIcon="@drawable/ic_action_flashon"
-        app:leftText="ON"
-        app:selectedTextSize="14sp"
-        app:textSize="12sp"
+    <com.github.zagum.switchicon.SwitchIconView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:padding="10dp"
+        app:si_animation_duration="500"
+        app:si_disabled_alpha=".3"
         android:id="@+id/toggleButton2"
-        app:sliderBackgroundColor="@color/colorPrimaryDark"
-        app:switchColor="@color/green"
+        app:si_disabled_color="#b7b7b7"
+        app:si_tint_color="@color/yellow_500"
+        app:si_enabled="true"
+        app:si_no_dash="false"
+        app:srcCompat="@drawable/ic_action_flashon"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="100dp" />
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:iconPadding="18dp"
-        app:iconSize="22dp"
-        app:rightIcon="@drawable/ic_action_flashoff"
-        app:rightText="OFF"
-        app:leftIcon="@drawable/ic_action_flashon"
-        app:leftText="ON"
-        app:selectedTextSize="14sp"
-        app:textSize="12sp"
+    <com.github.zagum.switchicon.SwitchIconView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:padding="10dp"
+        app:si_animation_duration="500"
+        app:si_disabled_alpha=".3"
         android:id="@+id/toggleButton3"
-        app:sliderBackgroundColor="@color/colorPrimaryDark"
-        app:switchColor="@color/green"
+        app:si_disabled_color="#b7b7b7"
+        app:si_tint_color="@color/yellow_500"
+        app:si_enabled="true"
+        app:si_no_dash="false"
+        app:srcCompat="@drawable/ic_action_flashon"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="100dp" />
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:iconPadding="18dp"
-        app:iconSize="22dp"
-        app:rightIcon="@drawable/ic_action_flashoff"
-        app:rightText="OFF"
-        app:leftIcon="@drawable/ic_action_flashon"
-        app:leftText="ON"
-        app:selectedTextSize="14sp"
-        app:textSize="12sp"
+    <com.github.zagum.switchicon.SwitchIconView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:padding="10dp"
+        app:si_animation_duration="500"
+        app:si_disabled_alpha=".3"
         android:id="@+id/toggleButton4"
-        app:sliderBackgroundColor="@color/colorPrimaryDark"
-        app:switchColor="@color/green"
+        app:si_disabled_color="#b7b7b7"
+        app:si_tint_color="@color/yellow_500"
+        app:si_enabled="true"
+        app:si_no_dash="false"
+        app:srcCompat="@drawable/ic_action_flashon"
         android:layout_below="@+id/toggleButton2"
         android:layout_alignParentStart="true"
         android:layout_marginTop="200dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="50dp" />
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:iconPadding="18dp"
-        app:iconSize="22dp"
-        app:rightIcon="@drawable/ic_action_flashoff"
-        app:rightText="OFF"
-        app:leftIcon="@drawable/ic_action_flashon"
-        app:leftText="ON"
-        app:selectedTextSize="14sp"
-        app:textSize="12sp"
+    <com.github.zagum.switchicon.SwitchIconView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:padding="10dp"
+        app:si_animation_duration="500"
+        app:si_disabled_alpha=".3"
         android:id="@+id/toggleButton5"
-        app:sliderBackgroundColor="@color/colorPrimaryDark"
-        app:switchColor="@color/green"
+        app:si_disabled_color="#b7b7b7"
+        app:si_tint_color="@color/yellow_500"
+        app:si_enabled="true"
+        app:si_no_dash="false"
+        app:srcCompat="@drawable/ic_action_flashon"
         android:layout_below="@+id/toggleButton3"
         android:layout_alignParentStart="true"
         android:layout_marginTop="200dp"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="280dp"
         android:layout_marginBottom="50dp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/toggleButton2"
+        android:layout_below="@+id/toggleButton2"
+        android:layout_marginStart="20dp"
+        android:text="House"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        tools:text="House" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/toggleButton3"
+        android:layout_below="@+id/toggleButton3"
+        android:layout_marginStart="18dp"
+        android:text="Industry"
+        android:textColor="@color/white"
+        tools:text="Industry" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/toggleButton4"
+        android:layout_alignTop="@+id/toggleButton4"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="88dp"
+        android:text="Village"
+        android:textColor="@color/white"
+        tools:text="Village" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView30"
+        android:layout_alignStart="@+id/toggleButton5"
+        android:layout_marginStart="20dp"
+        android:text="Estate"
+        android:textColor="@color/white"
+        tools:text="Estate" />
 
 </RelativeLayout>
