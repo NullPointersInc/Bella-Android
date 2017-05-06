@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.example.android.Bella.MachineLearning">
+
+    <com.doctoror.particlesdrawable.ParticlesView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/view"
+        app:minDotRadius="1dp"
+        app:maxDotRadius="3dp"
+        app:lineThickness="1dp"
+        app:lineDistance="86dp"
+        app:numDots="60"
+        app:dotColor="@android:color/white"
+        app:lineColor="@android:color/white"
+        app:frameDelayMillis="10"
+        app:stepMultiplier="1"/>
+
+</RelativeLayout>

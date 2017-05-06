@@ -627,6 +627,10 @@
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i,compat.toBundle());
+            } else if (txt.contains("machine learning")) {
+                tts.speak("I am still learning, check out my neural network",TextToSpeech.QUEUE_FLUSH,null);
+                Intent i = new Intent(MainActivity.this, MachineLearning.class);
+                startActivity(i);
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
@@ -1087,11 +1091,17 @@
             } else if(txt.contains("energy")) {
                 String e = "Energy used is "+energyUsed+" units.";
                 tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
-            } else if(txt.contains("garbage") && txt.contains("status")) {
-                if(!hardware) {
-                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
-                } else {
-                    command(1011);
+            } else if(txt.contains("garbage")) {
+                if(txt.contains("status")) {
+                    tts.speak("Garbage status received.",TextToSpeech.QUEUE_FLUSH,null) ;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, GarbageActivity.class);
+                    startActivity(i,compat.toBundle());
+                } else if(txt.contains("collection") || txt.contains("collect")){
+                    tts.speak("Currently Not available",TextToSpeech.QUEUE_FLUSH,null) ;
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent i = new Intent(MainActivity.this, GarbageCollection.class);
+                    startActivity(i,compat.toBundle());
                 }
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
@@ -1648,17 +1658,6 @@
                         msg("Error");
                     }
                 }
-                else if (i==1011){
-                    try
-                    {
-                        btSocket.getOutputStream().write("GG:".toString().getBytes());
-                        beginListenForData();
-                    }
-                    catch (IOException e)
-                    {
-                        msg("Error");
-                    }
-                }
             }
         }
         private void Disconnect()
@@ -1675,15 +1674,6 @@
                 { msg("Error");}
             }
             finish(); //return to the first layout
-        }
-        private boolean checkBT() {
-            myBluetooth = BluetoothAdapter.getDefaultAdapter();
-            if (!myBluetooth.isEnabled()) {
-                return false;
-            }
-            else {
-                return true;
-            }
         }
 
         public void statuscheck(String s) {
@@ -1848,11 +1838,6 @@
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.length()>10){
                 Log.d("String: ",s);
-                tts.speak("Garbage status recieved.",TextToSpeech.QUEUE_FLUSH,null) ;
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                Intent i = new Intent(MainActivity.this, GarbageActivity.class);
-                i.putExtra("Status",s);
-                startActivity(i,compat.toBundle());
 
 
             } else  if (s.length()>5){
