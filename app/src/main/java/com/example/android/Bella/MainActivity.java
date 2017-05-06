@@ -126,6 +126,14 @@
         String min;
         String c="bangalore";
 
+        //News
+        public static class news
+        {
+            String title, url, url_img,desc;
+        }
+        public static news[] obj = new news[12];
+        JSONArray articles;
+
         JSONArray list;
 
         //Bluetooth Stuff
@@ -1198,11 +1206,32 @@
                         tts.speak("Internet Connection not available. Please Connect to Internet", TextToSpeech.QUEUE_FLUSH, null);
                         init();
                     } else {
-                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                        tts.speak("News for Today", TextToSpeech.QUEUE_FLUSH, null);
-                        Intent i = new Intent(MainActivity.this, NewsActivity.class);
-                        startActivity(i,compat.toBundle());
-                        stop();
+                        fetchNewsDetails();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                            fetchBusinessDetails();
+                            }
+                        },1000);
+                        final Handler handler1 = new Handler();
+                        handler1.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fetchSportsDetails();
+                            }
+                        },2000);
+                        tts.speak("Fetching News, please wait!", TextToSpeech.QUEUE_FLUSH, null);
+                        final Handler handler2 = new Handler();
+                        handler2.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                                Intent i = new Intent(MainActivity.this, NewsActivity.class);
+                                startActivity(i,compat.toBundle());
+                                stop();
+                            }
+                        },3000);
                     }
                 } else if (txt.contentEquals("hey") || txt.contentEquals("hi") || txt.contentEquals("hello")) {
                     tts.speak("Greetings! Human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
@@ -1913,6 +1942,140 @@
                         max= temp1.getString("max");
                         min= temp1.getString("min");
                         Log.e(max,min);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                }
+            });
+            // Adding request to request queue
+            AppCont.getInstance().addToRequestQueue(jsonObjReq);
+        }
+        public void fetchNewsDetails() {
+            final String TAG = NewsActivity.class.getSimpleName();
+            String s = "https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a";
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        articles= response.getJSONArray("articles");
+                        for(int i=0;i<3;i++) {
+                            obj[i] = new MainActivity.news();
+                            JSONObject temp = articles.getJSONObject(i);
+                            obj[i].title=temp.getString("title");
+                            obj[i].url=temp.getString("url");
+                            obj[i].url_img=temp.getString("urlToImage");
+                            obj[i].desc=temp.getString("description");
+                        }
+                        Log.e(obj[0].title,obj[0].url);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                }
+            });
+            // Adding request to request queue
+            AppCont.getInstance().addToRequestQueue(jsonObjReq);
+        }
+
+        public void fetchSportsDetails() {
+            final String TAG = NewsActivity.class.getSimpleName();
+            String s = "https://newsapi.org/v1/articles?source=bbc-sport&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a";
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        articles= response.getJSONArray("articles");
+                        for(int i=3,j=0;i<6;i++,j++) {
+                            obj[i] = new MainActivity.news();
+                            JSONObject temp = articles.getJSONObject(j);
+                            obj[i].title=temp.getString("title");
+                            obj[i].url=temp.getString("url");
+                            obj[i].url_img=temp.getString("urlToImage");
+                            obj[i].desc=temp.getString("description");
+                        }
+                        Log.e(obj[0].title,obj[0].url);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                }
+            });
+            // Adding request to request queue
+            AppCont.getInstance().addToRequestQueue(jsonObjReq);
+        }
+
+        public void fetchBusinessDetails() {
+            final String TAG = NewsActivity.class.getSimpleName();
+            String s = "https://newsapi.org/v1/articles?source=business-insider&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a";
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+                        articles= response.getJSONArray("articles");
+                        for(int i=6,j=0;i<9;i++,j++) {
+                            obj[i] = new MainActivity.news();
+                            JSONObject temp = articles.getJSONObject(j);
+                            obj[i].title=temp.getString("title");
+                            obj[i].url=temp.getString("url");
+                            obj[i].url_img=temp.getString("urlToImage");
+                            obj[i].desc=temp.getString("description");
+                        }
+                        Log.e(obj[0].title,obj[0].url);
 
 
                     } catch (JSONException e) {
