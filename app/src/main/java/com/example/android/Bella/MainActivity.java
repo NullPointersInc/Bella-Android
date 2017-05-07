@@ -1825,6 +1825,10 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Everything in home turned off!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("ZF")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("There is nothing to be turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 Log.d("s:",s);
                 String c = s.substring(2,4);
