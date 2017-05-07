@@ -1914,6 +1914,8 @@
                         ssnE = response.getString("ssn_e");*/
                         JSONArray type = response.getJSONArray(city);
                         soil_type = type.getString(0);
+
+
                         JSONObject soil = response.getJSONObject(soil_type).getJSONObject("crop");
                         JSONArray name = soil.getJSONArray("type");
                         JSONObject obj = name.getJSONObject(0);
@@ -1924,6 +1926,11 @@
                         JSONArray tmp2 = obj.getJSONArray("crops");
                         temp_crop= tmp2.getString(0);
                         temp_crop2=tmp2.getString(1);
+                        String soil_type2 = type.getString(1);
+                        if(!soil_type2.equals(" "))
+                        {
+                            temp_crop2= response.getJSONObject(soil_type2).getJSONObject("crop").getJSONArray("type").getJSONObject(0).getJSONArray("crops").getString(0);
+                        }
                         Log.e(type_name,start_month);
                         Log.e(end_month,temp_crop);
                         Log.e(temp_crop2,"ashish");
