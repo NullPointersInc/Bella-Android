@@ -689,7 +689,17 @@
                     }
                 }
             }  else if (txt.contains("status")&&txt.contains("home")) {
-                command(1111);
+                if(!hardware) {
+                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    command(1111);
+                }
+            } else if (txt.contains("turn off everything")) {
+                if(!hardware) {
+                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    command(1011);
+                }
             } else if (txt.contains("disconnect")){
                 tts.speak("Disconnecting.", TextToSpeech.QUEUE_FLUSH, null);
                 Disconnect();
@@ -1146,7 +1156,7 @@
                 else
                     tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
 
-            } else if(txt.contains("grow") && txt.contains("crop")) {
+            } else if(txt.contains("grow") || txt.contains("crop") || txt.contains("crops")) {
                     city=txt.substring(txt.lastIndexOf(" in ")+4, txt.length());
                     info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/soil.json";
                     fetchSoilDetails(info);
@@ -1154,7 +1164,7 @@
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            tts.speak("I may suggest you to grow"+temp_crop+"or"+temp_crop2+"according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
+                            tts.speak("I may suggest you to grow, "+temp_crop+" or "+temp_crop2+" according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
                         }
                     }, 1000);
                     final Handler handler1 = new Handler();
@@ -1657,6 +1667,16 @@
                     {
                         msg("Error");
                     }
+                } else if (i == 1011) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("Z:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
                 }
             }
         }
@@ -1801,6 +1821,10 @@
                 status.setSwitchColor(getResources().getColor(R.color.red));
                 status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("fan already turned off!", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("ZT")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("Everything in home turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 Log.d("s:",s);
                 String c = s.substring(2,4);

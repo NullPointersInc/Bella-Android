@@ -16,6 +16,7 @@ import com.mikepenz.iconics.context.IconicsContextWrapper;
 public class SoilActivity extends MaterialAboutActivity {
     public String id;
     public static String info;
+    String crop;
 
     int red = R.color.red_500;
     int lightRed = R.color.red_400;
@@ -32,7 +33,11 @@ public class SoilActivity extends MaterialAboutActivity {
     protected MaterialAboutList getMaterialAboutList(final Context c) {
 
 
-
+        if(MainActivity.temp_crop2.equals(" ")) {
+            crop=MainActivity.temp_crop;
+        } else {
+            crop=MainActivity.temp_crop+","+MainActivity.temp_crop2;
+        }
 
         MaterialAboutCard.Builder appCardBuilder = new MaterialAboutCard.Builder();
 
@@ -83,7 +88,7 @@ public class SoilActivity extends MaterialAboutActivity {
                         .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
                 .text("Crop Type")
-                .subText(MainActivity.temp_crop+","+MainActivity.temp_crop2)
+                .subText(crop)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
