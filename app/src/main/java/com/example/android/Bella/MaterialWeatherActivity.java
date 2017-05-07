@@ -15,7 +15,8 @@ import xyz.matteobattilana.library.WeatherView;
 
 public class MaterialWeatherActivity extends AppCompatActivity {
     TextView ts;
-    int value;
+    String value;
+    float val;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,8 @@ public class MaterialWeatherActivity extends AppCompatActivity {
         View someView = findViewById(R.id.weatherView);
         View root = someView.getRootView();
 
-        value = getIntent().getIntExtra("value",0);
+        value = getIntent().getStringExtra("value");
+        val = Float.parseFloat(value);
         Window window = getWindow();
 
         if (Build.VERSION.SDK_INT >= 21) {
@@ -41,7 +43,7 @@ public class MaterialWeatherActivity extends AppCompatActivity {
 
         ts.setTypeface(custom_font);
 
-        if(value>=37) {
+        if(val>=32) {
             mWeatherView.setWeather(Constants.weatherStatus.SUN)
                     .setCurrentLifeTime(2000)
                     .setCurrentFadeOutTime(1000)
@@ -54,7 +56,7 @@ public class MaterialWeatherActivity extends AppCompatActivity {
             ts.setText("It's Sunny");
             root.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background_sunny));
             window.setStatusBarColor(getResources().getColor(R.color.orange_900));
-        } else if ((value<37) && (value>=20)) {
+        } else if ((val<32) && (val>=20)) {
             mWeatherView.setWeather(Constants.weatherStatus.RAIN)
                     .setCurrentLifeTime(2000)
                     .setCurrentFadeOutTime(1000)
