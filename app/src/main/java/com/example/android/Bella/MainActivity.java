@@ -766,7 +766,14 @@
 
 
                 }
-            } else if(txt.contains("alarm")){
+            }else if(txt.contains("segregate")||txt.contains("segregation")) {
+                tts.speak("Initialising my neural networks using tensorflow", TextToSpeech.QUEUE_FLUSH, null);
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("org.tensorflow.demo");
+                if (launchIntent != null) {
+                    startActivity(launchIntent);//null pointer check in case package name was not found
+                }
+            }
+            else if(txt.contains("alarm")){
                 tts.speak("Creating an alarm ", TextToSpeech.QUEUE_FLUSH, null);
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.deskclock");
                 if (launchIntent != null) {
@@ -1318,7 +1325,7 @@
             }
         }
 
-        //I don't know what this does, who cares!
+        //I don't know what this does, who cares! (Call back functions to Speech recognition brooo)
         @Override
         public void onRmsChanged(float arg0)
         {
