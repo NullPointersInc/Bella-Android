@@ -1357,7 +1357,7 @@
                     Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } else if (id == R.id.setting_settings) {
+                } /*else if (id == R.id.setting_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,SettingActivity.class);
                     startActivity(intent,compat.toBundle());
@@ -1367,15 +1367,20 @@
                     Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } else if (id == R.id.connect_settings) {
+                } */else if (id == R.id.connect_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } else if (id == R.id.update_settings) {
+                } else if (id == R.id.garbage_settings) {
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    Intent intent = new Intent(MainActivity.this,GarbageTracking.class);
+                    startActivity(intent,compat.toBundle());
+                    return true;
+                } /*else if (id == R.id.update_settings) {
                     checkForUpdate();
                     return true;
-                }
+                }*/
                     return true;
             }
         });

@@ -72,7 +72,8 @@
             android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity android:name=".MaterialWeatherActivity" />
         <activity android:name=".MachineLearning" />
-        <activity android:name=".GarbageCollection"></activity>
+        <activity android:name=".GarbageCollection" />
+        <activity android:name=".GarbageTracking"></activity>
     </application>
 
 </manifest>
