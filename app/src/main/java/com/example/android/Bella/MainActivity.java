@@ -1130,7 +1130,7 @@
                     }
                 } else if(txt.contains("tracker") || txt.contains("tracking")) {
                         ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                        Intent i = new Intent(MainActivity.this, GarbageTracking.class);
+                        Intent i = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(i,compat.toBundle());
                 }
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
@@ -1385,7 +1385,7 @@
                     return true;
                 } else if (id == R.id.garbage_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent intent = new Intent(MainActivity.this,GarbageTracking.class);
+                    Intent intent = new Intent(MainActivity.this,MapsActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
                 } /*else if (id == R.id.update_settings) {
