@@ -5,35 +5,35 @@
 
     <translate
         android:fromXDelta="0"
-        android:toXDelta="400"
+        android:toXDelta="400%"
         android:duration="1000" />
 
     <translate
         android:startOffset="1000"
         android:fromYDelta="0"
-        android:toYDelta="100"
+        android:toYDelta="100%"
         android:duration="1000" />
 
     <translate
         android:startOffset="4000"
         android:fromXDelta="0"
-        android:toXDelta="100"
+        android:toXDelta="150%"
         android:duration="1000" />
 
     <translate
         android:startOffset="5000"
         android:fromYDelta="0"
-        android:toYDelta="500"
+        android:toYDelta="450%"
         android:duration="1000" />
     <translate
         android:startOffset="7000"
         android:fromXDelta="0"
-        android:toXDelta="-400"
+        android:toXDelta="-460%"
         android:duration="1000" />
     <translate
         android:startOffset="8000"
         android:fromYDelta="0"
-        android:toYDelta="400"
+        android:toYDelta="200%"
         android:duration="1000" />
 
 </set>
