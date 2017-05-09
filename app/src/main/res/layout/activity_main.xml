@@ -10,7 +10,7 @@
     android:background="@color/colorPrimary"
     android:weightSum="1">
 
-    <io.ghyeok.stickyswitch.widget.StickySwitch
+    <!--<io.ghyeok.stickyswitch.widget.StickySwitch
         android:id="@+id/toggleButton"
         android:layout_width="160dp"
         android:layout_height="100dp"
@@ -27,7 +27,7 @@
         android:layout_above="@+id/txtText"
         app:sliderBackgroundColor="@color/colorPrimaryDark"
         app:switchColor="@color/red"
-        />
+        />-->
 
     <TextView
         android:text="Home"
@@ -57,14 +57,15 @@
         android:id="@+id/txtText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:ems="10"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#CFD8DC"
-        android:paddingTop="50dp"
         android:gravity="center|top"
         android:hint="How may I help you?"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:paddingTop="50dp"
+        android:text="How may help you?"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#CFD8DC" />
 
     <com.tuyenmonkey.mkloader.MKLoader
         android:id="@+id/listen"

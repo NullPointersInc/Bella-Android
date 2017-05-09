@@ -103,7 +103,7 @@
         public ImageButton btnSpeak;
         private TextView txtText;
         public TextView headText;
-        public StickySwitch status;
+        //public StickySwitch status;
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
         TransitionInflater tf;
@@ -186,13 +186,13 @@
             headText = (TextView) findViewById(R.id.textView2);
             progressBar = (ProgressBar) findViewById(R.id.progressBar1);
             btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-            status = (StickySwitch) findViewById(R.id.toggleButton);
-            status.setOnTouchListener(new View.OnTouchListener() {
+            //status = (StickySwitch) findViewById(R.id.toggleButton);
+            /*status.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     return true;
                 }
-            });
+            });*/
             loader = (com.tuyenmonkey.mkloader.MKLoader) findViewById(R.id.listen);
             //Initially progressbar is invisible
             progressBar.setVisibility(View.INVISIBLE);
@@ -202,24 +202,24 @@
             speech.setRecognitionListener(this);
             myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
             btnSpeak.setVisibility(View.INVISIBLE);
-            status.setVisibility(View.INVISIBLE);
-            txtText.setVisibility(View.INVISIBLE);
+            //status.setVisibility(View.INVISIBLE);
+            txtText.setVisibility(View.VISIBLE);
 
-            status.setClickable(false);
+            /*status.setClickable(false);
             status.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
                 @Override
                 public void onSelectedChange(@NotNull StickySwitch.Direction direction, @NotNull String text) {
                     direction = status.getDirection();
                     status.setDirection(direction);
                 }
-            });
+            });*/
 
             updateStatus = "FFFFFF";
             if(hardware) {
                 //receive the address of the bluetooth device
                 Intent newint = getIntent();
                 address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
-                status.setEnabled(false);
+                //status.setEnabled(false);
                 new ConnectBT().execute();
             }
 
@@ -230,7 +230,7 @@
                 }
             },900);
 
-            status.postDelayed(new Runnable() {
+            /*status.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     revealEffect(status);
@@ -242,7 +242,7 @@
                 public void run() {
                     revealEffect(txtText);
                 }
-            },600);
+            },600);*/
 
             SharedPreferences sharedPref = this.getSharedPreferences("SEQUENCE_TAP_TARGET", Context.MODE_PRIVATE);
             final SharedPreferences.Editor editor = sharedPref.edit();
@@ -271,13 +271,13 @@
                                     .transparentTarget(true)
                                     .textColor(android.R.color.black),
                             // Likewise, this tap target will target the search button
-                            TapTarget.forView(findViewById(R.id.toggleButton), "Status Indicator", "As Bella can connect to hardware, it can tell the current status")
+                            /*TapTarget.forView(findViewById(R.id.toggleButton), "Status Indicator", "As Bella can connect to hardware, it can tell the current status")
                                     .dimColor(android.R.color.black)
                                     .outerCircleColor(R.color.target)
                                     .targetCircleColor(android.R.color.black)
                                     .transparentTarget(true)
                                     .textColor(android.R.color.black)
-                                    .id(2),
+                                    .id(2),*/
                             // You can also target the overflow button in your toolbar
                             TapTarget.forView(findViewById(R.id.txtText), "Command Parser", "This will show the command issued by user")
                                     .dimColor(android.R.color.black)
@@ -1710,8 +1710,8 @@
 
             if (s.contains("T1")) {
                 Log.d("s: ",s);
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
                 t1 =  new CountDownTimer(30000,1000) {
                     @Override
@@ -1728,8 +1728,8 @@
                     }
                 }.start();
             } else if (s.contains("T2")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
                 t2 =  new CountDownTimer(30000,1000) {
                     @Override
@@ -1746,8 +1746,8 @@
                     }
                 }.start();
             } else if (s.contains("T3")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned On sprinklers in garden", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T4")) {
                 try {
@@ -1755,12 +1755,12 @@
                 } catch (NullPointerException ne) {
                     Log.e("NE","fuck this shit!");
                 }
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 1 in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("T5")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned Off light 2 in room", TextToSpeech.QUEUE_FLUSH, null);
                 try {
                     t2.cancel();
@@ -1768,36 +1768,36 @@
                     Log.e("NE","fuck this shit!");
                 }
             } else if (s.contains("F1")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 1 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F2")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("light 2 already turned ON in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F3")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Warning! the soil is too wet to be watered", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F4")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 1 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F5")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("light 2 already turned OFF in room", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F6")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Please! allow me to water your plants", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("F7")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("turned off sprinkler", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("S1")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("Turned ON fan!", TextToSpeech.QUEUE_FLUSH, null);
                 t3 =  new CountDownTimer(30000,1000) {
                     @Override
@@ -1814,12 +1814,12 @@
                     }
                 }.start();
             } else if (s.contains("S2")) {
-                status.setSwitchColor(getResources().getColor(R.color.green));
-                status.setDirection(StickySwitch.Direction.RIGHT);
+                //status.setSwitchColor(getResources().getColor(R.color.green));
+                //status.setDirection(StickySwitch.Direction.RIGHT);
                 tts.speak("fan already turned ON!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("S3")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Turned off fan!", TextToSpeech.QUEUE_FLUSH, null);
                 try {
                     t3.cancel();
@@ -1827,16 +1827,16 @@
                     Log.e("NE","fuck this shit!");
                 }
             } else if (s.contains("S4")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("fan already turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("ZT")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("Everything in home turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.contains("ZF")) {
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak("There is nothing to be turned off!", TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.startsWith("C1")) {
                 Log.d("s:",s);
@@ -1846,23 +1846,23 @@
                 String g = s.substring(9,10);
                 if(e.equals("F") && g.equals("F")) {
                     String d = "Container 1 and Container 2 is low on surplus with just, " + c + "and" + f + " percent filled respectively";
-                    status.setSwitchColor(getResources().getColor(R.color.red));
-                    status.setDirection(StickySwitch.Direction.LEFT);
+                    //status.setSwitchColor(getResources().getColor(R.color.red));
+                    //status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 } else if(e.equals("F") && g.equals("T")) {
                     String d = "Container 1 is low on surplus with, " + c + " percent filled and container 2 is "+f+" percent filled";
-                    status.setSwitchColor(getResources().getColor(R.color.red));
-                    status.setDirection(StickySwitch.Direction.LEFT);
+                    //status.setSwitchColor(getResources().getColor(R.color.red));
+                    //status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 } else if(e.equals("T") && g.equals("F")) {
                     String d = "Container 1 is "+c+"percent filled and Container 2 is low on surplus with just, " + f + " percent filled";
-                    status.setSwitchColor(getResources().getColor(R.color.red));
-                    status.setDirection(StickySwitch.Direction.LEFT);
+                    //status.setSwitchColor(getResources().getColor(R.color.red));
+                    //status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 } else if(e.equals("T") && g.equals("T")) {
                     String d = "Container 1 and Container 2  are, " + c + "and"+ f +" percent filled";
-                    status.setSwitchColor(getResources().getColor(R.color.red));
-                    status.setDirection(StickySwitch.Direction.LEFT);
+                    //status.setSwitchColor(getResources().getColor(R.color.red));
+                    //status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 }
             } else if (s.startsWith("C2")) {
@@ -1870,8 +1870,8 @@
             } else if (s.startsWith("M1")) {
                 String c = s.substring(2,4);
                 String d = "The garden contains "+c+" percent moisture";
-                status.setSwitchColor(getResources().getColor(R.color.red));
-                status.setDirection(StickySwitch.Direction.LEFT);
+                //status.setSwitchColor(getResources().getColor(R.color.red));
+                //status.setDirection(StickySwitch.Direction.LEFT);
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.length()>10){
                 Log.d("String: ",s);
