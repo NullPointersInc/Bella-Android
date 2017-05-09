@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <activity
             android:name=".IntroActivity"
             android:screenOrientation="portrait">
@@ -30,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -73,7 +77,7 @@
         <activity android:name=".MaterialWeatherActivity" />
         <activity android:name=".MachineLearning" />
         <activity android:name=".GarbageCollection" />
-        <activity android:name=".GarbageTracking"></activity>
+        <activity android:name=".MapsActivity"></activity>
     </application>
 
 </manifest>
