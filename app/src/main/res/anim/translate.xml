@@ -15,25 +15,25 @@
         android:duration="1000" />
 
     <translate
-        android:startOffset="2000"
+        android:startOffset="4000"
         android:fromXDelta="0"
         android:toXDelta="100"
         android:duration="1000" />
 
     <translate
-        android:startOffset="3000"
+        android:startOffset="5000"
         android:fromYDelta="0"
         android:toYDelta="500"
         android:duration="1000" />
     <translate
-        android:startOffset="4000"
+        android:startOffset="7000"
         android:fromXDelta="0"
         android:toXDelta="-400"
         android:duration="1000" />
     <translate
-        android:startOffset="5000"
+        android:startOffset="8000"
         android:fromYDelta="0"
-        android:toYDelta="300"
+        android:toYDelta="400"
         android:duration="1000" />
 
 </set>
