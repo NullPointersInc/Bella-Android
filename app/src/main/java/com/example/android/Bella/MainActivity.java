@@ -1121,6 +1121,10 @@
                         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://bella-assistant.github.io/Bella-Garbage"));
                         startActivity(i);
                     }
+                } else if(txt.contains("tracker") || txt.contains("tracking")) {
+                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                        Intent i = new Intent(MainActivity.this, GarbageTracking.class);
+                        startActivity(i,compat.toBundle());
                 }
             } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
                 if(txt.contains("house")) {
