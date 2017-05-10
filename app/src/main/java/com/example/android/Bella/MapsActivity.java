@@ -1,18 +1,32 @@
 package com.example.android.Bella;
 
+import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Interpolator;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,13 +38,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.thefinestartist.Base.getContext;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, android.view.animation.Interpolator {
 
     private GoogleMap mMap;
     JSONObject articles;
     public String[] pt = new String[4];
-    public LatLng start,bin1,bin2,bin3,bin4,bin5,bin6;
+    public  LatLng[] bin = new LatLng[7];
+    Context c;
 
     Marker now;
 
@@ -63,16 +80,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Start and move the camera
-         start = new LatLng(13.114448, 77.634688);
-         bin1 = new LatLng(13.114558, 77.636095);
-         bin2 = new LatLng(13.115770, 77.636642);
-         bin3 = new LatLng(13.117358, 77.634496);
-         bin4 = new LatLng(13.112750, 77.634206);
-         bin5 = new LatLng(13.113731, 77.634762);
-         bin6 = new LatLng(13.116319, 77.634947);
-        mMap.addMarker(new MarkerOptions().position(start).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+         bin[0] = new LatLng(13.114448, 77.634688);
+         bin[1] = new LatLng(13.114558, 77.636095);
+         bin[2] = new LatLng(13.115770, 77.636642);
+         bin[3] = new LatLng(13.117358, 77.634496);
+         bin[4] = new LatLng(13.112750, 77.634206);
+         bin[5] = new LatLng(13.113731, 77.634762);
+         bin[6] = new LatLng(13.116319, 77.634947);
+        mMap.addMarker(new MarkerOptions().position(bin[0]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         float zoomLevel = 18; //This goes up to 21
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, zoomLevel));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bin[0], zoomLevel));
     }
 
     public void onLocationChange() {
@@ -80,6 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             now.remove();
         }
     }
+
 
 
    /* public void fetchGarbageDetails() {
@@ -239,61 +257,132 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         }
-
+        int i,j,k;
         @Override
         protected void onPostExecute(String[] result) {
             if (result != null) {
 
               switch(result[1]){
-                  case "1":  mMap.addMarker(new MarkerOptions().position(bin1).title("Bin 1"));
+                  case "1":  mMap.addMarker(new MarkerOptions().position(bin[1]).title("Bin 1"));
+                            i=1;
                                 break;
-                  case "2":  mMap.addMarker(new MarkerOptions().position(bin2).title("Bin 2"));
+                  case "2":  mMap.addMarker(new MarkerOptions().position(bin[2]).title("Bin 2"));
+                            i=2;
                                 break;
-                  case "3":  mMap.addMarker(new MarkerOptions().position(bin3).title("Bin 3"));
+                  case "3":  mMap.addMarker(new MarkerOptions().position(bin[3]).title("Bin 3"));
+                            i=3;
                       break;
-                  case "4":  mMap.addMarker(new MarkerOptions().position(bin4).title("Bin 4"));
+                  case "4":  mMap.addMarker(new MarkerOptions().position(bin[4]).title("Bin 4"));
+                            i=4;
                         break;
-                  case "5":  mMap.addMarker(new MarkerOptions().position(bin5).title("Bin 5"));
+                  case "5":  mMap.addMarker(new MarkerOptions().position(bin[5]).title("Bin 5"));
+                        i=5;
                         break;
-                  case "6":  mMap.addMarker(new MarkerOptions().position(bin6).title("Bin 6"));
+                  case "6":  mMap.addMarker(new MarkerOptions().position(bin[6]).title("Bin 6"));
+                        i=6;
                         break;
 
               }
                 switch(result[2]){
-                    case "1":  mMap.addMarker(new MarkerOptions().position(bin1).title("Bin 1"));
+                    case "1":  mMap.addMarker(new MarkerOptions().position(bin[1]).title("Bin 1"));
+                    j=1;
                         break;
-                    case "2":  mMap.addMarker(new MarkerOptions().position(bin2).title("Bin 2"));
+                    case "2":  mMap.addMarker(new MarkerOptions().position(bin[2]).title("Bin 2"));
+                    j=2;
                         break;
-                    case "3":  mMap.addMarker(new MarkerOptions().position(bin3).title("Bin 3"));
-                        break;
-                    case "4":  mMap.addMarker(new MarkerOptions().position(bin4).title("Bin 4"));
-                        break;
-                    case "5":  mMap.addMarker(new MarkerOptions().position(bin5).title("Bin 5"));
-                        break;
-                    case "6":  mMap.addMarker(new MarkerOptions().position(bin6).title("Bin 6"));
-                        break;
+                    case "3":  mMap.addMarker(new MarkerOptions().position(bin[3]).title("Bin 3"));
+                        j=3;break;
+                    case "4":  mMap.addMarker(new MarkerOptions().position(bin[4]).title("Bin 4"));
+                        j=4;break;
+                    case "5":  mMap.addMarker(new MarkerOptions().position(bin[5]).title("Bin 5"));
+                        j=5;break;
+                    case "6":  mMap.addMarker(new MarkerOptions().position(bin[6]).title("Bin 6"));
+                        j=6;break;
 
                 }
                 switch(result[3]){
-                    case "1":  mMap.addMarker(new MarkerOptions().position(bin1).title("Bin 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
-                    case "2":  mMap.addMarker(new MarkerOptions().position(bin2).title("Bin 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
-                    case "3":  mMap.addMarker(new MarkerOptions().position(bin3).title("Bin 3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
-                    case "4":  mMap.addMarker(new MarkerOptions().position(bin4).title("Bin 4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
-                    case "5":  mMap.addMarker(new MarkerOptions().position(bin5).title("Bin 5").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
-                    case "6":  mMap.addMarker(new MarkerOptions().position(bin6).title("Bin 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                        break;
+                    case "1":  mMap.addMarker(new MarkerOptions().position(bin[1]).title("Bin 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                       k=1; break;
+                    case "2":  mMap.addMarker(new MarkerOptions().position(bin[2]).title("Bin 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        k=2;break;
+                    case "3":  mMap.addMarker(new MarkerOptions().position(bin[3]).title("Bin 3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        k=3;break;
+                    case "4":  mMap.addMarker(new MarkerOptions().position(bin[4]).title("Bin 4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        k=4;break;
+                    case "5":  mMap.addMarker(new MarkerOptions().position(bin[5]).title("Bin 5").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        k=5;break;
+                    case "6":  mMap.addMarker(new MarkerOptions().position(bin[6]).title("Bin 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        k=6; break;
 
                 }
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animateMarker( mMap.addMarker(new MarkerOptions().position(bin[0]).title("Start").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_truck))),bin[i], true);
+                    }
+                },1000);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animateMarker( mMap.addMarker(new MarkerOptions().position(bin[i]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_truck))),bin[j], true);
+                    }
+                },5000);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animateMarker( mMap.addMarker(new MarkerOptions().position(bin[j]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_truck))),bin[k], true);
+                    }
+                },10000);
+
+
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bin2, 15));
+            }
 
             }
         }
+
+    public void animateMarker(final Marker marker, final LatLng toPosition,
+                              final boolean hideMarker) {
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        Projection proj = mMap.getProjection();
+        Point startPoint = proj.toScreenLocation(marker.getPosition());
+        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
+        final long duration = 4000;
+
+        final LinearInterpolator interpolator = new LinearInterpolator();
+
+        boolean post = handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed
+                        / duration);
+                double lng = t * toPosition.longitude + (1 - t)
+                        * startLatLng.longitude;
+                double lat = t * toPosition.latitude + (1 - t)
+                        * startLatLng.latitude;
+                marker.setPosition(new LatLng(lat, lng));
+
+                if (t < 1.0) {
+                    // Post again 16ms later.
+                    handler.postDelayed(this, 16);
+                } else {
+                    if (hideMarker) {
+                        marker.setVisible(false);
+                    } else {
+                        marker.setVisible(true);
+                    }
+                }
+            }
+        });
     }
 
+    @Override
+    public float getInterpolation(float input) {
+        return 0;
+    }
 }
 
 
