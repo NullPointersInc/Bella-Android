@@ -82,10 +82,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Start and move the camera
          bin[0] = new LatLng(13.114448, 77.634688);
          bin[1] = new LatLng(13.114558, 77.636095);
-         bin[2] = new LatLng(13.115770, 77.636642);
+         bin[5] = new LatLng(13.115287, 77.635176);
          bin[3] = new LatLng(13.117358, 77.634496);
          bin[4] = new LatLng(13.112750, 77.634206);
-         bin[5] = new LatLng(13.113731, 77.634762);
+         bin[2] = new LatLng(13.113731, 77.634762);
          bin[6] = new LatLng(13.116319, 77.634947);
         mMap.addMarker(new MarkerOptions().position(bin[0]).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         float zoomLevel = 16; //This goes up to 21
