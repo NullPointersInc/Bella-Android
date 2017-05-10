@@ -87,8 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          bin[4] = new LatLng(13.112750, 77.634206);
          bin[5] = new LatLng(13.113731, 77.634762);
          bin[6] = new LatLng(13.116319, 77.634947);
-        mMap.addMarker(new MarkerOptions().position(bin[0]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        float zoomLevel = 18; //This goes up to 21
+        mMap.addMarker(new MarkerOptions().position(bin[0]).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        float zoomLevel = 16; //This goes up to 21
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bin[0], zoomLevel));
     }
 
@@ -331,7 +331,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        animateMarker( mMap.addMarker(new MarkerOptions().position(bin[j]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_truck))),bin[k], true);
+                        animateMarker( mMap.addMarker(new MarkerOptions().position(bin[j]).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_truck))),bin[k], false);
                     }
                 },10000);
 
