@@ -1373,12 +1373,13 @@
                     Intent intent = new Intent(MainActivity.this,SettingActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } else if (id == R.id.help_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
-                    startActivity(intent,compat.toBundle());
+                } */else if (id == R.id.segregate_settings) {
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("org.tensorflow.demo");
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);//null pointer check in case package name was not found
+                    }
                     return true;
-                } */else if (id == R.id.connect_settings) {
+                } else if (id == R.id.connect_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());

@@ -38,4 +38,10 @@
         android:orderInCategory="100"
         android:title="Garbage Tracking"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/segregate_settings"
+        android:orderInCategory="100"
+        android:title="Segregate"
+        app:showAsAction="never" />
 </menu>
