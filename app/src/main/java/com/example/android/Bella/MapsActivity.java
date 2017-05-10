@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -69,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          bin4 = new LatLng(13.112750, 77.634206);
          bin5 = new LatLng(13.113731, 77.634762);
          bin6 = new LatLng(13.116319, 77.634947);
-        mMap.addMarker(new MarkerOptions().position(start).title("Marker in S2 Lab"));
+        mMap.addMarker(new MarkerOptions().position(start).title("Marker in S2 Lab").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         float zoomLevel = 18; //This goes up to 21
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, zoomLevel));
     }
@@ -274,17 +275,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
                 switch(result[3]){
-                    case "1":  mMap.addMarker(new MarkerOptions().position(bin1).title("Bin 1"));
+                    case "1":  mMap.addMarker(new MarkerOptions().position(bin1).title("Bin 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
-                    case "2":  mMap.addMarker(new MarkerOptions().position(bin2).title("Bin 2"));
+                    case "2":  mMap.addMarker(new MarkerOptions().position(bin2).title("Bin 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
-                    case "3":  mMap.addMarker(new MarkerOptions().position(bin3).title("Bin 3"));
+                    case "3":  mMap.addMarker(new MarkerOptions().position(bin3).title("Bin 3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
-                    case "4":  mMap.addMarker(new MarkerOptions().position(bin4).title("Bin 4"));
+                    case "4":  mMap.addMarker(new MarkerOptions().position(bin4).title("Bin 4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
-                    case "5":  mMap.addMarker(new MarkerOptions().position(bin5).title("Bin 5"));
+                    case "5":  mMap.addMarker(new MarkerOptions().position(bin5).title("Bin 5").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
-                    case "6":  mMap.addMarker(new MarkerOptions().position(bin6).title("Bin 6"));
+                    case "6":  mMap.addMarker(new MarkerOptions().position(bin6).title("Bin 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                         break;
 
                 }
