@@ -12,36 +12,19 @@
         android:orderInCategory="100"
         android:title="Dev Info"
         app:showAsAction="never" />
-    <!--<item
-        android:id="@+id/features"
-        android:orderInCategory="100"
-        android:title="Features"
-        app:showAsAction="never" />-->
-    <!--<item
+    <item
         android:id="@+id/setting_settings"
         android:orderInCategory="100"
         android:title="About"
-        app:showAsAction="never" />-->
-    <!--<item
+        app:showAsAction="never" />
+    <item
         android:id="@+id/help_settings"
         android:orderInCategory="100"
         android:title="@string/help_settings"
-        app:showAsAction="never" />-->
-    <!--<item
+        app:showAsAction="never" />
+    <item
         android:id="@+id/update_settings"
         android:orderInCategory="100"
         android:title="Check for Update"
-        app:showAsAction="never" />-->
-
-    <item
-        android:id="@+id/garbage_settings"
-        android:orderInCategory="100"
-        android:title="Garbage Tracking"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/segregate_settings"
-        android:orderInCategory="100"
-        android:title="Segregate"
         app:showAsAction="never" />
 </menu>
