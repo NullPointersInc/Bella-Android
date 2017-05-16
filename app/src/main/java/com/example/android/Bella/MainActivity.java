@@ -1703,6 +1703,10 @@
                     }
                 }
             }
+            else
+            {
+                tts.speak("Error Sending Data", TextToSpeech.QUEUE_FLUSH,null);
+            }
         }
         private void Disconnect()
         {
