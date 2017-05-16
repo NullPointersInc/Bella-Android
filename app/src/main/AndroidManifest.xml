@@ -19,7 +19,7 @@
         android:icon="@mipmap/bella_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppThemeMain"
         tools:replace="android:icon">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -38,6 +38,7 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/AppTheme"
             android:name=".WeatherActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -45,9 +46,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity
+            android:theme="@style/AppTheme"
             android:name=".AboutActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/AppTheme"
             android:name=".DeviceList"
             android:screenOrientation="portrait" />
         <activity
@@ -59,25 +62,34 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
         <activity
+            android:theme="@style/AppTheme"
             android:name=".StatusActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GarbageActivity" />
+        <activity android:name=".GarbageActivity"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
-        <activity android:name=".WebViewActivity" />
-        <activity android:name=".PowergridActivity" />
-        <activity android:name=".DisasterActivity" />
+        <activity android:name=".WebViewActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".PowergridActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".DisasterActivity"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".SoilActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MaterialAboutActivity" />
-        <activity android:name=".MaterialWeatherActivity" />
-        <activity android:name=".MachineLearning" />
-        <activity android:name=".GarbageCollection" />
-        <activity android:name=".MapsActivity"></activity>
+        <activity android:name=".MaterialWeatherActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".MachineLearning"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".GarbageCollection"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".MapsActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

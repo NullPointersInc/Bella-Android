@@ -65,6 +65,8 @@
     import android.view.MotionEvent;
     import android.view.View;
     import android.view.ViewAnimationUtils;
+    import android.view.Window;
+    import android.view.WindowManager;
     import android.widget.Button;
     import android.widget.ImageButton;
     import android.widget.ProgressBar;
@@ -160,6 +162,13 @@
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = this.getWindow();
+                    Drawable background = this.getResources().getDrawable(R.drawable.background_main);
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setBackgroundDrawable(background);
+            }
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);

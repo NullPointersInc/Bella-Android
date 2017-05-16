@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.Bella.MainActivity"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background_main"
     android:weightSum="1">
 
     <io.ghyeok.stickyswitch.widget.StickySwitch
@@ -25,7 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="75dp"
         android:layout_above="@+id/txtText"
-        app:sliderBackgroundColor="@color/colorPrimaryDark"
+        app:sliderBackgroundColor="@color/colorPrimary"
         app:switchColor="@color/red"
         />
 

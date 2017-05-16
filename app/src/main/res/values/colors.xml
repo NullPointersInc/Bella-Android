@@ -13,6 +13,10 @@
     <color name="icon_color">#FFFFFF</color>
     <color name="grey">#424242</color>
 
+    <color name="colorGradientStart">#FFA23B3F</color>
+    <color name="colorGradientCenter">#FF83377B</color>
+    <color name="colorGradientEnd">#FF29528C</color>
+
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
 
