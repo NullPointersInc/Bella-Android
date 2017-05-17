@@ -452,6 +452,7 @@
                     .setTitleOnUpdateNotAvailable("Update not available")
                     .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                     .setDisplay(com.github.javiersantos.appupdater.enums.Display.DIALOG)
+                    .showAppUpdated(true)
                     .start();
         }
 
