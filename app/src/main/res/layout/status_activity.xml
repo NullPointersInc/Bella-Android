@@ -222,6 +222,38 @@
             android:layout_below="@+id/toggleButton6"
             android:layout_centerHorizontal="true" />
 
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            app:iconPadding="18dp"
+            app:iconSize="22dp"
+            app:leftIcon="@drawable/ic_action_son"
+            app:leftText="LOW"
+            app:rightIcon="@drawable/ic_action_soff"
+            app:rightText="HIGH"
+            app:selectedTextSize="14sp"
+            app:textSize="12sp"
+            android:id="@+id/toggleButton8"
+            android:layout_marginTop="105dp"
+            android:layout_below="@+id/toggleButton7"
+            android:layout_centerHorizontal="true"
+            app:sliderBackgroundColor="@color/colorPrimaryDark"
+            app:switchColor="@color/red"/>
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="Hue Lights"
+            android:textAlignment="center"
+            android:textColor="#CFD8DC"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="73dp"
+            android:layout_below="@+id/toggleButton7"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
     </ScrollView>

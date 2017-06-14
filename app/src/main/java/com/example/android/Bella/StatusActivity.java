@@ -24,8 +24,8 @@ import io.ghyeok.stickyswitch.widget.StickySwitch;
 public class StatusActivity extends AppCompatActivity {
 
     Toolbar t;
-    TextView t1,t2,t3,t4,t5,t6;
-    StickySwitch b1,b2,b3,b4,b5,b6;
+    TextView t1,t2,t3,t4,t5,t6,t7;
+    StickySwitch b1,b2,b3,b4,b5,b6,b7;
     String status;
 
 
@@ -48,12 +48,14 @@ public class StatusActivity extends AppCompatActivity {
         t4 = (TextView)findViewById(R.id.textView13);
         t5 = (TextView)findViewById(R.id.textView14);
         t6 = (TextView)findViewById(R.id.textView15);
+        t7 = (TextView)findViewById(R.id.textView16);
         b1 = (StickySwitch) findViewById(R.id.toggleButton2);
         b2 = (StickySwitch) findViewById(R.id.toggleButton3);
         b3 = (StickySwitch) findViewById(R.id.toggleButton4);
         b4 = (StickySwitch) findViewById(R.id.toggleButton5);
         b5 = (StickySwitch) findViewById(R.id.toggleButton6);
         b6 = (StickySwitch) findViewById(R.id.toggleButton7);
+        b7 = (StickySwitch) findViewById(R.id.toggleButton8);
 
         t1.setVisibility(View.INVISIBLE);
         t2.setVisibility(View.INVISIBLE);
@@ -61,12 +63,14 @@ public class StatusActivity extends AppCompatActivity {
         t4.setVisibility(View.INVISIBLE);
         t5.setVisibility(View.INVISIBLE);
         t6.setVisibility(View.INVISIBLE);
+        t7.setVisibility(View.INVISIBLE);
         b1.setVisibility(View.INVISIBLE);
         b2.setVisibility(View.INVISIBLE);
         b3.setVisibility(View.INVISIBLE);
         b4.setVisibility(View.INVISIBLE);
         b5.setVisibility(View.INVISIBLE);
         b6.setVisibility(View.INVISIBLE);
+        b7.setVisibility(View.INVISIBLE);
        b1.setOnTouchListener(new View.OnTouchListener() {
            @Override
            public boolean onTouch(View v, MotionEvent event) {
@@ -98,6 +102,12 @@ public class StatusActivity extends AppCompatActivity {
             }
         });
         b6.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        b7.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -156,6 +166,13 @@ public class StatusActivity extends AppCompatActivity {
                 revealEffect(b6);
             }
         },900);
+        t7.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                revealEffect(t7);
+                revealEffect(b7);
+            }
+        },900);
 
 
         if (status.charAt(0) == 'T') {
@@ -199,6 +216,13 @@ public class StatusActivity extends AppCompatActivity {
         } else if (status.charAt(5) == 'F') {
             b6.setSwitchColor(getResources().getColor(R.color.red));
             b6.setDirection(StickySwitch.Direction.LEFT);
+        }
+        if(status.charAt(6) == 'T') {
+            b7.setSwitchColor(getResources().getColor(R.color.green));
+            b7.setDirection(StickySwitch.Direction.RIGHT);
+        } else if (status.charAt(6) == 'F') {
+            b7.setSwitchColor(getResources().getColor(R.color.red));
+            b7.setDirection(StickySwitch.Direction.LEFT);
         }
     }
 

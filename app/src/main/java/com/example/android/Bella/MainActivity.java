@@ -711,7 +711,20 @@
                 } else {
                     command(1011);
                 }
-            } else if (txt.contains("disconnect")){
+            } else if(txt.contains("disco") || txt.contains("Disco")) {
+                if(!hardware) {
+                    tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    headText.setText("Disco");
+                    if(txt.contains("on") || txt.contains("On"))
+                        command(11111);
+                    else if(txt.contains("off") || txt.contains("Off"))
+                        command(10000);
+                    else
+                        tts.speak("Sorry, Incorrect information.", TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+            else if (txt.contains("disconnect")){
                 tts.speak("Disconnecting.", TextToSpeech.QUEUE_FLUSH, null);
                 Disconnect();
             } else if (txt.contains("creator") || txt.contains("devs") || txt.contains("developers") || txt.contains("father") || txt.contains("created") || txt.contains("built") || txt.contains("made")) {
@@ -1702,6 +1715,26 @@
                     {
                         msg("Error");
                     }
+                } else if(i == 11111) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("RHDO:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                } else if(i == 10000) {
+                    try
+                    {
+                        btSocket.getOutputStream().write("RHDF:".toString().getBytes());
+                        beginListenForData();
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
                 }
             }
             else
@@ -1728,7 +1761,24 @@
         public void statuscheck(String s) {
             s = s.replaceAll("[\u0000-\u001f]", "");
 
-            if (s.contains("T1")) {
+            if(s.contains("X3")) {
+                Log.d("s: ",s);
+                status.setSwitchColor(getResources().getColor(R.color.green));
+                status.setDirection(StickySwitch.Direction.RIGHT);
+                tts.speak("Hue Disco Turned On", TextToSpeech.QUEUE_FLUSH, null);
+            } else if(s.contains("X4")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("Hue Disco Turned Off", TextToSpeech.QUEUE_FLUSH, null);
+            } else if(s.contains("L3")) {
+                status.setSwitchColor(getResources().getColor(R.color.green));
+                status.setDirection(StickySwitch.Direction.RIGHT);
+                tts.speak("Hue Disco already On", TextToSpeech.QUEUE_FLUSH, null);
+            } else if(s.contains("L4")) {
+                status.setSwitchColor(getResources().getColor(R.color.red));
+                status.setDirection(StickySwitch.Direction.LEFT);
+                tts.speak("Hue Disco already Off", TextToSpeech.QUEUE_FLUSH, null);
+            } else if (s.contains("T1")) {
                 Log.d("s: ",s);
                 status.setSwitchColor(getResources().getColor(R.color.green));
                 status.setDirection(StickySwitch.Direction.RIGHT);
