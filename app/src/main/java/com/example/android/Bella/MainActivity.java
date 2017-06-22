@@ -617,7 +617,7 @@
             if(txt.isEmpty()) {
                 Toast.makeText(MainActivity.this, "You did not say anything!", Toast.LENGTH_SHORT).show();
             } else if (txt.contains("connect")) {
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i,compat.toBundle());
             } else if(txt.contains("room") || txt.contains("Room")) {
@@ -711,7 +711,7 @@
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                         Intent i = new Intent (MainActivity.this,AboutActivity.class);
                         startActivity(i,compat.toBundle());
                     }
@@ -1144,7 +1144,7 @@
                         handler2.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                                 Intent i = new Intent(MainActivity.this, NewsActivity.class);
                                 startActivity(i,compat.toBundle());
                                 stop();
@@ -1253,22 +1253,22 @@
                 public boolean onMenuItemClick(MenuItem item){
                     int id = item.getItemId();
                 if (id == R.id.action_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                     Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
                 } else if (id == R.id.setting_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                     Intent intent = new Intent(MainActivity.this,SettingActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
                 } else if (id == R.id.help_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                     Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
                 } else if (id == R.id.connect_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
@@ -1801,7 +1801,7 @@
             } else  if (s.length()>5){
                 Log.d("string: ",s);
                 tts.speak("Status Received!", TextToSpeech.QUEUE_FLUSH, null);
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
                 Intent intent = new Intent(MainActivity.this,StatusActivity.class);
                 intent.putExtra("status", s);
                 startActivity(intent,compat.toBundle());

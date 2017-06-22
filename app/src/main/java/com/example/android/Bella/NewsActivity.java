@@ -48,7 +48,7 @@ public class NewsActivity extends MaterialAboutActivity {
                           .icon(CommunityMaterial.Icon.cmd_view_dashboard)
                           .color(ContextCompat.getColor(c, yellow))
                           .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", "http://www.thehindu.com", true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", "http://www.thehindu.com", true, false))
                 .build());
 
         MaterialAboutCard.Builder authorCardBuilder = new MaterialAboutCard.Builder();
@@ -61,7 +61,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_book_open)
                         .color(ContextCompat.getColor(c, grey))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[0].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[0].url, true, false))
                 .build());
 
         authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
@@ -71,7 +71,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_book_open)
                         .color(ContextCompat.getColor(c, grey))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[1].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[1].url, true, false))
                 .build());
 
         authorCardBuilder.addItem(new MaterialAboutActionItem.Builder()
@@ -81,7 +81,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_book_open)
                         .color(ContextCompat.getColor(c, grey))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[2].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[2].url, true, false))
                 .build());
 
         MaterialAboutCard.Builder appCardBuilder2 = new MaterialAboutCard.Builder();
@@ -95,7 +95,7 @@ public class NewsActivity extends MaterialAboutActivity {
                 .text(MainActivity.obj[6].title)
                 .subText(MainActivity.obj[6].desc)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[6].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[6].url, true, false))
                 .build()
         );
 
@@ -105,7 +105,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_chart_line)
                         .color(ContextCompat.getColor(c, orange))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[7].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[7].url, true, false))
                 .text(MainActivity.obj[7].title)
                 .subText(MainActivity.obj[7].desc)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
@@ -119,7 +119,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .sizeDp(18))
                 .text(MainActivity.obj[8].title)
                 .subText(MainActivity.obj[8].desc)
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[8].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[8].url, true, false))
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
@@ -133,7 +133,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_football)
                         .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[3].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[3].url, true, false))
                 .text(MainActivity.obj[3].title)
                 .subText(MainActivity.obj[3].desc)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
@@ -145,7 +145,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .icon(CommunityMaterial.Icon.cmd_football)
                         .color(ContextCompat.getColor(c, brown))
                         .sizeDp(18))
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[4].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[4].url, true, false))
                 .text(MainActivity.obj[4].title)
                 .subText(MainActivity.obj[4].desc)
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
@@ -159,7 +159,7 @@ public class NewsActivity extends MaterialAboutActivity {
                         .sizeDp(18))
                 .text(MainActivity.obj[5].title)
                 .subText(MainActivity.obj[5].desc)
-                .setOnClickListener(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[5].url, true, false))
+                .setOnClickAction(ConvenienceBuilder.createWebViewDialogOnClickAction(c, "News", MainActivity.obj[5].url, true, false))
                 .setIconGravity(MaterialAboutActionItem.GRAVITY_TOP)
                 .build()
         );
