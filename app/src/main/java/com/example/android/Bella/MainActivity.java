@@ -2,7 +2,6 @@
 
     import android.Manifest;
     import android.animation.Animator;
-    import android.app.DownloadManager;
     import android.app.NotificationManager;
     import android.app.PendingIntent;
     import android.bluetooth.BluetoothAdapter;
@@ -33,7 +32,6 @@
     import android.support.v7.app.AlertDialog;
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
-
     import java.io.IOException;
     import java.io.InputStream;
     import java.util.ArrayList;
@@ -44,20 +42,15 @@
     import java.text.DateFormat;
     import java.util.Date;
     import java.util.UUID;
-
     import android.speech.RecognizerIntent;
     import android.speech.tts.TextToSpeech;
     import android.content.ActivityNotFoundException;
     import android.content.Intent;
     import android.support.v7.widget.PopupMenu;
     import android.text.SpannableString;
-    import android.text.format.Time;
     import android.text.style.StyleSpan;
     import android.text.style.UnderlineSpan;
-    import android.transition.Explode;
     import android.transition.Fade;
-    import android.transition.Transition;
-    import android.transition.TransitionInflater;
     import android.util.Log;
     import android.view.Display;
     import android.view.MenuInflater;
@@ -67,12 +60,10 @@
     import android.view.ViewAnimationUtils;
     import android.view.Window;
     import android.view.WindowManager;
-    import android.widget.Button;
     import android.widget.ImageButton;
     import android.widget.ProgressBar;
     import android.widget.TextView;
     import android.widget.Toast;
-
     import com.android.volley.Request;
     import com.android.volley.Response;
     import com.android.volley.VolleyError;
@@ -85,18 +76,12 @@
     import com.github.javiersantos.appupdater.enums.UpdateFrom;
     import com.tapadoo.alerter.Alerter;
     import com.thefinestartist.finestwebview.FinestWebView;
-
     import org.jetbrains.annotations.NotNull;
     import org.json.JSONArray;
     import org.json.JSONException;
     import org.json.JSONObject;
-    import org.w3c.dom.Text;
-
     import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
     import io.ghyeok.stickyswitch.widget.StickySwitch;
-
-    import static com.example.android.Bella.SoilActivity.info;
-
 
     public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, RecognitionListener {
 
@@ -108,8 +93,6 @@
         public StickySwitch status;
         TextToSpeech tts;
         boolean doubleBackToExitPressedOnce;
-        TransitionInflater tf;
-        public static String type_name, soil_type, start_month, end_month, temp_crop, temp_crop2,city;
 
         private SpeechRecognizer speech;
         public Vibrator myVib;
@@ -158,7 +141,6 @@
         //NASA Space Apps
         int energyUsed = 0;
         CountDownTimer t1,t2,t3;
-        int link=1;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -638,10 +620,6 @@
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                 Intent i = new Intent(MainActivity.this, DeviceList.class);
                 startActivity(i,compat.toBundle());
-            } else if (txt.contains("machine learning")) {
-                tts.speak("I am still learning, check out my neural network",TextToSpeech.QUEUE_FLUSH,null);
-                Intent i = new Intent(MainActivity.this, MachineLearning.class);
-                startActivity(i);
             } else if(txt.contains("room") || txt.contains("Room")) {
                 if(!hardware) {
                     tts.speak("Please, connect to hardware first.", TextToSpeech.QUEUE_FLUSH, null);
@@ -1129,118 +1107,6 @@
             } else if (txt.contains("Bella") || txt.contains("bella") || txt.contentEquals("who are you")) {
                 tts.speak("Greetings! human, I am Bella! An assistant powered by Artificial Intelligence and machine learning.", TextToSpeech.QUEUE_FLUSH, null);
                 stop();
-            } else if(txt.contains("energy")) {
-                String e = "Energy used is "+energyUsed+" units.";
-                tts.speak(e, TextToSpeech.QUEUE_FLUSH, null);
-            } else if(txt.contains("garbage")) {
-                if(txt.contains("status")) {
-                    tts.speak("Garbage status received.",TextToSpeech.QUEUE_FLUSH,null) ;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, GarbageActivity.class);
-                    startActivity(i,compat.toBundle());
-                } else if(txt.contains("collection") || txt.contains("collect")){
-                    try {
-                        Intent i = new Intent("android.intent.action.MAIN");
-                        i.setComponent(ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main"));
-                        i.addCategory("android.intent.category.LAUNCHER");
-                        i.setData(Uri.parse("https://bella-assistant.github.io/Bella-Garbage"));
-                        startActivity(i);
-                    }
-                    catch(ActivityNotFoundException e) {
-                        // Chrome is not installed
-                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://bella-assistant.github.io/Bella-Garbage"));
-                        startActivity(i);
-                    }
-                } else if(txt.contains("tracker") || txt.contains("tracking")) {
-                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                        Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                        startActivity(i,compat.toBundle());
-                }
-            } else if((txt.contains("Power Grid") || txt.contains("power grid")) && txt.contains("status")) {
-                if(txt.contains("house")) {
-                    link = 1;
-                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
-                    i.putExtra("link",link);
-                    startActivity(i,compat.toBundle());
-                } else if(txt.contains("industry")) {
-                    link = 2;
-                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
-                    i.putExtra("link",link);
-                    startActivity(i,compat.toBundle());
-                }
-                else if (txt.contains("farmer")){
-                    link = 3;
-                    tts.speak("Power grid status received.", TextToSpeech.QUEUE_FLUSH,null);
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, PowergridActivity.class);
-                    i.putExtra("link",link);
-                    startActivity(i,compat.toBundle());
-                }
-                else
-                    tts.speak("Power grid status not available.", TextToSpeech.QUEUE_FLUSH,null);
-
-            } else if(txt.contains("grow") || txt.contains("crop") || txt.contains("crops")) {
-                    city=txt.substring(txt.lastIndexOf(" in ")+4, txt.length());
-                    info = "https://raw.githubusercontent.com/Bella-Assistant/Bella-Jsons/master/soil.json";
-                    fetchSoilDetails(info);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            tts.speak("I may suggest you to grow, "+temp_crop+","+temp_crop2+" according to present soil status", TextToSpeech.QUEUE_FLUSH,null);
-                        }
-                    }, 1000);
-                    final Handler handler1 = new Handler();
-                    handler1.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                            Intent i = new Intent(MainActivity.this, SoilActivity.class);
-                            startActivity(i,compat.toBundle());
-                        }
-                    }, 3000);
-
-
-
-            } else if((txt.contains("status") || txt.contains("condition")) && (txt.contains("North Carolina") || txt.contains("Miami")) || txt.contains("Hawaii") || txt.contains("California") || txt.contains("location")) {
-                int l=5;
-                if(txt.contains("North Carolina")) {
-                    l = 3;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                    i.putExtra("l",l);
-                    startActivity(i,compat.toBundle());
-                    tts.speak("Warning! Flood is approaching, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("Hawaii")) {
-                    l = 4;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                    i.putExtra("l",l);
-                    startActivity(i,compat.toBundle());
-                    tts.speak("Warning! Seismic activities detected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("Miami")) {
-                    l = 2;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                    i.putExtra("l",l);
-                    startActivity(i,compat.toBundle());
-                    tts.speak("Warning! Heavy rain and fast moving winds approaching, brace yourself",TextToSpeech.QUEUE_FLUSH, null);
-                } else if (txt.contains("California")) {
-                    l = 1;
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent i = new Intent(MainActivity.this, DisasterActivity.class);
-                    i.putExtra("l",l);
-                    startActivity(i,compat.toBundle());
-                    tts.speak("Warning! High tides are expected, please move to a safer location",TextToSpeech.QUEUE_FLUSH, null);
-                }
-                else {
-                    tts.speak("Sorry !! Data is not available for this city",TextToSpeech.QUEUE_FLUSH, null);
-                }
-
             } else if (txt.contains("exit") && txt.contains("app")){
                 tts.speak("Have a good day", TextToSpeech.QUEUE_FLUSH, null);
                 final Handler handler = new Handler();
@@ -1401,23 +1267,12 @@
                     Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } /*else if (id == R.id.segregate_settings) {
-                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("org.tensorflow.demo");
-                    if (launchIntent != null) {
-                        startActivity(launchIntent);//null pointer check in case package name was not found
-                    }
-                    return true;
-                } */else if (id == R.id.connect_settings) {
+                } else if (id == R.id.connect_settings) {
                     ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
                     Intent intent = new Intent(MainActivity.this,DeviceList.class);
                     startActivity(intent,compat.toBundle());
                     return true;
-                } /*else if (id == R.id.garbage_settings) {
-                    ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,null);
-                    Intent intent = new Intent(MainActivity.this,MapsActivity.class);
-                    startActivity(intent,compat.toBundle());
-                    return true;
-                } */else if (id == R.id.update_settings) {
+                } else if (id == R.id.update_settings) {
                     checkForUpdate();
                     return true;
                 }
@@ -1935,8 +1790,6 @@
                     status.setDirection(StickySwitch.Direction.LEFT);
                     tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
                 }
-            } else if (s.startsWith("C2")) {
-
             } else if (s.startsWith("M1")) {
                 String c = s.substring(2,4);
                 String d = "The garden contains "+c+" percent moisture";
@@ -1945,8 +1798,6 @@
                 tts.speak(d, TextToSpeech.QUEUE_FLUSH, null);
             } else if (s.length()>10){
                 Log.d("String: ",s);
-
-
             } else  if (s.length()>5){
                 Log.d("string: ",s);
                 tts.speak("Status Received!", TextToSpeech.QUEUE_FLUSH, null);
@@ -1979,78 +1830,9 @@
             mNM.notify(notifId,mBuilder.build());
         }
 
-        public void fetchSoilDetails(String s) {
-            final String TAG = SoilActivity.class.getSimpleName();
-            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.d(TAG, response.toString());
-
-                    try {
-                        // Parsing json object response
-                        // response will be a json object
-                        /*cityName = response.getString("c_name");
-                        Log.d("City: ", cityName);
-                        type = response.getString("s_type");
-                        farm = response.getString("s_farm");
-                        crop = response.getString("s_crop1");
-                        cover = response.getString("s_cover");
-                        ssnS = response.getString("ssn_s");
-                        ssnE = response.getString("ssn_e");*/
-                        JSONArray type = response.getJSONArray(city);
-                        soil_type = type.getString(0);
-
-
-                        JSONObject soil = response.getJSONObject(soil_type).getJSONObject("crop");
-                        JSONArray name = soil.getJSONArray("type");
-                        JSONObject obj = name.getJSONObject(0);
-                        type_name = obj.getString("name");
-                        JSONArray tmp = obj.getJSONArray("seasons");
-                        start_month = tmp.getString(0);
-                        end_month = tmp.getString(1);
-                        JSONArray tmp2 = obj.getJSONArray("crops");
-                        temp_crop= tmp2.getString(0);
-                        temp_crop2=tmp2.getString(1);
-                        String soil_type2 = type.getString(1);
-                        if(!soil_type2.equals(" "))
-                        {
-                            temp_crop2= response.getJSONObject(soil_type2).getJSONObject("crop").getJSONArray("type").getJSONObject(0).getJSONArray("crops").getString(0);
-                        }
-                        Log.e(type_name,start_month);
-                        Log.e(end_month,temp_crop);
-                        Log.e(temp_crop2,"ashish");
-
-
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("error", e.getMessage());
-                        Toast.makeText(getApplicationContext(),
-                                "Error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                        Log.e("error", e.getMessage());
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(),
-                            error.getMessage(), Toast.LENGTH_SHORT).show();
-                    // hide the progress dialog
-                }
-            });
-            // Adding request to request queue
-            AppCont.getInstance().addToRequestQueue(jsonObjReq);
-        }
-
 
         public void fetchWeatherDetails(String s) {
-            final String TAG = SoilActivity.class.getSimpleName();
+            final String TAG = NewsActivity.class.getSimpleName();
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, s, null, new Response.Listener<JSONObject>() {
 
                 @Override
@@ -2089,6 +1871,7 @@
             // Adding request to request queue
             AppCont.getInstance().addToRequestQueue(jsonObjReq);
         }
+
         public void fetchNewsDetails() {
             final String TAG = NewsActivity.class.getSimpleName();
             String s = "https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=f27d729ed4ea4d4e8b17db1bb5df031a";
