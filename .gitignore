@@ -9,3 +9,7 @@
 .externalNativeBuild
 /.idea/misc.xml
 /.idea/gradle_extensions.xml
+/.idea/modules.xml
+/.idea/caches/
+/.idea/codeStyles/
+/.idea/kotlinc.xml
