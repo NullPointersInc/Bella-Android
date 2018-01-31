@@ -11,14 +11,14 @@ import com.mikepenz.iconics.context.IconicsContextWrapper;
 public class SettingActivity extends MaterialAboutActivity {
 
     public static final String THEME_EXTRA = "";
-    public static final int THEME_LIGHT_DARKBAR = 1;
+    public static final int THEME_DARK_DARKBAR = 3;
 
     protected int colorIcon = R.color.colorIconDark;
 
     @NonNull
     @Override
     protected MaterialAboutList getMaterialAboutList(@NonNull final Context c) {
-        return AboutApp.createMaterialAboutList(c, colorIcon, getIntent().getIntExtra(THEME_EXTRA, THEME_LIGHT_DARKBAR));
+        return AboutApp.createMaterialAboutList(c, colorIcon, getIntent().getIntExtra(THEME_EXTRA, THEME_DARK_DARKBAR));
     }
 
     @Override

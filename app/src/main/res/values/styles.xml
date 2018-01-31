@@ -54,7 +54,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:backgroundTint">@color/colorPrimary</item>
-        <item name="android:backgroundTintMode">@color/colorPrimary</item>
+        <item name="mal_card_background">@color/colorPrimaryDark</item>
     </style>
 </resources>
